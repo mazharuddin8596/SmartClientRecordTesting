@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [example suite 1]">
+  <parameter name="TestingType" value="SanityPhase1.html"/>
+  <test name="Test(failed)">
+    <classes>
+      <class name="WebDriverTest.ContactRecord">
+        <methods>
+          <include name="f"/>
+          <include name="InitialSetup"/>
+        </methods>
+      </class> <!-- WebDriverTest.ContactRecord -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [example suite 1] -->
