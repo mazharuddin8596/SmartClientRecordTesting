@@ -5,8 +5,8 @@
     <classes>
       <class name="WebDriverTest.ContactRecord">
         <methods>
-          <include name="f"/>
           <include name="InitialSetup"/>
+          <include name="insertContact"/>
         </methods>
       </class> <!-- WebDriverTest.ContactRecord -->
     </classes>

@@ -84,15 +84,12 @@ public class HttpLibrary {
 	{
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		StringBuilder sb = new StringBuilder();
-		
-		
-		
+
 		HttpPost httpRequest = new HttpPost(URL);
 		httpRequest.setHeader("Content-Type", "application/xml");
 		StringEntity xmlEntity = new StringEntity(TestDataProperty);
-		httpRequest.setEntity(xmlEntity );
+		httpRequest.setEntity(xmlEntity);
 		HttpResponse httpresponse = httpClient.execute(httpRequest);
-		
 
 		return sb;
 	}
@@ -106,7 +103,7 @@ public class HttpLibrary {
 		if (accessToken.getExpires_on() < System.currentTimeMillis())
 		{
 			System.out.println("inside expire check");
-			//getAccessTokenRestApi();
+			// getAccessTokenRestApi();
 		}
 		HttpGet getRequest = new HttpGet(URL);
 		getRequest.addHeader("Content-Type", "application/json");
@@ -160,8 +157,8 @@ public class HttpLibrary {
 			access = new JSONObject(sb.toString());
 			at.setAccesstoken(access.getString("access_token"));
 			at.setExpires_on(access.getLong("expires_on") * 1000);
-			System.out.println("access Token : "+at.getAccesstoken());
-			System.out.println("Expires in : "+ at.getExpires_on());
+			// System.out.println("access Token : "+at.getAccesstoken());
+			// System.out.println("Expires in : "+ at.getExpires_on());
 			return at;
 
 		} catch (Exception ex)
@@ -178,40 +175,52 @@ public class HttpLibrary {
 	{
 		// Extracting Header values from Response
 		Gson googleJson = new Gson();
-		
+
 		ArrayList<String> headerList = googleJson.fromJson(jo.getJSONArray("text").getJSONArray(0)
 				.toString(), ArrayList.class);
-		System.out.println(headerList);
-		
+		// System.out.println(headerList);
+
 		String recType = headerList.get(0).split("\\.")[0];
 		System.out.println("Record Type " + recType);
 		String str = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")
 				+ "//src//test//resources//oneworld.fields.json")));
-		//JSONObject metaData = Files.readAllBytes(Paths.get());
-		org.json.simple.JSONObject metaData=(org.json.simple.JSONObject) new JSONParser().parse(str); 
-		Object document = Configuration.defaultConfiguration().jsonProvider().parse(metaData.toString());
+		// JSONObject metaData = Files.readAllBytes(Paths.get());
+		org.json.simple.JSONObject metaData = (org.json.simple.JSONObject) new JSONParser()
+				.parse(str);
+		Object document = Configuration.defaultConfiguration().jsonProvider()
+				.parse(metaData.toString());
 		ArrayList<String> hformat = new ArrayList<String>();
-		String query="";
-		
-		for(int i=0;i<headerList.size();i++){
-			query = "$..[?(@.id==\""+recType+headerList.get(i)+"\")].type";
-		String value = JsonPath.read(document,query).toString();
-		hformat.add(value);
-		System.out.println(value+" : "+headerList.get(i));
+		String query = "";
+
+		for (int i = 0; i < headerList.size(); i++)
+		{
+			// System.out.println("checking");
+			query = "$..[?(@.id==\"" + recType + headerList.get(i) + "\")].type";
+
+			String value = JsonPath.read(document, query).toString();
+			try
+			{
+				value = value.substring(2, value.length() - 2);
+			} catch (java.lang.StringIndexOutOfBoundsException e)
+			{
+
+			}
+			hformat.add(value);
+			// System.out.println(value+" : "+headerList.get(i));
 		}
 		ArrayList<String> hf = new ArrayList<String>();
 		for (Object s : hformat)
 		{
 			hf.add(s.toString());
 		}
-		//System.out.println(hf);
+		// System.out.println(hf);
 
 		ArrayList<String> arr = new ArrayList<String>();
 		for (Object s : headerList)
 		{
 			arr.add(s.toString().toLowerCase());
 		}
-System.out.println("arr: "+arr.size()+"hf: "+hf.size());
+		// System.out.println("arr: "+arr.size()+"hf: "+hf.size());
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		for (int i = 0; i < arr.size(); i++)
 		{
@@ -241,10 +250,11 @@ System.out.println("arr: "+arr.size()+"hf: "+hf.size());
 		}
 		return map;
 	}
-	
-	public static  ArrayList<String> getRowAtIndex(JSONObject rows, int i) throws Exception
-	{
 
+	public static ArrayList<String> getRowAtIndex(JSONObject rows, int i) throws Exception
+	{
+		
+		System.out.println("Fetching data from Sheet");
 		JSONObject temp = (JSONObject) rows.getJSONArray("value").get(i);
 		Gson googleJson = new Gson();
 		@SuppressWarnings("rawtypes")
@@ -254,28 +264,36 @@ System.out.println("arr: "+arr.size()+"hf: "+hf.size());
 
 		for (int j = 0; j < rowValues.size(); j++)
 		{
-			if (j == 1)
-			{
+			String text = rowValues.get(j).toString();
+			try{
+			if(text.substring(text.length()-2).equals(".0")){
 				arr.add(rowValues.get(j).toString().replace(".0", ""));
-			} else
+			}			
+			else
 				arr.add(rowValues.get(j).toString());
+				//System.out.println(rowValues.get(j).toString());
+			}catch(StringIndexOutOfBoundsException e){
+				arr.add(rowValues.get(j).toString());
+			}
 		}
+		
 		return arr;
 	}
 
-    public static String getTableId(String workbookId, AccessToken accessToken ) throws Exception{
-    	String URL = "https://graph.microsoft.com/v1.0/me/drive/items/" +workbookId+"/workbook/tables/";
-    	JSONObject json = restGet(URL, accessToken);
-    	// parsing JSON Response
-    	Configuration conf = Configuration.defaultConfiguration();
-    	//Configuration conf1 = conf.addOptions(Option.DEFAULT_PATH_LEAF_TO_NULL);
-    			Object document = conf.jsonProvider()
-    					.parse(json.toString());
-    			
-    			String value = JsonPath.read(document, "$.value[0].name");
-    			return value;
-    	
-    	
-    }
+	public static String getTableId(String workbookId, AccessToken accessToken) throws Exception
+	{
+		String URL = "https://graph.microsoft.com/v1.0/me/drive/items/" + workbookId
+				+ "/workbook/tables/";
+		JSONObject json = restGet(URL, accessToken);
+		// parsing JSON Response
+		Configuration conf = Configuration.defaultConfiguration();
+		// Configuration conf1 =
+		// conf.addOptions(Option.DEFAULT_PATH_LEAF_TO_NULL);
+		Object document = conf.jsonProvider().parse(json.toString());
+
+		String value = JsonPath.read(document, "$.value[0].name");
+		return value;
+
+	}
 
 }
