@@ -85,21 +85,25 @@ public class HttpLibrary {
 
 	public static void restDelete(AccessToken accessToken, String sheet) throws Exception
 	{
-		HttpClient httpClient = HttpClientBuilder.create().build();
-		HttpDelete getRequest = new HttpDelete(
-				"https://graph.microsoft.com/v1.0/me/drive/items/01JNEAOJ47H5SYYKQIWRF3NLGJZJM2GQRE/workbook/worksheets/"
-						+ sheet);
-		getRequest.addHeader("Content-Type", "application/json");
-		getRequest.addHeader("Authorization", "Bearer " + accessToken.getAccesstoken());
 		for (int i = 0; i < 3; i++)
 		{
 			try
 			{
+				HttpClient httpClient = HttpClientBuilder.create().build();
+				HttpDelete getRequest = new HttpDelete(
+						"https://graph.microsoft.com/v1.0/me/drive/items/01JNEAOJ47H5SYYKQIWRF3NLGJZJM2GQRE/workbook/worksheets/"
+								+ sheet);
+				getRequest.addHeader("Content-Type", "application/json");
+				getRequest.addHeader("Authorization", "Bearer " + accessToken.getAccesstoken());
+
 				httpClient.execute(getRequest);
+				break;
 			} catch (java.lang.IllegalArgumentException e)
 			{
-				Thread.sleep(500);
-				httpClient.execute(getRequest);
+				if(i==2){
+				System.out.println("unable to delete sheet");}
+				
+				Thread.sleep(1000);
 			}
 		}
 	}
