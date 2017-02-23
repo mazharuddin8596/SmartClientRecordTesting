@@ -31,29 +31,25 @@ div.shootout {padding:2em;border:3px #4854A8 solid}
 <body>
 <table cellspacing="0" cellpadding="0" class="result">
 <tr><th>Test</th><th class="numi">Methods<br/>Passed</th><th class="numi">Scenarios<br/>Passed</th><th class="numi"># skipped</th><th class="numi"># failed</th><th class="numi">Total<br/>Time</th><th class="numi">Included<br/>Groups</th><th class="numi">Excluded<br/>Groups</th></tr>
-<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">0</td><td class="numi">0</td><td class="numi_attn">1</td><td class="numi">0</td><td class="numi">0.0 seconds</td><td class="numi"></td><td class="numi"></td></tr>
+<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">0</td><td class="numi">0</td><td class="numi">0</td><td class="numi_attn">1</td><td class="numi">35.7 seconds</td><td class="numi"></td><td class="numi"></td></tr>
 </table>
 <table cellspacing="0" cellpadding="0" class="passed" id="summary">
 <tr><th>Class</th><th>Method</th><th># of<br/>Scenarios</th><th>Start</th><th>Time<br/>(ms)</th></tr>
-<tr><th colspan="4">Default test &#8212; failed (configuration methods)</th></tr>
-<tr class="failedodd"><td rowspan="1">WebDriverTest.ContactRecord</td><td><a href="#m1"><b>InitialSetup</b>  </a></td><td class="numi">1</td><td>1487648044301</td><td class="numi">0</td></tr>
-<tr><th colspan="4">Default test &#8212; skipped</th></tr>
-<tr class="skippedodd"><td rowspan="1">WebDriverTest.ContactRecord</td><td><a href="#m2"><b>insertContact</b>  </a></td><td class="numi">1</td><td>1487648121557</td><td class="numi">1</td></tr>
+<tr><th colspan="4">Default test &#8212; failed</th></tr>
+<tr class="failedodd"><td rowspan="1">WebDriverTest.ContactRecord</td><td><a href="#m1"><b>insertContact</b>  </a></td><td class="numi">1</td><td>1487772866851</td><td class="numi">35663</td></tr>
 </table>
 <h1>Default test</h1>
-<h2 id="m1">WebDriverTest.ContactRecord:InitialSetup</h2>
+<h2 id="m1">WebDriverTest.ContactRecord:insertContact</h2>
 <div style="padding-left:3em">
-<p>no such element: Unable to locate element: {&quot;method&quot;:&quot;link text&quot;,&quot;selector&quot;:&quot;Book.xlsx&quot;}
+<p>unknown error: Element is not clickable at point (134, 361). Other element would receive the click: &lt;div class=&quot;modal-dialog vertical-align-center&quot; style=&quot;width:94%;&quot;&gt;...&lt;/div&gt;
   (Session info: chrome=56.0.2924.87)
   (Driver info: chromedriver=2.25.426923 (0390b88869384d6eb0d5d09729679f934aab9eed),platform=Windows NT 6.3.9600 x86_64) (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 31.67 seconds
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Command duration or timeout: 45 milliseconds
 Build info: version: &apos;unknown&apos;, revision: &apos;31c43c8&apos;, time: &apos;2016-08-02 21:57:56 -0700&apos;
-System info: host: &apos;7BJL4Z1&apos;, ip: &apos;192.168.1.5&apos;, os.name: &apos;Windows 8.1&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.3&apos;, java.version: &apos;1.8.0_40&apos;
+System info: host: &apos;7BJL4Z1&apos;, ip: &apos;192.168.1.2&apos;, os.name: &apos;Windows 8.1&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.3&apos;, java.version: &apos;1.8.0_40&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.25.426923 (0390b88869384d6eb0d5d09729679f934aab9eed), userDataDir=C:\Users\Mazhar\AppData\Local\Temp\scoped_dir15568_24353}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=56.0.2924.87, platform=WIN8_1, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: 712ce83e637b6175ea0070fad7625502
-*** Element info: {Using=link text, value=Book.xlsx}</p>
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.25.426923 (0390b88869384d6eb0d5d09729679f934aab9eed), userDataDir=C:\Users\Mazhar\AppData\Local\Temp\scoped_dir19784_25590}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=56.0.2924.87, platform=WIN8_1, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 83a78bad9ee3faf5689343cafd7051d0</p>
 sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 <br/>at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 <br/>at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -61,15 +57,11 @@ sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 <br/>at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
 <br/>at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
 <br/>at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:683)
-<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:377)
-<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElementByLinkText(RemoteWebDriver.java:440)
-<br/>at org.openqa.selenium.By$ByLinkText.findElement(By.java:246)
-<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:369)
-<br/>at util.CommonLibrary.officeLogin(CommonLibrary.java:186)
-<br/>at WebDriverTest.ContactRecord.InitialSetup(ContactRecord.java:41)
-<br/>19 lines not shown
+<br/>at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:319)
+<br/>at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:85)
+<br/>at util.CommonLibrary.clickOn(CommonLibrary.java:358)
+<br/>at WebDriverTest.ContactRecord.insertContact(ContactRecord.java:91)
+<br/>25 lines not shown
 </div>
-<p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m2">WebDriverTest.ContactRecord:insertContact</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
 </body></html>

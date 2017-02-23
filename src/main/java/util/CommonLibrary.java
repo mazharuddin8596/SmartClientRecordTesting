@@ -13,8 +13,14 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONArray;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -58,7 +64,6 @@ public class CommonLibrary {
 	{
 		return tableId;
 	}
-
 	public static void setTableId(String tableId)
 	{
 		CommonLibrary.tableId = tableId;
@@ -72,6 +77,18 @@ public class CommonLibrary {
 	public static void setHeader(HashMap<String, String> header)
 	{
 		CommonLibrary.header = header;
+	}
+
+	public CommonLibrary()
+	{
+		try
+		{
+			LoadPropertyFiles();
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void beforeTest()
@@ -89,18 +106,6 @@ public class CommonLibrary {
 		setDriver(driver);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-	}
-
-	public CommonLibrary()
-	{
-		try
-		{
-			LoadPropertyFiles();
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public void LoadPropertyFiles() throws IOException
@@ -219,7 +224,7 @@ public class CommonLibrary {
 
 	public void waitForOfficeAddin() throws InterruptedException
 	{
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 9; i++)
 		{
 			try
 			{
@@ -228,7 +233,7 @@ public class CommonLibrary {
 						.cssSelector("iframe[name='WebApplicationFrame']"));
 				driver.switchTo().frame(f);
 
-				Thread.sleep(4000);
+				Thread.sleep(2500);
 				System.out.println("Finding Task pane " + i);
 				JavascriptExecutor jse = (JavascriptExecutor) driver;
 				WebElement pane = (WebElement) jse
@@ -253,6 +258,60 @@ public class CommonLibrary {
 		}
 	}
 
+	public void switchIntoSheet() throws InterruptedException
+	{
+		WebElement mainsheet;
+		Keyboard press = ((HasInputDevices) driver).getKeyboard();
+		driver.switchTo().defaultContent();
+		mainsheet = driver.findElement(By.cssSelector("iframe[name='WebApplicationFrame']"));
+		driver.switchTo().frame(mainsheet);
+		List<WebElement> sheetList = driver.findElements(By
+				.cssSelector("table.ewr-grdcontarea-ltr  tbody tr td"));
+		sheetList.get(2).click();
+		Thread.sleep(300);
+		press.pressKey(Keys.DOWN);
+		Thread.sleep(800);
+		press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
+	}
+
+	public void deleteSheetData() throws InterruptedException
+	{
+		System.out.println("clearing screen Data..");
+		Keyboard press = ((HasInputDevices) driver).getKeyboard();
+		Thread.sleep(3000);
+		press.pressKey(Keys.chord(Keys.CONTROL, Keys.END));
+		Thread.sleep(2000);
+		press.pressKey(Keys.ENTER);
+		press.pressKey(Keys.chord(Keys.CONTROL, Keys.DOWN));
+		Thread.sleep(2000);
+		press.pressKey(Keys.chord(Keys.CONTROL, Keys.SPACE));
+		Thread.sleep(800);
+		press.pressKey(Keys.chord(Keys.SHIFT, Keys.SPACE));
+		Thread.sleep(800);
+		press.pressKey(Keys.DELETE);
+		Thread.sleep(3000);
+		press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
+		Thread.sleep(1000);
+		System.out.println("cleared screen Data..");
+	}
+
+	public void loadTemplate(String name) throws InterruptedException
+	{
+		List<WebElement> Template_List = driver.findElements(By.cssSelector("div.section ul li"));
+		System.out.println("Template List");
+		for (WebElement we : Template_List)
+		{
+			if (we.getText().contains(name))
+			{
+				System.out.println("Clicking on Contact");
+				we.findElement(By.cssSelector("a[title='Load template']")).click();
+				Thread.sleep(2000);// .name ng-binding")).click();//
+				break;
+			}
+			System.out.println(we.getText());
+		}
+	}
+
 	public void insertDataIntoTemplate(String data) throws InterruptedException
 	{
 		Keyboard press = ((HasInputDevices) driver).getKeyboard();
@@ -267,8 +326,8 @@ public class CommonLibrary {
 		{
 			press.pressKey(Keys.TAB);
 			press.pressKey(col_data[i]);
-			System.out.println(col_data[i]);
-			Thread.sleep(1000);
+			// System.out.println(col_data[i]);
+			Thread.sleep(900);
 		}
 	}
 
@@ -292,68 +351,9 @@ public class CommonLibrary {
 		return query;
 	}
 
-	public void deleteSheetData() throws InterruptedException
-	{
-		System.out.println("clearing screen Data..");
-		Keyboard press = ((HasInputDevices) driver).getKeyboard();
-		Thread.sleep(3000);
-		press.pressKey(Keys.chord(Keys.CONTROL, Keys.END));
-		Thread.sleep(1500);
-		press.pressKey(Keys.chord(Keys.CONTROL, Keys.DOWN));
-		Thread.sleep(1500);
-		press.pressKey(Keys.chord(Keys.CONTROL, Keys.SPACE));
-		Thread.sleep(1000);
-		press.pressKey(Keys.chord(Keys.SHIFT, Keys.SPACE));
-		Thread.sleep(1000);
-		press.pressKey(Keys.DELETE);
-		Thread.sleep(2000);
-		press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
-		Thread.sleep(1000);
-		System.out.println("cleared screen Data..");
-	}
-
-	public void selectSheet() throws InterruptedException
-	{
-		Keyboard press = ((HasInputDevices) driver).getKeyboard();
-		List<WebElement> sheetList = driver.findElements(By
-				.cssSelector("table.ewr-grdcontarea-ltr  tbody tr td"));
-		sheetList.get(2).click();
-		Thread.sleep(3000);
-		press.pressKey(Keys.DOWN);
-		press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
-
-	}
-
-	public void loadTemplate(String name) throws InterruptedException
-	{
-		List<WebElement> Template_List = driver.findElements(By.cssSelector("div.section ul li"));
-		System.out.println("Template List");
-		for (WebElement we : Template_List)
-		{
-			if (we.getText().contains(name))
-			{
-				System.out.println("Clicking on Contact");
-				we.findElement(By.cssSelector("a[title='Load template']")).click();
-				Thread.sleep(2000);// .name ng-binding")).click();//
-				break;
-			}
-			System.out.println(we.getText());
-		}
-	}
-
-	public void switchIntoSheet() throws InterruptedException
-	{
-		WebElement mainsheet;
-		driver.switchTo().defaultContent();
-		mainsheet = driver.findElement(By.cssSelector("iframe[name='WebApplicationFrame']"));
-		driver.switchTo().frame(mainsheet);
-		selectSheet();
-	}
-
 	public void clickOn(App on) throws InterruptedException
 	{
 		List<WebElement> appMenu = driver.findElements(By.cssSelector("div.menuContent ul li"));
-		// System.out.println(appMenu.get(1).getAttribute("class"));
 		List<WebElement> middleButtons = driver.findElements(By.cssSelector("div.msgBox"));
 		List<WebElement> checkboxes = driver.findElements(By.cssSelector("div.checkbox"));
 
@@ -385,6 +385,7 @@ public class CommonLibrary {
 			case RefreshSelectedRows :
 				appMenu.get(3).click();
 				middleButtons.get(2).findElement(By.cssSelector("div.button-box a")).click();
+				Thread.sleep(1500);
 				break;
 			case DownloadWithFilter :
 				appMenu.get(0).click();
@@ -477,7 +478,7 @@ public class CommonLibrary {
 		return notification;
 	}
 
-	public String tableId() throws Exception
+	public  String tableId() throws Exception
 	{
 		// accessToken =
 		setAccessToken(HttpLibrary.getAccessTokenRestApi());
@@ -485,39 +486,6 @@ public class CommonLibrary {
 		String tableId = HttpLibrary.getTableId(workbookId, getAccessToken());
 		System.out.println(tableId);
 		return tableId;
-	}
-
-	public Map<String, String> readFromSheet() throws Exception
-	{
-
-		setTableId(tableId());
-		String URL = "https://graph.microsoft.com/v1.0/me/drive/items/" + workbookId
-				+ "/workbook/tables/" + getTableId() + "/HeaderRowRange";
-
-		// getting header of table
-		org.json.JSONObject jo = HttpLibrary.restGet(URL, getAccessToken());
-		setHeader((HashMap<String, String>) HttpLibrary.getHeaderRowData(jo));
-		HttpLibrary.printCurrentDataValues(header);
-
-		// Mapping header and row values as <Key,Value>
-		Map<String, String> fromExcel = rowData(0);
-		// HttpLibrary.printCurrentDataValues(fromExcel);
-		return fromExcel;
-
-	}
-
-	public Map<String, String> rowData(int i) throws Exception
-	{
-		// getting specified row data from table
-		String URLrows = "https://graph.microsoft.com/v1.0/me/drive/items/" + workbookId
-				+ "/workbook/tables/" + getTableId() + "/rows";
-		org.json.JSONObject rows = HttpLibrary.restGet(URLrows, getAccessToken());
-		ArrayList<String> rowData = HttpLibrary.getRowAtIndex(rows, 0);
-		System.out.println("Row 0 :" + rowData);
-
-		ArrayList<String> head = templateHeader(getHeader());
-		Map<String, String> fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
-		return fromExcel;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -536,14 +504,67 @@ public class CommonLibrary {
 		return head;
 	}
 
-	public int getRecordId(Map<String, String> fromExcel)
+	public void setHeaderData() throws Exception
 	{
-		int i = Integer.parseInt(fromExcel.get("internalid").trim());
-		System.out.println("internal id: " + fromExcel.get(".internalid"));
-		return i;
+
+		setTableId(tableId());
+		String URL = "https://graph.microsoft.com/v1.0/me/drive/items/" + workbookId
+				+ "/workbook/tables/" + getTableId() + "/HeaderRowRange";
+
+		// getting header of table
+		org.json.JSONObject jo = HttpLibrary.restGet(URL, getAccessToken());
+		setHeader((HashMap<String, String>) HttpLibrary.parseHeaderRowData(jo));
+
 	}
 
-	public Map<String, String> getFromNs(ArrayList<String> head, String recType, int id) throws IOException, Exception
+	public Map<String, String> rowData(int i) throws Exception
+	{
+		// getting specified row data from table
+		String URLrows = "https://graph.microsoft.com/v1.0/me/drive/items/" + workbookId
+				+ "/workbook/tables/" + tableId() + "/rows";
+		// System.out.println();
+		org.json.JSONObject rows = HttpLibrary.restGet(URLrows, getAccessToken());
+		ArrayList<String> rowData = HttpLibrary.getRowAtIndex(rows, 0);
+		System.out.println("Row " + i + ": " + rowData);
+
+		ArrayList<String> head = templateHeader(getHeader());
+		Map<String, String> fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
+		for (int k = 0; k < 4; k++)
+		{
+			if (fromExcel.get(head.get(0)).equals("") && fromExcel.get(head.get(1)).equals(""))
+			{
+
+				Thread.sleep(1500);
+				fromExcel = rowData(i);
+				// fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
+			} else
+			{
+				break;
+			}
+		}
+
+		return fromExcel;
+	}
+
+	public int getRecordId(Map<String, String> fromExcel)
+	{
+		// System.out.println("internal id: " +
+		// fromExcel.get(".internalid").trim());
+		try
+		{
+			String s = fromExcel.get(".internalid").trim();
+			System.out.println(s);
+			s = remExtraCharacters(s);
+			int i = Integer.parseInt(s);
+			System.out.println("i: " + i);
+			return i;
+		} catch (java.lang.NumberFormatException e)
+		{
+			return 0;
+		}
+	}
+
+	public Map<String, String> getFromNs(ArrayList<String> head, String recType, int id) throws IOException, ParseException
 	{
 		StringBuilder rl = HttpLibrary.doGET(recType, id);
 		JSONArray nsData = new JSONArray(rl.toString());
@@ -567,14 +588,13 @@ public class CommonLibrary {
 
 		ArrayList<String> res = new ArrayList<String>();
 		res.add(0, "");
-		System.out.println(head.size());
+		// System.out.println(head.size());
+
 		// Print values from Ns JSON response
 		for (int j = 1; j < head.size(); j++)
 		{
 			String[] data = head.get(j).toString().split("\\.");
 			String value = "";
-			// System.out.println("data: " + Arrays.toString(data));
-
 			String Query = "";
 			if (data.length > 2)
 			{
@@ -583,12 +603,10 @@ public class CommonLibrary {
 			{
 				Query = head.get(j);
 			}
-			System.out.println("Query : " + Query);
 			try
 			{
 				if (Query.contains("internalid"))
 				{
-					System.out.println("its internal id");
 					Query = Query.replaceAll("internalid", "id");
 					if (Query.contains("addressbookaddress"))
 					{
@@ -597,7 +615,6 @@ public class CommonLibrary {
 					{
 						value = JsonPath.read(document, "$" + Query).toString();
 						res.add(j, value);
-						System.out.println(value);
 					}
 				} else
 				{
@@ -605,20 +622,15 @@ public class CommonLibrary {
 					{
 						value = JsonPath.read(document, "$" + Query + ".name");
 						res.add(j, value);
-						System.out.println(value);
 					} else if (header.get(head.get(j)).equals("enum"))
 					{
-
 						String s = JsonPath.read(document, "$" + Query + ".name").toString();
 						value = s.substring(2, s.length() - 2);
 						res.add(j, value);
-						System.out.println(value);
 					} else
 					{
 						value = JsonPath.read(document, "$" + Query).toString();
-						System.out.println(value);
 						res.add(j, value);
-
 					}
 				}
 			} catch (PathNotFoundException e)
@@ -628,11 +640,63 @@ public class CommonLibrary {
 
 			}
 		}
-
+		ArrayList<String> values = new ArrayList<String>();
+		for (int j = 0; j < res.size(); j++)
+		{
+			values.add(j, remExtraCharacters(res.get(j)));
+		}
+		System.out.println(values);
 		// Mapping header and row values as <Key,Value>
-		Map<String, String> fromNS = HttpLibrary.mapHeaderWithRowData(head, res);
+		Map<String, String> fromNS = HttpLibrary.mapHeaderWithRowData(head, values);
 
 		return fromNS;
+	}
+
+	
+	
+	public static String remExtraCharacters(String s)
+	{
+		if (s.startsWith("[\""))
+		{
+			s = s.substring(2, s.length() - 2);
+
+		} else if (s.startsWith("[") || s.startsWith("\""))
+		{
+			s = s.substring(1, s.length() - 1);
+		}
+		return s;
+
+	}
+
+
+	public boolean compareData(
+			Map<String, String> leftMap,
+			Map<String, String> rightMap,
+			String s)
+	{
+		if (leftMap == rightMap)
+			return true;
+		if (leftMap == null || rightMap == null || leftMap.size() != rightMap.size())
+			return false;
+		System.out.println("printing keyset" + leftMap.keySet());
+		for (String key : leftMap.keySet())
+		{
+			if (!key.equals(s))
+			{
+				String value1 = leftMap.get(key);
+				String value2 = rightMap.get(key);
+				System.out.println("Value1 " + value1);
+				System.out.println("Value2 " + value2);
+				if (value1 == null && value2 == null)
+					continue;
+				else if (value1 == null || value2 == null)
+					return false;
+				if (!value1.equals(value2))
+					return false;
+			}
+		}
+
+		return true;
 	}
 
 	public enum App {

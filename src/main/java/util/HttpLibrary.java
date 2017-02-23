@@ -3,33 +3,30 @@ package util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import com.google.gson.Gson;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.Option;
 
 public class HttpLibrary {
 	static StringBuilder sb = null;
@@ -42,17 +39,9 @@ public class HttpLibrary {
 
 		URL obj = new URL(request);
 
-		/*
-		 * Creating con using post method
-		 */
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setDoOutput(true);
 		con.setRequestMethod("GET");
-
-		/*
-		 * Adding requesting Heading like authorization and type of data
-		 * exchanging
-		 */
 
 		con.setRequestProperty("Content-Type", "application/json");
 		con.setRequestProperty("Authorization", Token);
@@ -92,6 +81,77 @@ public class HttpLibrary {
 		HttpResponse httpresponse = httpClient.execute(httpRequest);
 
 		return sb;
+	}
+
+	public static void restDelete(AccessToken accessToken, String sheet) throws Exception
+	{
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpDelete getRequest = new HttpDelete(
+				"https://graph.microsoft.com/v1.0/me/drive/items/01JNEAOJ47H5SYYKQIWRF3NLGJZJM2GQRE/workbook/worksheets/"
+						+ sheet);
+		getRequest.addHeader("Content-Type", "application/json");
+		getRequest.addHeader("Authorization", "Bearer " + accessToken.getAccesstoken());
+		for (int i = 0; i < 3; i++)
+		{
+			try
+			{
+				httpClient.execute(getRequest);
+			} catch (java.lang.IllegalArgumentException e)
+			{
+				Thread.sleep(500);
+				httpClient.execute(getRequest);
+			}
+		}
+	}
+
+	public String sheetName() throws IOException, Exception
+	{
+		String URL = "https://graph.microsoft.com/v1.0/me/drive/items/01JNEAOJ47H5SYYKQIWRF3NLGJZJM2GQRE/workbook/worksheets/";
+		org.json.JSONObject json = HttpLibrary.restGet(URL, CommonLibrary.getAccessToken());
+		// parsing JSON Response
+		Configuration conf = Configuration.defaultConfiguration();
+		Object document = conf.jsonProvider().parse(json.toString());
+
+		String sheet = CommonLibrary.remExtraCharacters(JsonPath.read(document, "$.value..name")
+				.toString());
+		return sheet;
+	}
+
+	public String addSheet() throws ClientProtocolException, IOException
+	{
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		Configuration conf = Configuration.defaultConfiguration();
+		HttpPost httpRequest = new HttpPost(
+				"https://graph.microsoft.com/v1.0/me/drive/items/01JNEAOJ47H5SYYKQIWRF3NLGJZJM2GQRE/workbook/worksheets/add");
+		httpRequest.addHeader("Content-Type", "application/json");
+		httpRequest.addHeader("Authorization", "Bearer "
+				+ CommonLibrary.getAccessToken().getAccesstoken());
+		HttpResponse response = httpClient.execute(httpRequest);
+		// System.out.println("get status line : " + response.getStatusLine());
+		// System.out.println("entity response" +
+		// response.getEntity().getContent());
+
+		if (response.getStatusLine().getStatusCode() != 200)
+		{
+			if (response.getStatusLine().getStatusCode() != 201)
+			{
+				throw new RuntimeException("Failed : HTTP error code : "
+						+ response.getStatusLine().getStatusCode());
+			}
+		}
+
+		StringWriter writer = new StringWriter();
+		IOUtils.copy(response.getEntity().getContent(), writer, "UTF-8");
+		String theString = writer.toString();
+		// handle response here...
+		StringBuilder sb = new StringBuilder();
+		sb.append(theString);
+		JSONObject jsonObject = new JSONObject(sb.toString());
+		Object doc = conf.jsonProvider().parse(jsonObject.toString());
+		writer.close();
+		// System.out.println(doc.toString());
+		// System.out.println(JsonPath.read(doc, "$.name"));
+		return JsonPath.read(doc, "$.name");
 	}
 
 	public static JSONObject restGet(String URL, AccessToken accessToken) throws Exception, IOException
@@ -171,7 +231,7 @@ public class HttpLibrary {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Map<String, String> getHeaderRowData(JSONObject jo) throws Exception
+	public static Map<String, String> parseHeaderRowData(JSONObject jo) throws Exception
 	{
 		// Extracting Header values from Response
 		Gson googleJson = new Gson();
@@ -253,7 +313,7 @@ public class HttpLibrary {
 
 	public static ArrayList<String> getRowAtIndex(JSONObject rows, int i) throws Exception
 	{
-		
+
 		System.out.println("Fetching data from Sheet");
 		JSONObject temp = (JSONObject) rows.getJSONArray("value").get(i);
 		Gson googleJson = new Gson();
@@ -265,18 +325,20 @@ public class HttpLibrary {
 		for (int j = 0; j < rowValues.size(); j++)
 		{
 			String text = rowValues.get(j).toString();
-			try{
-			if(text.substring(text.length()-2).equals(".0")){
-				arr.add(rowValues.get(j).toString().replace(".0", ""));
-			}			
-			else
-				arr.add(rowValues.get(j).toString());
-				//System.out.println(rowValues.get(j).toString());
-			}catch(StringIndexOutOfBoundsException e){
+			try
+			{
+				if (text.substring(text.length() - 2).equals(".0"))
+				{
+					arr.add(rowValues.get(j).toString().replace(".0", ""));
+				} else
+					arr.add(rowValues.get(j).toString());
+				// System.out.println(rowValues.get(j).toString());
+			} catch (StringIndexOutOfBoundsException e)
+			{
 				arr.add(rowValues.get(j).toString());
 			}
 		}
-		
+
 		return arr;
 	}
 
