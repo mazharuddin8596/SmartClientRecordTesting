@@ -31,9 +31,9 @@ public class Demo {
 		String workbookId = "01JNEAOJ47H5SYYKQIWRF3NLGJZJM2GQRE";
 		String tableID = HttpLibrary.getTableId(workbookId, accessToken);
 		System.out.println(tableID);
-		CommonLibrary.setTableId(lib.tableId());
+		
 		String URL = "https://graph.microsoft.com/v1.0/me/drive/items/" + workbookId
-				+ "/workbook/tables/" + CommonLibrary.getTableId() + "/HeaderRowRange";
+				+ "/workbook/tables/" + lib.tableId() + "/HeaderRowRange";
 
 		// getting header of table
 		org.json.JSONObject jo = HttpLibrary.restGet(URL, CommonLibrary.getAccessToken());
@@ -41,18 +41,37 @@ public class Demo {
 		
 		ArrayList<String> head = lib.templateHeader(CommonLibrary.getHeader());
 
-		int id = 63304;
-		System.out.println(id);
-		Map<String, String> fromNS = lib.getFromNs(head, "contact", id);
-		System.out.println("\ndata from NS\n\n");
-		HttpLibrary.printCurrentDataValues(fromNS);
-		String s="";
-		//s=fromNS.get(".internalid").trim();
-		s="\"\"";
-		System.out.println(s);
-		s = lib.remExtraCharacters(s);
-		int i = Integer.parseInt(s);
-		System.out.println("i: " + i);
+		// getting specified row data from table
+				String URLrows = "https://graph.microsoft.com/v1.0/me/drive/items/" + workbookId
+						+ "/workbook/tables/" + lib.tableId() + "/rows";
+				// System.out.println();
+				org.json.JSONObject rows = HttpLibrary.restGet(URLrows, CommonLibrary.getAccessToken());
+				ArrayList<String> rowData = HttpLibrary.getRowAtIndex(rows, 0);
+				System.out.println("Row 0" + ": " + rowData);
+				for (int k = 0; k < 2; k++)
+				{
+					System.out.println(rowData.get(0) + "&&" + rowData.get(1));
+					if (rowData.get(0).equals("") && rowData.get(1).equals(""))
+					{
+						rows = HttpLibrary.restGet(URLrows, CommonLibrary.getAccessToken());
+						rowData = HttpLibrary.getRowAtIndex(rows, 0);
+						System.out.println("Row 0" + ": " + rowData);
+					} else
+					{
+						break;
+					}
+				}
+				/*
+				 * Map<String, String> fromExcel =
+				 * HttpLibrary.mapHeaderWithRowData(head, rowData); for (int k = 0; k <
+				 * 4; k++) { if (fromExcel.get(head.get(0)).equals("") &&
+				 * fromExcel.get(head.get(1)).equals("")) {
+				 * 
+				 * Thread.sleep(1500); fromExcel = rowData(i); // fromExcel =
+				 * HttpLibrary.mapHeaderWithRowData(head, rowData); } else { break; } }
+				 */
+				Map<String, String> fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
+				
 
 		
 

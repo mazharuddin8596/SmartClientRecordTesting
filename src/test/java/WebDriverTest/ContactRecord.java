@@ -7,8 +7,11 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.HasInputDevices;
+import org.openqa.selenium.interactions.Keyboard;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -39,18 +42,15 @@ public class ContactRecord {
 		CommonLibrary.report = new ExtentReports(System.getProperty("user.dir")
 				+ "\\Reports\\TestingType");
 		driver = lib.getDriver();
+		lib.deleteSheet();
 		System.out.println("done");
 		lib.officeLogin();
 		// liveLogin();
 		Thread.sleep(4000);
-		try
-		{
-			driver.findElement(By.id("errorewaDialogInner"));
-			driver.navigate().refresh();
-		}catch(Exception e){
-		}
+		lib.handleMSDialogBox();
 		lib.switchIntoSheet();
-		lib.deleteSheetData();
+		//lib.deleteSheetData();
+		
 
 		// Files.write(Paths.get("e://webapplicationsource.txt"),
 		// driver.getPageSource().getBytes());
@@ -73,6 +73,8 @@ public class ContactRecord {
 		lib.switchIntoSheet();
 	}
 
+	
+
 	@Test
 	public void insertContact() throws Exception
 	{
@@ -88,7 +90,20 @@ public class ContactRecord {
 		Thread.sleep(1500);
 		String data = "jackson,james,Parent Company,MR,112 Anonymous : QA : testing test,title,1234567890,(206)888-1212,(206)888-1212,lizard@gmail.com,,10711,12345,TRUE,9876543,,,jackson james,,FALSE,CA,TRUE,12345,United States,hyd";
 		lib.insertDataIntoTemplate(data);
+		Keyboard press = ((HasInputDevices) driver).getKeyboard();
 		lib.switchToApp();
+		try{
+			System.out.println("Modal window is dislayed");
+		WebElement modalWindow = driver.findElement(By.cssSelector("div.modal-content div.alertAction button"));
+		modalWindow.click();
+		lib.switchIntoSheet();
+		Thread.sleep(2000);
+		press.pressKey(Keys.DOWN);
+		lib.switchToApp();
+		}
+		catch(Exception e){
+			
+		}
 		lib.clickOn(CommonLibrary.App.InsertAllRows);
 		WebElement loading = driver.findElement(By.cssSelector("div#loadingDiv"));
 		System.out.println(loading.getAttribute("aria-hidden"));
@@ -124,7 +139,7 @@ public class ContactRecord {
 		}else{
 			System.out.println("insertion failed \n Error message :"+fromExcel.get(head.get(0)));
 		}
-		
+		HttpLibrary.doDelete("contact", id);
 	}
 
 	

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -31,6 +32,19 @@ import com.jayway.jsonpath.JsonPath;
 public class HttpLibrary {
 	static StringBuilder sb = null;
 
+	public static void doDelete(String recordtype, long id) throws ClientProtocolException, IOException{
+		String request = "https://rest.na1.netsuite.com/app/site/hosting/restlet.nl?script=2168&deploy=1&recordType="
+				+ recordtype + "&recordId=" + id;
+		String Token = "NLAuth nlauth_account=TSTDRV1069573, nlauth_email=mazharuddin.md@celigo.com, nlauth_signature=\"idontknow@1\", nlauth_role=3";
+
+		//URL obj = new URL(request);
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpDelete getRequest = new HttpDelete(request);
+		getRequest.addHeader("Authorization",Token);
+		getRequest.addHeader("Content-Type", "application/json");
+		httpClient.execute(getRequest);
+	}
+	
 	public static StringBuilder doGET(String recordtype, long id) throws IOException
 	{
 		String request = "https://rest.na1.netsuite.com/app/site/hosting/restlet.nl?script=2168&deploy=1&recordType="
@@ -108,7 +122,7 @@ public class HttpLibrary {
 		}
 	}
 
-	public String sheetName() throws IOException, Exception
+	public static String sheetName() throws IOException, Exception
 	{
 		String URL = "https://graph.microsoft.com/v1.0/me/drive/items/01JNEAOJ47H5SYYKQIWRF3NLGJZJM2GQRE/workbook/worksheets/";
 		org.json.JSONObject json = HttpLibrary.restGet(URL, CommonLibrary.getAccessToken());
@@ -121,7 +135,7 @@ public class HttpLibrary {
 		return sheet;
 	}
 
-	public String addSheet() throws ClientProtocolException, IOException
+	public static String addSheet() throws ClientProtocolException, IOException
 	{
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		Configuration conf = Configuration.defaultConfiguration();

@@ -13,11 +13,6 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -48,7 +43,6 @@ public class CommonLibrary {
 	public static ExtentReports report;
 	public static AccessToken accessToken;
 	public static String workbookId = "01JNEAOJ47H5SYYKQIWRF3NLGJZJM2GQRE";
-	public static String tableId;
 	public static HashMap<String, String> header;
 	public static AccessToken getAccessToken()
 	{
@@ -58,15 +52,6 @@ public class CommonLibrary {
 	public static void setAccessToken(AccessToken accessToken)
 	{
 		CommonLibrary.accessToken = accessToken;
-	}
-
-	public static String getTableId()
-	{
-		return tableId;
-	}
-	public static void setTableId(String tableId)
-	{
-		CommonLibrary.tableId = tableId;
 	}
 
 	public static HashMap<String, String> getHeader()
@@ -224,7 +209,7 @@ public class CommonLibrary {
 
 	public void waitForOfficeAddin() throws InterruptedException
 	{
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			try
 			{
@@ -240,7 +225,8 @@ public class CommonLibrary {
 						.executeScript("return document.getElementById('m_excelWebRenderer_ewaCtl_novTaskPaneToolbarContainer')");
 				try
 				{
-					System.out.println("pane visible? " + pane.isDisplayed());
+					// System.out.println("pane visible? " +
+					// pane.isDisplayed());
 					if (pane.isDisplayed())
 					{
 						System.out.println("able to detect taskpane");
@@ -253,7 +239,34 @@ public class CommonLibrary {
 			} catch (NoSuchElementException e)
 			{
 				System.out.println("Task pane fails in catch: " + i);
+				Thread.sleep(1000);
+			}
+			if(i==7){
+				driver.navigate().refresh();
 				Thread.sleep(4000);
+			}
+		}
+	}
+
+	public void handleMSDialogBox()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			try
+			{
+				WebElement mainsheet;
+				driver.switchTo().defaultContent();
+				mainsheet = driver
+						.findElement(By.cssSelector("iframe[name='WebApplicationFrame']"));
+				driver.switchTo().frame(mainsheet);
+				System.out.println("checking error dialog box");
+				driver.findElement(By.id("errorewaDialogInner"));
+				System.out.println("Found... refreshing page");
+				driver.navigate().refresh();
+			} catch (Exception e)
+			{
+				System.out.println("No dialog box found");
+				break;
 			}
 		}
 	}
@@ -265,6 +278,9 @@ public class CommonLibrary {
 		driver.switchTo().defaultContent();
 		mainsheet = driver.findElement(By.cssSelector("iframe[name='WebApplicationFrame']"));
 		driver.switchTo().frame(mainsheet);
+		Thread.sleep(1000);
+		// *[@id="m_excelWebRenderer_ewaCtl_msospAFrameContainer"]/div[4]
+		checkSheetReady();
 		List<WebElement> sheetList = driver.findElements(By
 				.cssSelector("table.ewr-grdcontarea-ltr  tbody tr td"));
 		sheetList.get(2).click();
@@ -272,6 +288,16 @@ public class CommonLibrary {
 		press.pressKey(Keys.DOWN);
 		Thread.sleep(800);
 		press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
+	}
+
+	public void checkSheetReady()
+	{
+		for(int i=0;i<3;i++){
+		try{
+			driver.findElement(By.className("ewa-background-ready"));
+		}catch(Exception e){
+			
+		}}
 	}
 
 	public void deleteSheetData() throws InterruptedException
@@ -295,6 +321,14 @@ public class CommonLibrary {
 		System.out.println("cleared screen Data..");
 	}
 
+	public void deleteSheet() throws Exception
+	{
+		String sheet = HttpLibrary.sheetName();
+		System.out.println("Deleting sheet named : " + sheet);
+		System.out.println("added new sheet named : " + HttpLibrary.addSheet());
+		HttpLibrary.restDelete(getAccessToken(), sheet);
+	}
+
 	public void loadTemplate(String name) throws InterruptedException
 	{
 		List<WebElement> Template_List = driver.findElements(By.cssSelector("div.section ul li"));
@@ -304,8 +338,9 @@ public class CommonLibrary {
 			if (we.getText().contains(name))
 			{
 				System.out.println("Clicking on Contact");
+				Thread.sleep(2000);
 				we.findElement(By.cssSelector("a[title='Load template']")).click();
-				Thread.sleep(2000);// .name ng-binding")).click();//
+				// .name ng-binding")).click();//
 				break;
 			}
 			System.out.println(we.getText());
@@ -327,7 +362,7 @@ public class CommonLibrary {
 			press.pressKey(Keys.TAB);
 			press.pressKey(col_data[i]);
 			// System.out.println(col_data[i]);
-			Thread.sleep(900);
+			Thread.sleep(1300);
 		}
 	}
 
@@ -478,9 +513,9 @@ public class CommonLibrary {
 		return notification;
 	}
 
-	public  String tableId() throws Exception
+	public String tableId() throws Exception
 	{
-		// accessToken =
+
 		setAccessToken(HttpLibrary.getAccessTokenRestApi());
 
 		String tableId = HttpLibrary.getTableId(workbookId, getAccessToken());
@@ -506,10 +541,8 @@ public class CommonLibrary {
 
 	public void setHeaderData() throws Exception
 	{
-
-		setTableId(tableId());
 		String URL = "https://graph.microsoft.com/v1.0/me/drive/items/" + workbookId
-				+ "/workbook/tables/" + getTableId() + "/HeaderRowRange";
+				+ "/workbook/tables/" + tableId() + "/HeaderRowRange";
 
 		// getting header of table
 		org.json.JSONObject jo = HttpLibrary.restGet(URL, getAccessToken());
@@ -519,30 +552,40 @@ public class CommonLibrary {
 
 	public Map<String, String> rowData(int i) throws Exception
 	{
+		System.out.println("setting Row data");
 		// getting specified row data from table
 		String URLrows = "https://graph.microsoft.com/v1.0/me/drive/items/" + workbookId
 				+ "/workbook/tables/" + tableId() + "/rows";
 		// System.out.println();
 		org.json.JSONObject rows = HttpLibrary.restGet(URLrows, getAccessToken());
-		ArrayList<String> rowData = HttpLibrary.getRowAtIndex(rows, 0);
+		ArrayList<String> rowData = HttpLibrary.getRowAtIndex(rows, i);
 		System.out.println("Row " + i + ": " + rowData);
 
 		ArrayList<String> head = templateHeader(getHeader());
-		Map<String, String> fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
-		for (int k = 0; k < 4; k++)
+		for (int k = 0; k < 6; k++)
 		{
-			if (fromExcel.get(head.get(0)).equals("") && fromExcel.get(head.get(1)).equals(""))
+			System.out.println(rowData.get(0) + "&&" + rowData.get(1));
+			if (rowData.get(0).equals("") && rowData.get(1).equals(""))
 			{
-
-				Thread.sleep(1500);
-				fromExcel = rowData(i);
-				// fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
+				Thread.sleep(2000);
+				rows = HttpLibrary.restGet(URLrows, getAccessToken());
+				rowData = HttpLibrary.getRowAtIndex(rows, i);
+				System.out.println("Row" + " : " + rowData);
 			} else
 			{
 				break;
 			}
 		}
-
+		/*
+		 * Map<String, String> fromExcel =
+		 * HttpLibrary.mapHeaderWithRowData(head, rowData); for (int k = 0; k <
+		 * 4; k++) { if (fromExcel.get(head.get(0)).equals("") &&
+		 * fromExcel.get(head.get(1)).equals("")) {
+		 * 
+		 * Thread.sleep(1500); fromExcel = rowData(i); // fromExcel =
+		 * HttpLibrary.mapHeaderWithRowData(head, rowData); } else { break; } }
+		 */
+		Map<String, String> fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
 		return fromExcel;
 	}
 
@@ -652,8 +695,6 @@ public class CommonLibrary {
 		return fromNS;
 	}
 
-	
-	
 	public static String remExtraCharacters(String s)
 	{
 		if (s.startsWith("[\""))
@@ -668,11 +709,7 @@ public class CommonLibrary {
 
 	}
 
-
-	public boolean compareData(
-			Map<String, String> leftMap,
-			Map<String, String> rightMap,
-			String s)
+	public boolean compareData(Map<String, String> leftMap, Map<String, String> rightMap, String s)
 	{
 		if (leftMap == rightMap)
 			return true;

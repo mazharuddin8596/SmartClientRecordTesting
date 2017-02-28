@@ -31,6 +31,7 @@ public class TrailNSHttpRequest {
 
 		String sheet = CommonLibrary.remExtraCharacters(JsonPath.read(document, "$.value..name")
 				.toString());
+		Thread.sleep(6000);
 		System.out.println("Deleting sheet named : "+sheet);
 		System.out.println("added new sheet named : "+http.addSheet());
 			HttpLibrary.restDelete(at, sheet);
