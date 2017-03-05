@@ -31,14 +31,45 @@ div.shootout {padding:2em;border:3px #4854A8 solid}
 <body>
 <table cellspacing="0" cellpadding="0" class="result">
 <tr><th>Test</th><th class="numi">Methods<br/>Passed</th><th class="numi">Scenarios<br/>Passed</th><th class="numi"># skipped</th><th class="numi"># failed</th><th class="numi">Total<br/>Time</th><th class="numi">Included<br/>Groups</th><th class="numi">Excluded<br/>Groups</th></tr>
-<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">1</td><td class="numi">1</td><td class="numi">0</td><td class="numi">0</td><td class="numi">87.6 seconds</td><td class="numi"></td><td class="numi"></td></tr>
+<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">0</td><td class="numi">0</td><td class="numi_attn">1</td><td class="numi">0</td><td class="numi">0.0 seconds</td><td class="numi"></td><td class="numi"></td></tr>
 </table>
 <table cellspacing="0" cellpadding="0" class="passed" id="summary">
 <tr><th>Class</th><th>Method</th><th># of<br/>Scenarios</th><th>Start</th><th>Time<br/>(ms)</th></tr>
-<tr><th colspan="4">Default test &#8212; passed</th></tr>
-<tr class="passedodd"><td rowspan="1">WebDriverTest.ContactRecord</td><td><a href="#m1"><b>insertContact</b>  </a></td><td class="numi">1</td><td>1488278344506</td><td class="numi">87525</td></tr>
+<tr><th colspan="4">Default test &#8212; failed (configuration methods)</th></tr>
+<tr class="failedodd"><td rowspan="1">WebDriverTest.ContactRecord</td><td><a href="#m1"><b>InitialSetup</b>  </a></td><td class="numi">1</td><td>1488732291396</td><td class="numi">0</td></tr>
+<tr><th colspan="4">Default test &#8212; skipped</th></tr>
+<tr class="skippedodd"><td rowspan="1">WebDriverTest.ContactRecord</td><td><a href="#m2"><b>insertContact</b>  </a></td><td class="numi">1</td><td>1488732355503</td><td class="numi">0</td></tr>
 </table>
 <h1>Default test</h1>
-<h2 id="m1">WebDriverTest.ContactRecord:insertContact</h2>
+<h2 id="m1">WebDriverTest.ContactRecord:InitialSetup</h2>
+<div style="padding-left:3em">
+<p>no such element: Unable to locate element: {&quot;method&quot;:&quot;css selector&quot;,&quot;selector&quot;:&quot;a[title=Test]&quot;}
+  (Session info: chrome=56.0.2924.87)
+  (Driver info: chromedriver=2.25.426923 (0390b88869384d6eb0d5d09729679f934aab9eed),platform=Windows NT 6.3.9600 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 20.05 seconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: &apos;unknown&apos;, revision: &apos;31c43c8&apos;, time: &apos;2016-08-02 21:57:56 -0700&apos;
+System info: host: &apos;7BJL4Z1&apos;, ip: &apos;192.168.1.2&apos;, os.name: &apos;Windows 8.1&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.3&apos;, java.version: &apos;1.8.0_40&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.25.426923 (0390b88869384d6eb0d5d09729679f934aab9eed), userDataDir=C:\Users\Mazhar\AppData\Local\Temp\scoped_dir15292_16045}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=56.0.2924.87, platform=WIN8_1, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: bcb926788accd1733d22d26ff64c61a5
+*** Element info: {Using=css selector, value=a[title=Test]}</p>
+sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+<br/>at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+<br/>at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+<br/>at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+<br/>at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+<br/>at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+<br/>at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:683)
+<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:377)
+<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElementByCssSelector(RemoteWebDriver.java:498)
+<br/>at org.openqa.selenium.By$ByCssSelector.findElement(By.java:430)
+<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:369)
+<br/>at util.CommonLibrary.officeLogin(CommonLibrary.java:182)
+<br/>at WebDriverTest.ContactRecord.InitialSetup(ContactRecord.java:46)
+<br/>19 lines not shown
+</div>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m2">WebDriverTest.ContactRecord:insertContact</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
 </body></html>

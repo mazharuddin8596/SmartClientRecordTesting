@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -37,8 +38,9 @@ import com.relevantcodes.extentreports.ExtentReports;
 
 public class CommonLibrary {
 
-	private Properties obj;
-	private Properties data;
+	public Properties obj;
+	public Properties data;
+	public Properties template; 
 	public static WebDriver driver;
 	public static ExtentReports report;
 	public static AccessToken accessToken;
@@ -96,20 +98,26 @@ public class CommonLibrary {
 	public void LoadPropertyFiles() throws IOException
 	{
 		obj = new Properties();
-		// Create Object of FileInputStream Class. Pass file path.
 		FileInputStream objfile = new FileInputStream(System.getProperty("user.dir")
 				+ "//src//main//resources//properties//objects.properties");
-		// Pass object reference objfile to load method of Properties object.
 		obj.load(objfile);
+		
 		data = new Properties();
-		// Create Object of FileInputStream Class. Pass file path.
 		FileInputStream testdatafile = new FileInputStream(System.getProperty("user.dir")
 				+ "//src//main//resources//properties//testdata.properties");
-		// Pass object reference objfile to load method of Properties object.
 		data.load(testdatafile);
+		
+		template = new Properties();
+		FileInputStream templatefile = new FileInputStream(System.getProperty("user.dir")
+				+ "//src//main//resources//properties//Template.properties");
+		template.load(templatefile);
+		
 
 	}
 
+	public Properties getTemplate(){
+		return template;
+	}
 	public Properties getObj()
 	{
 		return obj;
@@ -150,7 +158,8 @@ public class CommonLibrary {
 
 		driver.findElement(By.id("cred_userid_inputtext"))
 				.sendKeys("mazhar@celigo2.onmicrosoft.com");
-		driver.findElement(By.cssSelector("input#cred_password_inputtext")).sendKeys("Jaca3909");
+		driver.findElement(By.cssSelector("input#cred_password_inputtext"))
+				.sendKeys("Celigo!@#$%6");
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[id='cred_sign_in_button']")).click();
 
@@ -241,7 +250,8 @@ public class CommonLibrary {
 				System.out.println("Task pane fails in catch: " + i);
 				Thread.sleep(1000);
 			}
-			if(i==7){
+			if (i == 7)
+			{
 				driver.navigate().refresh();
 				Thread.sleep(4000);
 			}
@@ -292,12 +302,16 @@ public class CommonLibrary {
 
 	public void checkSheetReady()
 	{
-		for(int i=0;i<3;i++){
-		try{
-			driver.findElement(By.className("ewa-background-ready"));
-		}catch(Exception e){
-			
-		}}
+		for (int i = 0; i < 3; i++)
+		{
+			try
+			{
+				driver.findElement(By.className("ewa-background-ready"));
+			} catch (Exception e)
+			{
+
+			}
+		}
 	}
 
 	public void deleteSheetData() throws InterruptedException
@@ -345,6 +359,14 @@ public class CommonLibrary {
 			}
 			System.out.println(we.getText());
 		}
+	}
+
+	public static String remSpecialCharacters(String temp)
+	{
+		temp = temp.replace("[", "");
+		temp = temp.replace("]", "");
+		temp = temp.replace("\"", "");
+		return temp;
 	}
 
 	public void insertDataIntoTemplate(String data) throws InterruptedException
@@ -539,41 +561,60 @@ public class CommonLibrary {
 		return head;
 	}
 
-	public void setHeaderData() throws Exception
-	{
-		String URL = "https://graph.microsoft.com/v1.0/me/drive/items/" + workbookId
-				+ "/workbook/tables/" + tableId() + "/HeaderRowRange";
-
-		// getting header of table
-		org.json.JSONObject jo = HttpLibrary.restGet(URL, getAccessToken());
-		setHeader((HashMap<String, String>) HttpLibrary.parseHeaderRowData(jo));
-
-	}
+	/*
+	 * public void setHeaderData(String head) throws Exception {
+	 * 
+	 * setHeader((HashMap<String, String>) HttpLibrary.setFieldsFormat(head));
+	 * 
+	 * }
+	 */
 
 	public Map<String, String> rowData(int i) throws Exception
 	{
 		System.out.println("setting Row data");
-		// getting specified row data from table
+		
 		String URLrows = "https://graph.microsoft.com/v1.0/me/drive/items/" + workbookId
-				+ "/workbook/tables/" + tableId() + "/rows";
-		// System.out.println();
+				+ "/workbook/worksheets/" + HttpLibrary.sheetName() + "/UsedRange";
+		
 		org.json.JSONObject rows = HttpLibrary.restGet(URLrows, getAccessToken());
-		ArrayList<String> rowData = HttpLibrary.getRowAtIndex(rows, i);
-		System.out.println("Row " + i + ": " + rowData);
+		Object data = Configuration.defaultConfiguration().jsonProvider().parse(rows.toString());
+		String[] rowData = HttpLibrary.getRowAtIndex(data, i);
+		//System.out.println("Row " + i + ": " + rowData.toString());
+		String str = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")
+				+ "//src//test//resources//enums.json")));
 
+		org.json.simple.JSONObject enumsJson = (org.json.simple.JSONObject) new JSONParser()
+				.parse(str);
+		// Country..[?(@.internalId == "_angola")].name
+		Object enums = Configuration.defaultConfiguration().jsonProvider()
+				.parse(enumsJson.toString());
+		HashMap<String, String> header = getHeader();
 		ArrayList<String> head = templateHeader(getHeader());
+
 		for (int k = 0; k < 6; k++)
 		{
-			System.out.println(rowData.get(0) + "&&" + rowData.get(1));
-			if (rowData.get(0).equals("") && rowData.get(1).equals(""))
+			// System.out.println(rowData.get(0) + "&&" + rowData.get(1));
+			if (rowData[0].equals("") && rowData[1].equals(""))
 			{
 				Thread.sleep(2000);
 				rows = HttpLibrary.restGet(URLrows, getAccessToken());
+				data = Configuration.defaultConfiguration().jsonProvider().parse(rows.toString());
 				rowData = HttpLibrary.getRowAtIndex(rows, i);
 				System.out.println("Row" + " : " + rowData);
 			} else
 			{
 				break;
+			}
+		}
+		for (int j = 0; j < header.size(); j++)
+		{
+			if (header.get(head.get(j)).equals("enum"))
+			{
+				if (rowData[j].startsWith("_"))
+				{
+					// rowData.add(j, element)
+					System.out.println("got enum fields :" + rowData[j]);
+				}
 			}
 		}
 		/*
@@ -586,6 +627,11 @@ public class CommonLibrary {
 		 * HttpLibrary.mapHeaderWithRowData(head, rowData); } else { break; } }
 		 */
 		Map<String, String> fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
+
+		String s = Arrays.toString(rowData).replace(" =T(N(\\", "");
+		s = s.replace("\\))", "");
+		System.out.println("formula : " + s.toString());
+
 		return fromExcel;
 	}
 
@@ -597,7 +643,7 @@ public class CommonLibrary {
 		{
 			String s = fromExcel.get(".internalid").trim();
 			System.out.println(s);
-			s = remExtraCharacters(s);
+			s = remSpecialCharacters(s);
 			int i = Integer.parseInt(s);
 			System.out.println("i: " + i);
 			return i;
@@ -606,7 +652,7 @@ public class CommonLibrary {
 			return 0;
 		}
 	}
-
+	// Map<String, String>
 	public Map<String, String> getFromNs(ArrayList<String> head, String recType, int id) throws IOException, ParseException
 	{
 		StringBuilder rl = HttpLibrary.doGET(recType, id);
@@ -620,14 +666,6 @@ public class CommonLibrary {
 		Object document = conf.jsonProvider().parse(json.toString());
 		// !! important System.out.println(JsonPath.read(document,
 		// "$..addressbook[0].addressbookaddress.addressee").toString());
-
-		String str = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")
-				+ "//src//test//resources//enums.json")));
-
-		org.json.simple.JSONObject enumsJson = (org.json.simple.JSONObject) new JSONParser()
-				.parse(str);
-		Object enums = Configuration.defaultConfiguration().jsonProvider()
-				.parse(enumsJson.toString());
 
 		ArrayList<String> res = new ArrayList<String>();
 		res.add(0, "");
@@ -683,34 +721,31 @@ public class CommonLibrary {
 
 			}
 		}
-		ArrayList<String> values = new ArrayList<String>();
+		String values[] = null;
 		for (int j = 0; j < res.size(); j++)
 		{
-			values.add(j, remExtraCharacters(res.get(j)));
+			values[j] = remSpecialCharacters(res.get(j));
 		}
 		System.out.println(values);
+
 		// Mapping header and row values as <Key,Value>
 		Map<String, String> fromNS = HttpLibrary.mapHeaderWithRowData(head, values);
 
 		return fromNS;
 	}
-
-	public static String remExtraCharacters(String s)
-	{
-		if (s.startsWith("[\""))
-		{
-			s = s.substring(2, s.length() - 2);
-
-		} else if (s.startsWith("[") || s.startsWith("\""))
-		{
-			s = s.substring(1, s.length() - 1);
-		}
-		return s;
-
-	}
+	/*
+	 * public static String remExtraCharacters(String s) { if
+	 * (s.startsWith("[\"")) { s = s.substring(2, s.length() - 2);
+	 * 
+	 * } else if (s.startsWith("[") || s.startsWith("\"")) { s = s.substring(1,
+	 * s.length() - 1); } return s;
+	 * 
+	 * }
+	 */
 
 	public boolean compareData(Map<String, String> leftMap, Map<String, String> rightMap, String s)
 	{
+
 		if (leftMap == rightMap)
 			return true;
 		if (leftMap == null || rightMap == null || leftMap.size() != rightMap.size())

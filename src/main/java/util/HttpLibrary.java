@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -25,26 +26,26 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.google.gson.Gson;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 
 public class HttpLibrary {
 	static StringBuilder sb = null;
 
-	public static void doDelete(String recordtype, long id) throws ClientProtocolException, IOException{
+	public static void doDelete(String recordtype, long id) throws ClientProtocolException, IOException
+	{
 		String request = "https://rest.na1.netsuite.com/app/site/hosting/restlet.nl?script=2168&deploy=1&recordType="
 				+ recordtype + "&recordId=" + id;
 		String Token = "NLAuth nlauth_account=TSTDRV1069573, nlauth_email=mazharuddin.md@celigo.com, nlauth_signature=\"idontknow@1\", nlauth_role=3";
 
-		//URL obj = new URL(request);
+		// URL obj = new URL(request);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpDelete getRequest = new HttpDelete(request);
-		getRequest.addHeader("Authorization",Token);
+		getRequest.addHeader("Authorization", Token);
 		getRequest.addHeader("Content-Type", "application/json");
 		httpClient.execute(getRequest);
 	}
-	
+
 	public static StringBuilder doGET(String recordtype, long id) throws IOException
 	{
 		String request = "https://rest.na1.netsuite.com/app/site/hosting/restlet.nl?script=2168&deploy=1&recordType="
@@ -83,20 +84,6 @@ public class HttpLibrary {
 		return response;
 	}
 
-	public static StringBuilder doPOST(String URL, String TestDataProperty, String Token) throws Exception
-	{
-		HttpClient httpClient = HttpClientBuilder.create().build();
-		StringBuilder sb = new StringBuilder();
-
-		HttpPost httpRequest = new HttpPost(URL);
-		httpRequest.setHeader("Content-Type", "application/xml");
-		StringEntity xmlEntity = new StringEntity(TestDataProperty);
-		httpRequest.setEntity(xmlEntity);
-		HttpResponse httpresponse = httpClient.execute(httpRequest);
-
-		return sb;
-	}
-
 	public static void restDelete(AccessToken accessToken, String sheet) throws Exception
 	{
 		for (int i = 0; i < 3; i++)
@@ -114,9 +101,11 @@ public class HttpLibrary {
 				break;
 			} catch (java.lang.IllegalArgumentException e)
 			{
-				if(i==2){
-				System.out.println("unable to delete sheet");}
-				
+				if (i == 2)
+				{
+					System.out.println("unable to delete sheet");
+				}
+
 				Thread.sleep(1000);
 			}
 		}
@@ -130,7 +119,7 @@ public class HttpLibrary {
 		Configuration conf = Configuration.defaultConfiguration();
 		Object document = conf.jsonProvider().parse(json.toString());
 
-		String sheet = CommonLibrary.remExtraCharacters(JsonPath.read(document, "$.value..name")
+		String sheet = CommonLibrary.remSpecialCharacters(JsonPath.read(document, "$.value..name")
 				.toString());
 		return sheet;
 	}
@@ -248,18 +237,12 @@ public class HttpLibrary {
 
 	}
 
-	@SuppressWarnings("unchecked")
-	public static Map<String, String> parseHeaderRowData(JSONObject jo) throws Exception
+	
+	public static void setFieldsFormat(String fields) throws Exception
 	{
-		// Extracting Header values from Response
-		Gson googleJson = new Gson();
-
-		ArrayList<String> headerList = googleJson.fromJson(jo.getJSONArray("text").getJSONArray(0)
-				.toString(), ArrayList.class);
-		// System.out.println(headerList);
-
-		String recType = headerList.get(0).split("\\.")[0];
-		System.out.println("Record Type " + recType);
+		String[] head = fields.split("\\,");
+		String recType = head[0].split("\\.")[0];
+		System.out.println("Record Type : " + recType);
 		String str = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")
 				+ "//src//test//resources//oneworld.fields.json")));
 		// JSONObject metaData = Files.readAllBytes(Paths.get());
@@ -270,41 +253,43 @@ public class HttpLibrary {
 		ArrayList<String> hformat = new ArrayList<String>();
 		String query = "";
 
-		for (int i = 0; i < headerList.size(); i++)
+		for (int i = 0; i < head.length; i++)
 		{
-			// System.out.println("checking");
-			query = "$..[?(@.id==\"" + recType + headerList.get(i) + "\")].type";
-
+			query = "$..[?(@.id==\"" + recType + head[i] + "\")].type";
 			String value = JsonPath.read(document, query).toString();
-			try
-			{
-				value = value.substring(2, value.length() - 2);
-			} catch (java.lang.StringIndexOutOfBoundsException e)
-			{
-
-			}
+			value = CommonLibrary.remSpecialCharacters(value);
 			hformat.add(value);
-			// System.out.println(value+" : "+headerList.get(i));
+			
 		}
-		ArrayList<String> hf = new ArrayList<String>();
-		for (Object s : hformat)
+		/*String URLrows = "https://graph.microsoft.com/v1.0/me/drive/items/" + CommonLibrary.workbookId
+				+ "/workbook/worksheets/" + HttpLibrary.sheetName() + "/UsedRange";
+		
+		org.json.JSONObject rows = HttpLibrary.restGet(URLrows, CommonLibrary.getAccessToken());
+		Object data = Configuration.defaultConfiguration().jsonProvider().parse(rows.toString());
+		String temp =CommonLibrary.remSpecialCharacters(JsonPath.read(data, "$..numberFormat[1]").toString());
+		System.out.println("temp"+temp+"\nbefore changing "+hformat);
+		String s[] = temp.split("\\,");
+		String[] hf = new String[hformat.size()];
+		hf = hformat.toArray(hf);
+		for (int i=0;i<hf.length;i++)
 		{
-			hf.add(s.toString());
+			System.out.println("value : "+hf[i]);
+			if (hf[i].equals(""))
+			{
+				hf[i]= s[i];
+				System.out.println(hformat);
+			}
 		}
-		// System.out.println(hf);
-
-		ArrayList<String> arr = new ArrayList<String>();
-		for (Object s : headerList)
+		System.out.println("final format "+ hformat);
+		//ArrayList<String> arr = new ArrayList<String>();
+*/
+		HashMap<String, String> map = new LinkedHashMap<String, String>();
+		for (int i = 0; i < head.length; i++)
 		{
-			arr.add(s.toString().toLowerCase());
+			map.put(head[i], hformat.get(i));
 		}
-		// System.out.println("arr: "+arr.size()+"hf: "+hf.size());
-		Map<String, String> map = new LinkedHashMap<String, String>();
-		for (int i = 0; i < arr.size(); i++)
-		{
-			map.put(arr.get(i), hf.get(i));
-		}
-		return map;
+		CommonLibrary.setHeader(map);
+		// return map;
 	}
 
 	public static void printCurrentDataValues(Map<String, String> map)
@@ -315,49 +300,31 @@ public class HttpLibrary {
 		}
 	}
 
-	public static Map<String, String> mapHeaderWithRowData(
-			ArrayList<String> head,
-			ArrayList<String> rowData)
+	public static Map<String, String> mapHeaderWithRowData(ArrayList<String> head, String[] rowData)
 	{
 		// mapping header and row values
 		Map<String, String> map = new LinkedHashMap<String, String>();
 
 		for (int i = 0; i < head.size(); i++)
 		{
-			map.put(head.get(i), rowData.get(i));
+			map.put(head.get(i), rowData[i]);
 		}
 		return map;
 	}
 
-	public static ArrayList<String> getRowAtIndex(JSONObject rows, int i) throws Exception
+	public static String[] getRowAtIndex(Object data, int i) throws Exception
 	{
 
 		System.out.println("Fetching data from Sheet");
-		JSONObject temp = (JSONObject) rows.getJSONArray("value").get(i);
-		Gson googleJson = new Gson();
-		@SuppressWarnings("rawtypes")
-		ArrayList rowValues = googleJson.fromJson(temp.getJSONArray("values").getJSONArray(0)
-				.toString(), ArrayList.class);
-		ArrayList<String> arr = new ArrayList<String>();
-
-		for (int j = 0; j < rowValues.size(); j++)
-		{
-			String text = rowValues.get(j).toString();
-			try
-			{
-				if (text.substring(text.length() - 2).equals(".0"))
-				{
-					arr.add(rowValues.get(j).toString().replace(".0", ""));
-				} else
-					arr.add(rowValues.get(j).toString());
-				// System.out.println(rowValues.get(j).toString());
-			} catch (StringIndexOutOfBoundsException e)
-			{
-				arr.add(rowValues.get(j).toString());
-			}
-		}
-
-		return arr;
+		// Object data =
+		// Configuration.defaultConfiguration().jsonProvider().parse(rows.toString());
+		String temp = JsonPath.read(data, "$..formulas[" + i + "]").toString();
+		System.out.println("row index : " + temp);
+		temp = CommonLibrary.remSpecialCharacters(temp);
+		System.out.println(temp);
+		String[] rowValues = temp.split("\\,");
+		System.out.println("row values : " + Arrays.toString(rowValues));
+		return rowValues;
 	}
 
 	public static String getTableId(String workbookId, AccessToken accessToken) throws Exception

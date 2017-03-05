@@ -28,6 +28,7 @@ public class ContactRecord {
 	HttpLibrary http = new HttpLibrary();
 	WebDriver driver;
 	Properties obj = lib.getObj();
+	Properties template = lib.getTemplate();
 	ExtentTest logger;
 	Properties data = lib.getData();
 
@@ -38,22 +39,14 @@ public class ContactRecord {
 		System.out.println("initial setup");
 		lib.beforeTest();
 		CommonLibrary.setAccessToken(HttpLibrary.getAccessTokenRestApi());
-		System.out.println("done before test method");
 		CommonLibrary.report = new ExtentReports(System.getProperty("user.dir")
 				+ "\\Reports\\TestingType");
 		driver = lib.getDriver();
 		lib.deleteSheet();
-		System.out.println("done");
 		lib.officeLogin();
-		// liveLogin();
 		Thread.sleep(4000);
 		lib.handleMSDialogBox();
 		lib.switchIntoSheet();
-		//lib.deleteSheetData();
-		
-
-		// Files.write(Paths.get("e://webapplicationsource.txt"),
-		// driver.getPageSource().getBytes());
 		lib.waitForOfficeAddin();
 		driver.findElement(By.cssSelector("table.moe-infobar-infotable tbody td.moe-infobar-button-cell button"))
 				.click();
@@ -68,41 +61,46 @@ public class ContactRecord {
 				.cssSelector("div#main-panel-content table.tile td.tile-name"));
 		sign.get(0).click();
 		driver.switchTo().window(allTabs.get(2));
-		// Files.write(Paths.get("e://webapplicationsource.txt"),
-		// driver.getPageSource().getBytes());
 		lib.switchIntoSheet();
 	}
-
-	
 
 	@Test
 	public void insertContact() throws Exception
 	{
 
-		logger = CommonLibrary.report.startTest("Opening Workbook");
-		
+		logger = CommonLibrary.report.startTest("Inserting Contact");
 		boolean success = false;
 		Thread.sleep(2000);
 		lib.switchToApp();
 		Thread.sleep(700);
-		lib.loadTemplate("Add Contacts");
+		lib.loadTemplate("contact");
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div#confirmationPopup button#accept")).click();
+		Thread.sleep(10000);
 		lib.switchIntoSheet();
 		Thread.sleep(1500);
-		String data = "jackson,james,Parent Company,MR,112 Anonymous : QA : testing test,title,1234567890,(206)888-1212,(206)888-1212,lizard@gmail.com,,10711,12345,TRUE,9876543,,,jackson james,,FALSE,CA,TRUE,12345,United States,hyd";
-		lib.insertDataIntoTemplate(data);
+		//String fields = "Contact.NetSuite.1487671332805,.internalId,.firstName,.lastName,.subsidiary,.salutation,.company,.title,.mobilePhone,.officePhone,.phone,.email,.addressbookList.addressbook.addressbookAddress.addr1,.addressbookList.addressbook.addressbookAddress.addr2,.custentity13,.custentity_pick_list";// 1.23456789E9;
+		//String idata = ",,Jackson,James,Parent Company,mr.,1 Anonymous,title flow,958658965,6549876544,7894564655,jacksom.james@celigo.com,address one,address 2,testing fft,accouint 2,United State";
+		String fields = template.getProperty("contactTemplate");
+		System.out.println("Header: "+fields);
+		String idata = template.getProperty("contactInsert");
+		System.out.println("data: "+idata);
+		lib.insertDataIntoTemplate(idata);
 		Keyboard press = ((HasInputDevices) driver).getKeyboard();
 		lib.switchToApp();
-		try{
+		try
+		{
 			System.out.println("Modal window is dislayed");
-		WebElement modalWindow = driver.findElement(By.cssSelector("div.modal-content div.alertAction button"));
-		modalWindow.click();
-		lib.switchIntoSheet();
-		Thread.sleep(2000);
-		press.pressKey(Keys.DOWN);
-		lib.switchToApp();
-		}
-		catch(Exception e){
-			
+			WebElement modalWindow = driver.findElement(By
+					.cssSelector("div.modal-content div.alertAction button"));
+			modalWindow.click();
+			lib.switchIntoSheet();
+			Thread.sleep(2000);
+			press.pressKey(Keys.DOWN);
+			lib.switchToApp();
+		} catch (Exception e)
+		{
+
 		}
 		lib.clickOn(CommonLibrary.App.InsertAllRows);
 		WebElement loading = driver.findElement(By.cssSelector("div#loadingDiv"));
@@ -113,34 +111,37 @@ public class ContactRecord {
 		}
 		String notification = lib.getNotification();
 		System.out.println(notification);
-		
-		
-		lib.setHeaderData();
+
+		HttpLibrary.setFieldsFormat(fields);
+
 		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(0);
-		//fromExcel = handleMissingValues(fromExcel);
+		// fromExcel = handleMissingValues(fromExcel);
 		HttpLibrary.printCurrentDataValues(fromExcel);
 		ArrayList<String> head = lib.templateHeader(CommonLibrary.getHeader());
-		
+
 		success = fromExcel.get(head.get(0)).equals("");
-		//needed as some fields will be populated when user perform refresh(Address/created date...etc)
-		if(success){
-		lib.clickOn(CommonLibrary.App.RefreshAllRows);
-		System.out.println("Refresh table data.... \n getting values from sheet");
-		fromExcel = (HashMap<String, String>) lib.rowData(0);
+		// needed as some fields will be populated when user perform
+		// refresh(Address/created date...etc)
+		if (success)
+		{
+			lib.clickOn(CommonLibrary.App.RefreshAllRows);
+			System.out.println("Refresh table data.... \n getting values from sheet");
+			fromExcel = (HashMap<String, String>) lib.rowData(0);
 		}
-		
+
 		int id = lib.getRecordId(fromExcel);
-		System.out.println("id: "+id);
-		if(id!=0){
-		Map<String, String> fromNS = lib.getFromNs(head, "contact", id);
-		System.out.println("\ndata from NS\n\n");
-		HttpLibrary.printCurrentDataValues(fromNS);
-		lib.compareData(fromExcel, fromNS, head.get(0));
-		}else{
-			System.out.println("insertion failed \n Error message :"+fromExcel.get(head.get(0)));
+		System.out.println("id: " + id);
+		if (id != 0)
+		{
+			Map<String, String> fromNS = lib.getFromNs(head, "contact", id);
+			System.out.println("\ndata from NS\n\n");
+			HttpLibrary.printCurrentDataValues(fromNS);
+			lib.compareData(fromExcel, fromNS, head.get(0));
+		} else
+		{
+			System.out.println("insertion failed \n Error message :" + fromExcel.get(head.get(0)));
 		}
 		HttpLibrary.doDelete("contact", id);
 	}
 
-	
 }
