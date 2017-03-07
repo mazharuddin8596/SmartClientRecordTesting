@@ -70,27 +70,30 @@ public class ContactRecord {
 
 		logger = CommonLibrary.report.startTest("Inserting Contact");
 		boolean success = false;
+		int id = 0;
 		Thread.sleep(2000);
 		lib.switchToApp();
 		Thread.sleep(700);
-		lib.loadTemplate("contact");
+		lib.loadTemplate("Add Contacts 17");
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div#confirmationPopup button#accept")).click();
-		Thread.sleep(10000);
+		lib.waitUntilLoadingEnds();
 		lib.switchIntoSheet();
 		Thread.sleep(1500);
-		//String fields = "Contact.NetSuite.1487671332805,.internalId,.firstName,.lastName,.subsidiary,.salutation,.company,.title,.mobilePhone,.officePhone,.phone,.email,.addressbookList.addressbook.addressbookAddress.addr1,.addressbookList.addressbook.addressbookAddress.addr2,.custentity13,.custentity_pick_list";// 1.23456789E9;
-		//String idata = ",,Jackson,James,Parent Company,mr.,1 Anonymous,title flow,958658965,6549876544,7894564655,jacksom.james@celigo.com,address one,address 2,testing fft,accouint 2,United State";
+		// String fields =
+		// "Contact.NetSuite.1487671332805,.internalId,.firstName,.lastName,.subsidiary,.salutation,.company,.title,.mobilePhone,.officePhone,.phone,.email,.addressbookList.addressbook.addressbookAddress.addr1,.addressbookList.addressbook.addressbookAddress.addr2,.custentity13,.custentity_pick_list";//
+		// 1.23456789E9;
+		// String idata =
+		// ",,Jackson,James,Parent Company,mr.,1 Anonymous,title flow,958658965,6549876544,7894564655,jacksom.james@celigo.com,address one,address 2,testing fft,accouint 2,United State";
 		String fields = template.getProperty("contactTemplate");
-		System.out.println("Header: "+fields);
+		System.out.println("Header: " + fields);
 		String idata = template.getProperty("contactInsert");
-		System.out.println("data: "+idata);
+		System.out.println("data: " + idata);
 		lib.insertDataIntoTemplate(idata);
 		Keyboard press = ((HasInputDevices) driver).getKeyboard();
 		lib.switchToApp();
 		try
 		{
-			System.out.println("Modal window is dislayed");
 			WebElement modalWindow = driver.findElement(By
 					.cssSelector("div.modal-content div.alertAction button"));
 			modalWindow.click();
@@ -98,25 +101,21 @@ public class ContactRecord {
 			Thread.sleep(2000);
 			press.pressKey(Keys.DOWN);
 			lib.switchToApp();
+			System.out.println("Modal window is dislayed");
 		} catch (Exception e)
 		{
-
+			System.out.println("Modal window is not dislayed");
 		}
 		lib.clickOn(CommonLibrary.App.InsertAllRows);
-		WebElement loading = driver.findElement(By.cssSelector("div#loadingDiv"));
-		System.out.println(loading.getAttribute("aria-hidden"));
-		while (loading.getAttribute("aria-hidden").equals("false"))
-		{
-			loading = driver.findElement(By.cssSelector("div#loadingDiv"));
-		}
+		
 		String notification = lib.getNotification();
 		System.out.println(notification);
 
 		HttpLibrary.setFieldsFormat(fields);
 
-		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(0);
-		// fromExcel = handleMissingValues(fromExcel);
-		HttpLibrary.printCurrentDataValues(fromExcel);
+		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(2);
+
+		//HttpLibrary.printCurrentDataValues(fromExcel);
 		ArrayList<String> head = lib.templateHeader(CommonLibrary.getHeader());
 
 		success = fromExcel.get(head.get(0)).equals("");
@@ -126,22 +125,29 @@ public class ContactRecord {
 		{
 			lib.clickOn(CommonLibrary.App.RefreshAllRows);
 			System.out.println("Refresh table data.... \n getting values from sheet");
-			fromExcel = (HashMap<String, String>) lib.rowData(0);
+			fromExcel = (HashMap<String, String>) lib.rowData(2);
+			HttpLibrary.printCurrentDataValues(fromExcel);
+			 id = lib.getRecordId(fromExcel);
+				System.out.println("id: " + id);
 		}
-
-		int id = lib.getRecordId(fromExcel);
-		System.out.println("id: " + id);
+		HttpLibrary.printCurrentDataValues(fromExcel);
+		
 		if (id != 0)
 		{
 			Map<String, String> fromNS = lib.getFromNs(head, "contact", id);
 			System.out.println("\ndata from NS\n\n");
 			HttpLibrary.printCurrentDataValues(fromNS);
-			lib.compareData(fromExcel, fromNS, head.get(0));
+			if (lib.compareData(fromExcel, fromNS, head.get(0)))
+			{
+				System.out.println("Data Mismatch");
+			}
 		} else
 		{
 			System.out.println("insertion failed \n Error message :" + fromExcel.get(head.get(0)));
 		}
 		HttpLibrary.doDelete("contact", id);
 	}
+
+	
 
 }

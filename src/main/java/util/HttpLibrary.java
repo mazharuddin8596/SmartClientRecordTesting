@@ -183,8 +183,12 @@ public class HttpLibrary {
 
 		if (response.getStatusLine().getStatusCode() != 200)
 		{
+			restGet(URL,accessToken);
+			if (response.getStatusLine().getStatusCode() != 200)
+			{
 			throw new RuntimeException("Failed : HTTP error code : "
 					+ response.getStatusLine().getStatusCode());
+			}
 		}
 
 		StringWriter writer = new StringWriter();
@@ -237,7 +241,6 @@ public class HttpLibrary {
 
 	}
 
-	
 	public static void setFieldsFormat(String fields) throws Exception
 	{
 		String[] head = fields.split("\\,");
@@ -259,30 +262,27 @@ public class HttpLibrary {
 			String value = JsonPath.read(document, query).toString();
 			value = CommonLibrary.remSpecialCharacters(value);
 			hformat.add(value);
-			
+
 		}
-		/*String URLrows = "https://graph.microsoft.com/v1.0/me/drive/items/" + CommonLibrary.workbookId
-				+ "/workbook/worksheets/" + HttpLibrary.sheetName() + "/UsedRange";
-		
-		org.json.JSONObject rows = HttpLibrary.restGet(URLrows, CommonLibrary.getAccessToken());
-		Object data = Configuration.defaultConfiguration().jsonProvider().parse(rows.toString());
-		String temp =CommonLibrary.remSpecialCharacters(JsonPath.read(data, "$..numberFormat[1]").toString());
-		System.out.println("temp"+temp+"\nbefore changing "+hformat);
-		String s[] = temp.split("\\,");
-		String[] hf = new String[hformat.size()];
-		hf = hformat.toArray(hf);
-		for (int i=0;i<hf.length;i++)
-		{
-			System.out.println("value : "+hf[i]);
-			if (hf[i].equals(""))
-			{
-				hf[i]= s[i];
-				System.out.println(hformat);
-			}
-		}
-		System.out.println("final format "+ hformat);
-		//ArrayList<String> arr = new ArrayList<String>();
-*/
+		/*
+		 * String URLrows = "https://graph.microsoft.com/v1.0/me/drive/items/" +
+		 * CommonLibrary.workbookId + "/workbook/worksheets/" +
+		 * HttpLibrary.sheetName() + "/UsedRange";
+		 * 
+		 * org.json.JSONObject rows = HttpLibrary.restGet(URLrows,
+		 * CommonLibrary.getAccessToken()); Object data =
+		 * Configuration.defaultConfiguration
+		 * ().jsonProvider().parse(rows.toString()); String temp
+		 * =CommonLibrary.remSpecialCharacters(JsonPath.read(data,
+		 * "$..numberFormat[1]").toString());
+		 * System.out.println("temp"+temp+"\nbefore changing "+hformat); String
+		 * s[] = temp.split("\\,"); String[] hf = new String[hformat.size()]; hf
+		 * = hformat.toArray(hf); for (int i=0;i<hf.length;i++) {
+		 * System.out.println("value : "+hf[i]); if (hf[i].equals("")) { hf[i]=
+		 * s[i]; System.out.println(hformat); } }
+		 * System.out.println("final format "+ hformat); //ArrayList<String> arr
+		 * = new ArrayList<String>();
+		 */
 		HashMap<String, String> map = new LinkedHashMap<String, String>();
 		for (int i = 0; i < head.length; i++)
 		{
@@ -294,6 +294,7 @@ public class HttpLibrary {
 
 	public static void printCurrentDataValues(Map<String, String> map)
 	{
+		System.out.println("Printing values");
 		for (Map.Entry<String, String> entry : map.entrySet())
 		{
 			System.out.println(entry.getKey() + " : " + entry.getValue());
@@ -312,17 +313,20 @@ public class HttpLibrary {
 		return map;
 	}
 
-	public static String[] getRowAtIndex(Object data, int i) throws Exception
+	public static String[] getRowAtIndex(int i) throws Exception
 	{
+		String URLrows = "https://graph.microsoft.com/v1.0/me/drive/items/"
+				+ CommonLibrary.workbookId + "/workbook/worksheets/" + HttpLibrary.sheetName()
+				+ "/UsedRange";
+
+		org.json.JSONObject rows = HttpLibrary.restGet(URLrows, CommonLibrary.getAccessToken());
+		Object data = Configuration.defaultConfiguration().jsonProvider().parse(rows.toString());
 
 		System.out.println("Fetching data from Sheet");
-		// Object data =
-		// Configuration.defaultConfiguration().jsonProvider().parse(rows.toString());
-		String temp = JsonPath.read(data, "$..formulas[" + i + "]").toString();
-		System.out.println("row index : " + temp);
+		String temp = JsonPath.read(data, "$..text[" + i + "]").toString();
 		temp = CommonLibrary.remSpecialCharacters(temp);
-		System.out.println(temp);
 		String[] rowValues = temp.split("\\,");
+
 		System.out.println("row values : " + Arrays.toString(rowValues));
 		return rowValues;
 	}

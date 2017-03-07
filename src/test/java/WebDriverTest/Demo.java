@@ -21,9 +21,15 @@ public class Demo {
 		String idata = template.getProperty("contactInsert");
 		System.out.println("data: "+idata);
 		CommonLibrary.setAccessToken(HttpLibrary.getAccessTokenRestApi());
-	    String str = new String(Files.readAllBytes(Paths.get("C:/Users/Mazhar/AppData/Roaming/Skype/My Skype Received Files/enums.json")));
+	   // String str = new String(Files.readAllBytes(Paths.get("C:/Users/Mazhar/AppData/Roaming/Skype/My Skype Received Files/enums.json")));
 		//String fields = "Contact.NetSuite.1487671332805,.internalId,.firstName,.lastName,.subsidiary,.salutation,.company,.title,.mobilePhone,.officePhone,.phone,.email,.addressbookList.addressbook.addressbookAddress.addr1,.addressbookList.addressbook.addressbookAddress.addr2,.custentity_free_from_text,.custentity_pick_list";// 1.23456789E9;
 		//HttpLibrary.setFieldsFormat(fields);	
-	    Object data = Configuration.defaultConfiguration().jsonProvider().parse(str);
+	   // Object data = Configuration.defaultConfiguration().jsonProvider().parse(str);
+		
+		HttpLibrary.setFieldsFormat(fields);
+
+		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(2);
+		HttpLibrary.printCurrentDataValues(fromExcel);
+		
 	}
 }

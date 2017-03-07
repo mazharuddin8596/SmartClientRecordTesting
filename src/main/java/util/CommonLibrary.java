@@ -40,7 +40,7 @@ public class CommonLibrary {
 
 	public Properties obj;
 	public Properties data;
-	public Properties template; 
+	public Properties template;
 	public static WebDriver driver;
 	public static ExtentReports report;
 	public static AccessToken accessToken;
@@ -101,21 +101,21 @@ public class CommonLibrary {
 		FileInputStream objfile = new FileInputStream(System.getProperty("user.dir")
 				+ "//src//main//resources//properties//objects.properties");
 		obj.load(objfile);
-		
+
 		data = new Properties();
 		FileInputStream testdatafile = new FileInputStream(System.getProperty("user.dir")
 				+ "//src//main//resources//properties//testdata.properties");
 		data.load(testdatafile);
-		
+
 		template = new Properties();
 		FileInputStream templatefile = new FileInputStream(System.getProperty("user.dir")
 				+ "//src//main//resources//properties//Template.properties");
 		template.load(templatefile);
-		
 
 	}
 
-	public Properties getTemplate(){
+	public Properties getTemplate()
+	{
 		return template;
 	}
 	public Properties getObj()
@@ -209,7 +209,7 @@ public class CommonLibrary {
 
 	public void switchToApp()
 	{
-		System.out.println("switching to App " + driver);
+		//System.out.println("switching to App " + driver);
 		WebElement appFrame = driver.findElement(By
 				.cssSelector("iframe[title='SmartClient Staging App']"));
 		driver.switchTo().frame(appFrame);
@@ -228,7 +228,7 @@ public class CommonLibrary {
 				driver.switchTo().frame(f);
 
 				Thread.sleep(2500);
-				System.out.println("Finding Task pane " + i);
+			//	System.out.println("Finding Task pane " + i);
 				JavascriptExecutor jse = (JavascriptExecutor) driver;
 				WebElement pane = (WebElement) jse
 						.executeScript("return document.getElementById('m_excelWebRenderer_ewaCtl_novTaskPaneToolbarContainer')");
@@ -291,6 +291,10 @@ public class CommonLibrary {
 		Thread.sleep(1000);
 		// *[@id="m_excelWebRenderer_ewaCtl_msospAFrameContainer"]/div[4]
 		checkSheetReady();
+		
+		if(!driver.findElement(By.cssSelector("div.ewa-background-ready")).isDisplayed()){
+			Thread.sleep(1000);
+		}
 		List<WebElement> sheetList = driver.findElements(By
 				.cssSelector("table.ewr-grdcontarea-ltr  tbody tr td"));
 		sheetList.get(2).click();
@@ -345,19 +349,18 @@ public class CommonLibrary {
 
 	public void loadTemplate(String name) throws InterruptedException
 	{
+		driver.findElement(By.cssSelector("input[ng-model='searchString']")).sendKeys(name);
 		List<WebElement> Template_List = driver.findElements(By.cssSelector("div.section ul li"));
-		System.out.println("Template List");
+		
 		for (WebElement we : Template_List)
 		{
 			if (we.getText().contains(name))
 			{
-				System.out.println("Clicking on Contact");
-				Thread.sleep(2000);
+				System.out.println("Clicking on" + we.getText());
+				Thread.sleep(1500);
 				we.findElement(By.cssSelector("a[title='Load template']")).click();
-				// .name ng-binding")).click();//
 				break;
 			}
-			System.out.println(we.getText());
 		}
 	}
 
@@ -372,16 +375,23 @@ public class CommonLibrary {
 	public void insertDataIntoTemplate(String data) throws InterruptedException
 	{
 		Keyboard press = ((HasInputDevices) driver).getKeyboard();
+		press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
+		Thread.sleep(200);
 		press.pressKey(Keys.LEFT);
 		press.pressKey(Keys.DOWN);
+		press.pressKey(Keys.DOWN);
+		Thread.sleep(200);
 		System.out.println("Inserting data into Template");
 
 		String[] col_data = data.split("\\,");
 		// inserting data in contact template
-		press.pressKey(Keys.TAB);
+		// press.pressKey(Keys.TAB);
 		for (int i = 0; i < col_data.length; i++)
 		{
-			press.pressKey(Keys.TAB);
+			if (i != 0)
+			{
+				press.pressKey(Keys.TAB);
+			}
 			press.pressKey(col_data[i]);
 			// System.out.println(col_data[i]);
 			Thread.sleep(1300);
@@ -569,38 +579,49 @@ public class CommonLibrary {
 	 * }
 	 */
 
+	public void waitUntilLoadingEnds() throws InterruptedException
+	{
+		/*
+		 * for (int i = 0; i < 9; i++) { //
+		 * System.out.println("waiting for Loading to go"); WebElement loading =
+		 * driver.findElement(By.cssSelector("div#loadingDiv")); if
+		 * (loading.getAttribute("aria-hidden").equals("false")) {
+		 * Thread.sleep(5000); } else { break; }
+		 * 
+		 * }
+		 */
+		WebElement loading = driver.findElement(By.cssSelector("div#loadingDiv"));
+		System.out.println(loading.getAttribute("aria-hidden"));
+		while (loading.getAttribute("aria-hidden").equals("false"))
+		{
+			loading = driver.findElement(By.cssSelector("div#loadingDiv"));
+		}
+	}
+
 	public Map<String, String> rowData(int i) throws Exception
 	{
 		System.out.println("setting Row data");
-		
-		String URLrows = "https://graph.microsoft.com/v1.0/me/drive/items/" + workbookId
-				+ "/workbook/worksheets/" + HttpLibrary.sheetName() + "/UsedRange";
-		
-		org.json.JSONObject rows = HttpLibrary.restGet(URLrows, getAccessToken());
-		Object data = Configuration.defaultConfiguration().jsonProvider().parse(rows.toString());
-		String[] rowData = HttpLibrary.getRowAtIndex(data, i);
-		//System.out.println("Row " + i + ": " + rowData.toString());
 		String str = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")
 				+ "//src//test//resources//enums.json")));
-
 		org.json.simple.JSONObject enumsJson = (org.json.simple.JSONObject) new JSONParser()
 				.parse(str);
 		// Country..[?(@.internalId == "_angola")].name
 		Object enums = Configuration.defaultConfiguration().jsonProvider()
 				.parse(enumsJson.toString());
+
 		HashMap<String, String> header = getHeader();
 		ArrayList<String> head = templateHeader(getHeader());
+		
+		String[] rowData = HttpLibrary.getRowAtIndex(i);
 
-		for (int k = 0; k < 6; k++)
+		for (int k = 0; k < 9; k++)
 		{
-			// System.out.println(rowData.get(0) + "&&" + rowData.get(1));
+			System.out.println(rowData[0] + ":" + rowData[1]);
 			if (rowData[0].equals("") && rowData[1].equals(""))
 			{
-				Thread.sleep(2000);
-				rows = HttpLibrary.restGet(URLrows, getAccessToken());
-				data = Configuration.defaultConfiguration().jsonProvider().parse(rows.toString());
-				rowData = HttpLibrary.getRowAtIndex(rows, i);
-				System.out.println("Row" + " : " + rowData);
+				Thread.sleep(3000);
+				rowData = HttpLibrary.getRowAtIndex(i);
+				System.out.println("Row" + " : " + Arrays.toString(rowData));
 			} else
 			{
 				break;
@@ -764,7 +785,11 @@ public class CommonLibrary {
 				else if (value1 == null || value2 == null)
 					return false;
 				if (!value1.equals(value2))
+				{
+					System.out.println(value1 + "is not equal to " + value2);
 					return false;
+				}
+
 			}
 		}
 
