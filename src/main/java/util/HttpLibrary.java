@@ -113,7 +113,8 @@ public class HttpLibrary {
 
 	public static String sheetName() throws IOException, Exception
 	{
-		String URL = "https://graph.microsoft.com/v1.0/me/drive/items/01JNEAOJ47H5SYYKQIWRF3NLGJZJM2GQRE/workbook/worksheets/";
+		String URL = "https://graph.microsoft.com/v1.0/me/drive/items/" + CommonLibrary.workbookId
+				+ "/workbook/worksheets/";
 		org.json.JSONObject json = HttpLibrary.restGet(URL, CommonLibrary.getAccessToken());
 		// parsing JSON Response
 		Configuration conf = Configuration.defaultConfiguration();
@@ -128,8 +129,8 @@ public class HttpLibrary {
 	{
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		Configuration conf = Configuration.defaultConfiguration();
-		HttpPost httpRequest = new HttpPost(
-				"https://graph.microsoft.com/v1.0/me/drive/items/01JNEAOJ47H5SYYKQIWRF3NLGJZJM2GQRE/workbook/worksheets/add");
+		HttpPost httpRequest = new HttpPost("https://graph.microsoft.com/v1.0/me/drive/items/"
+				+ CommonLibrary.workbookId + "/workbook/worksheets/add");
 		httpRequest.addHeader("Content-Type", "application/json");
 		httpRequest.addHeader("Authorization", "Bearer "
 				+ CommonLibrary.getAccessToken().getAccesstoken());
@@ -156,13 +157,12 @@ public class HttpLibrary {
 		JSONObject jsonObject = new JSONObject(sb.toString());
 		Object doc = conf.jsonProvider().parse(jsonObject.toString());
 		writer.close();
-		// System.out.println(doc.toString());
-		// System.out.println(JsonPath.read(doc, "$.name"));
 		return JsonPath.read(doc, "$.name");
 	}
 
 	public static JSONObject restGet(String URL, AccessToken accessToken) throws Exception, IOException
 	{
+
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		StringBuilder sb = new StringBuilder();
 		JSONObject jsonObject = new JSONObject();
@@ -183,21 +183,31 @@ public class HttpLibrary {
 
 		if (response.getStatusLine().getStatusCode() != 200)
 		{
-			restGet(URL,accessToken);
-			if (response.getStatusLine().getStatusCode() != 200)
+			if (response.getStatusLine().getStatusCode() != 401)
 			{
-			throw new RuntimeException("Failed : HTTP error code : "
-					+ response.getStatusLine().getStatusCode());
+				CommonLibrary.setAccessToken(HttpLibrary.getAccessTokenRestApi());
+				accessToken = CommonLibrary.getAccessToken();
 			}
-		}
+			if (response.getStatusLine().getStatusCode() != 504
+					|| response.getStatusLine().getStatusCode() != 404)
+			{
+				restGet(URL, accessToken);
+			} else
+			{
+				throw new RuntimeException("Failed : HTTP error code : "
+						+ response.getStatusLine().getStatusCode());
+			}
+		} else
+		{
+			StringWriter writer = new StringWriter();
+			IOUtils.copy(response.getEntity().getContent(), writer, "UTF-8");
+			String theString = writer.toString();
+			// handle response here...
+			sb.append(theString);
+			jsonObject = new JSONObject(sb.toString());
+			writer.close();
 
-		StringWriter writer = new StringWriter();
-		IOUtils.copy(response.getEntity().getContent(), writer, "UTF-8");
-		String theString = writer.toString();
-		// handle response here...
-		sb.append(theString);
-		jsonObject = new JSONObject(sb.toString());
-		writer.close();
+		}
 		return jsonObject;
 
 	}
@@ -243,6 +253,8 @@ public class HttpLibrary {
 
 	public static void setFieldsFormat(String fields) throws Exception
 	{
+		// fields = fields.toLowerCase();
+		// System.out.println(fields);
 		String[] head = fields.split("\\,");
 		String recType = head[0].split("\\.")[0];
 		System.out.println("Record Type : " + recType);
@@ -255,41 +267,30 @@ public class HttpLibrary {
 				.parse(metaData.toString());
 		ArrayList<String> hformat = new ArrayList<String>();
 		String query = "";
-
 		for (int i = 0; i < head.length; i++)
 		{
+			// System.out.println(head[i]+" ");
 			query = "$..[?(@.id==\"" + recType + head[i] + "\")].type";
 			String value = JsonPath.read(document, query).toString();
-			value = CommonLibrary.remSpecialCharacters(value);
-			hformat.add(value);
 
+			value = CommonLibrary.remSpecialCharacters(value);
+			// System.out.println(value+" value");
+			if (value.equals(""))
+			{
+				query = "$..[?(@.id==\"" + head[i] + "\")].type";
+				value = JsonPath.read(document, query).toString();
+				value = CommonLibrary.remSpecialCharacters(value);
+			}
+			hformat.add(value);
 		}
-		/*
-		 * String URLrows = "https://graph.microsoft.com/v1.0/me/drive/items/" +
-		 * CommonLibrary.workbookId + "/workbook/worksheets/" +
-		 * HttpLibrary.sheetName() + "/UsedRange";
-		 * 
-		 * org.json.JSONObject rows = HttpLibrary.restGet(URLrows,
-		 * CommonLibrary.getAccessToken()); Object data =
-		 * Configuration.defaultConfiguration
-		 * ().jsonProvider().parse(rows.toString()); String temp
-		 * =CommonLibrary.remSpecialCharacters(JsonPath.read(data,
-		 * "$..numberFormat[1]").toString());
-		 * System.out.println("temp"+temp+"\nbefore changing "+hformat); String
-		 * s[] = temp.split("\\,"); String[] hf = new String[hformat.size()]; hf
-		 * = hformat.toArray(hf); for (int i=0;i<hf.length;i++) {
-		 * System.out.println("value : "+hf[i]); if (hf[i].equals("")) { hf[i]=
-		 * s[i]; System.out.println(hformat); } }
-		 * System.out.println("final format "+ hformat); //ArrayList<String> arr
-		 * = new ArrayList<String>();
-		 */
+
 		HashMap<String, String> map = new LinkedHashMap<String, String>();
 		for (int i = 0; i < head.length; i++)
 		{
 			map.put(head[i], hformat.get(i));
 		}
 		CommonLibrary.setHeader(map);
-		// return map;
+
 	}
 
 	public static void printCurrentDataValues(Map<String, String> map)
@@ -308,7 +309,16 @@ public class HttpLibrary {
 
 		for (int i = 0; i < head.size(); i++)
 		{
-			map.put(head.get(i), rowData[i]);
+
+			if (rowData[i] == null)
+			{
+
+				map.put(head.get(i), "");
+			} else
+			{
+				System.out.println("row data: " + rowData[i]);
+				map.put(head.get(i), rowData[i]);
+			}
 		}
 		return map;
 	}
@@ -316,7 +326,7 @@ public class HttpLibrary {
 	public static String[] getRowAtIndex(int i) throws Exception
 	{
 		String URLrows = "https://graph.microsoft.com/v1.0/me/drive/items/"
-				+ CommonLibrary.workbookId + "/workbook/worksheets/" + HttpLibrary.sheetName()
+				+ CommonLibrary.workbookId + "/workbook/worksheets/" + CommonLibrary.getSheet()
 				+ "/UsedRange";
 
 		org.json.JSONObject rows = HttpLibrary.restGet(URLrows, CommonLibrary.getAccessToken());

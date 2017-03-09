@@ -3,6 +3,34 @@
     "account": "oneWorld",
     "standardFields": [
         {
+            "name" : "itempicklist",
+            "type" : "select",
+            "id" : ".itemList.item.custcolio_col_pick"
+        },
+        {
+            "name" : "body",
+            "type" : "select",
+            "id" : ".custbody_iobodupick"
+        },
+        {
+            "name" : "entity",
+            "type" : "select",
+            "id" : ".custentity_pick_list"
+        },
+
+        
+        {
+            "name" : "piclt",
+            "type" : "select",
+            "id" : ".custrecord_piclt"
+        },
+       
+        {
+            "name" : "custitem4",
+            "type" : "select",
+            "id" : ".custitem4"
+        },
+        {
             "name": "baseCurrency",
             "type": "select",
             "recordType": "CurrencyRate",

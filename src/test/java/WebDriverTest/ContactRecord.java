@@ -43,7 +43,8 @@ public class ContactRecord {
 				+ "\\Reports\\TestingType");
 		driver = lib.getDriver();
 		lib.deleteSheet();
-		lib.officeLogin();
+		
+		lib.officeLogin(driver);
 		Thread.sleep(4000);
 		lib.handleMSDialogBox();
 		lib.switchIntoSheet();
@@ -90,6 +91,7 @@ public class ContactRecord {
 		String idata = template.getProperty("contactInsert");
 		System.out.println("data: " + idata);
 		lib.insertDataIntoTemplate(idata);
+		
 		Keyboard press = ((HasInputDevices) driver).getKeyboard();
 		lib.switchToApp();
 		try
@@ -112,12 +114,14 @@ public class ContactRecord {
 		System.out.println(notification);
 
 		HttpLibrary.setFieldsFormat(fields);
+		//System.out.println();
+		//HttpLibrary.printCurrentDataValues(CommonLibrary.getHeader());
 
 		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(2);
 
 		//HttpLibrary.printCurrentDataValues(fromExcel);
 		ArrayList<String> head = lib.templateHeader(CommonLibrary.getHeader());
-
+		
 		success = fromExcel.get(head.get(0)).equals("");
 		// needed as some fields will be populated when user perform
 		// refresh(Address/created date...etc)
@@ -134,7 +138,7 @@ public class ContactRecord {
 		
 		if (id != 0)
 		{
-			Map<String, String> fromNS = lib.getFromNs(head, "contact", id);
+			Map<String, String> fromNS = lib.getFromNs("contact", id);
 			System.out.println("\ndata from NS\n\n");
 			HttpLibrary.printCurrentDataValues(fromNS);
 			if (lib.compareData(fromExcel, fromNS, head.get(0)))

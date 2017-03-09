@@ -7,7 +7,10 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import util.CommonLibrary;
 public class NewTest {
+	CommonLibrary lib = new CommonLibrary();
 	private WebDriver driver;
 	@Test
 	public void testEasy()
@@ -21,9 +24,10 @@ public class NewTest {
 	{
 		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")
 				+ "//src//lib//chromedriver.exe");
-		System.out.println(System.getProperty("user.dir")
-				+ "//lib//chromedriver.exe");
+		
 			driver = new ChromeDriver();
+		
+			//lib.beforeTest();
 	}
 	@AfterTest
 	public void afterTest()
