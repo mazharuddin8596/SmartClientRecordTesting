@@ -28,6 +28,9 @@ import org.json.simple.parser.JSONParser;
 
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
 public class HttpLibrary {
 	static StringBuilder sb = null;
@@ -92,7 +95,8 @@ public class HttpLibrary {
 			{
 				HttpClient httpClient = HttpClientBuilder.create().build();
 				HttpDelete getRequest = new HttpDelete(
-						"https://graph.microsoft.com/v1.0/me/drive/items/01JNEAOJ47H5SYYKQIWRF3NLGJZJM2GQRE/workbook/worksheets/"
+						"https://graph.microsoft.com/v1.0/me/drive/items/" + CommonLibrary.workbookId
+				+ "/workbook/worksheets/"
 								+ sheet);
 				getRequest.addHeader("Content-Type", "application/json");
 				getRequest.addHeader("Authorization", "Bearer " + accessToken.getAccesstoken());
@@ -125,8 +129,9 @@ public class HttpLibrary {
 		return sheet;
 	}
 
-	public static String addSheet() throws ClientProtocolException, IOException
+	public static String addSheet() throws ClientProtocolException, IOException, InterruptedException
 	{
+		Thread.sleep(2000);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		Configuration conf = Configuration.defaultConfiguration();
 		HttpPost httpRequest = new HttpPost("https://graph.microsoft.com/v1.0/me/drive/items/"
@@ -259,7 +264,7 @@ public class HttpLibrary {
 		String recType = head[0].split("\\.")[0];
 		System.out.println("Record Type : " + recType);
 		String str = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")
-				+ "//src//test//resources//oneworld.fields.json")));
+				+ "//src//test//resources//one-world-fields.json")));
 		// JSONObject metaData = Files.readAllBytes(Paths.get());
 		org.json.simple.JSONObject metaData = (org.json.simple.JSONObject) new JSONParser()
 				.parse(str);
@@ -293,17 +298,25 @@ public class HttpLibrary {
 
 	}
 
-	public static void printCurrentDataValues(Map<String, String> map)
-	{
+	public static void printCurrentDataValues(Map<String, String> map, ExtentTest logger)
+	{String s = "";
+	
+		logger.log(LogStatus.INFO,"Values:");
 		System.out.println("Printing values");
 		for (Map.Entry<String, String> entry : map.entrySet())
 		{
+			s = s+entry.getKey() + " : " + entry.getValue();
 			System.out.println(entry.getKey() + " : " + entry.getValue());
 		}
+		logger.log(LogStatus.INFO,s);
 	}
+	
 
 	public static Map<String, String> mapHeaderWithRowData(ArrayList<String> head, String[] rowData)
 	{
+		System.out.println("header "+head.toString());
+		System.out.println("row data : "+ Arrays.toString(rowData));
+		System.out.println(head.size()+" & "+rowData.length);
 		// mapping header and row values
 		Map<String, String> map = new LinkedHashMap<String, String>();
 
@@ -316,7 +329,7 @@ public class HttpLibrary {
 				map.put(head.get(i), "");
 			} else
 			{
-				System.out.println("row data: " + rowData[i]);
+				//System.out.println("row data: " + rowData[i]);
 				map.put(head.get(i), rowData[i]);
 			}
 		}
@@ -331,8 +344,6 @@ public class HttpLibrary {
 
 		org.json.JSONObject rows = HttpLibrary.restGet(URLrows, CommonLibrary.getAccessToken());
 		Object data = Configuration.defaultConfiguration().jsonProvider().parse(rows.toString());
-
-		System.out.println("Fetching data from Sheet");
 		String temp = JsonPath.read(data, "$..text[" + i + "]").toString();
 		temp = CommonLibrary.remSpecialCharacters(temp);
 		String[] rowValues = temp.split("\\,");

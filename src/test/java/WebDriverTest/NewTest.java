@@ -1,5 +1,8 @@
 package WebDriverTest;
 
+import java.util.HashMap;
+import java.util.Properties;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -8,16 +11,22 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
 import util.CommonLibrary;
+import util.HttpLibrary;
 public class NewTest {
 	CommonLibrary lib = new CommonLibrary();
+	Properties template = lib.getTemplate();
 	private WebDriver driver;
+	ExtentTest logger;
+	
+	
 	@Test
-	public void testEasy()
+	public void testEasy() throws Exception
 	{
-		driver.get("http://www.guru99.com/selenium-tutorial.html");
-		String title = driver.getTitle();
-		Assert.assertTrue(title.contains("Free Selenium Tutorials"));
+		
 	}
 	@BeforeTest
 	public void beforeTest()
@@ -27,7 +36,7 @@ public class NewTest {
 		
 			driver = new ChromeDriver();
 		
-			//lib.beforeTest();
+			lib.beforeTest();
 	}
 	@AfterTest
 	public void afterTest()

@@ -735,6 +735,10 @@
         "name": "Palau"
       },
       {
+        "internalId": "_palestinianTerritories",
+        "name": "Palestinian Territories"
+      },
+      {
         "internalId": "_panama",
         "name": "Panama"
       },
@@ -891,10 +895,6 @@
         "name": "Sri Lanka"
       },
       {
-        "internalId": "_stateOfPalestine",
-        "name": "State Of Palestine"
-      },
-      {
         "internalId": "_stPierreAndMiquelon",
         "name": "St Pierre And Miquelon"
       },
@@ -991,8 +991,8 @@
         "name": "United Arab Emirates"
       },
       {
-        "internalId": "_unitedKingdom",
-        "name": "United Kingdom"
+        "internalId": "_unitedKingdomGB",
+        "name": "United Kingdom G B"
       },
       {
         "internalId": "_unitedStates",
@@ -1052,6 +1052,299 @@
       }
     ],
     "totalRecords": 252
+  },
+  "RevenueStatus": {
+    "options": [
+      {
+        "internalId": "_pending",
+        "name": "Pending"
+      },
+      {
+        "internalId": "_inProgress",
+        "name": "In Progress"
+      },
+      {
+        "internalId": "_completed",
+        "name": "Completed"
+      },
+      {
+        "internalId": "_onRevCommitment",
+        "name": "On Rev Commitment"
+      }
+    ],
+    "totalRecords": 4
+  },
+  "RevenueCommitStatus": {
+    "options": [
+      {
+        "internalId": "_committed",
+        "name": "Committed"
+      },
+      {
+        "internalId": "_partiallyCommitted",
+        "name": "Partially Committed"
+      },
+      {
+        "internalId": "_pendingCommitment",
+        "name": "Pending Commitment"
+      }
+    ],
+    "totalRecords": 3
+  },
+  "AvsMatchCode": {
+    "options": [
+      {
+        "internalId": "_n",
+        "name": "N"
+      },
+      {
+        "internalId": "_x",
+        "name": "X"
+      },
+      {
+        "internalId": "_y",
+        "name": "Y"
+      }
+    ],
+    "totalRecords": 3
+  },
+  "TransactionPaymentEventResult": {
+    "options": [
+      {
+        "internalId": "_accept",
+        "name": "Accept"
+      },
+      {
+        "internalId": "_holdOverride",
+        "name": "Hold Override"
+      },
+      {
+        "internalId": "_paymentHold",
+        "name": "Payment Hold"
+      },
+      {
+        "internalId": "_reject",
+        "name": "Reject"
+      }
+    ],
+    "totalRecords": 4
+  },
+  "TransactionPaymentEventHoldReason": {
+    "options": [
+      {
+        "internalId": "_authorizationDecline",
+        "name": "Authorization Decline"
+      },
+      {
+        "internalId": "_cardExpired",
+        "name": "Card Expired"
+      },
+      {
+        "internalId": "_cardInvalid",
+        "name": "Card Invalid"
+      },
+      {
+        "internalId": "_externalFraudRejection",
+        "name": "External Fraud Rejection"
+      },
+      {
+        "internalId": "_externalFraudReview",
+        "name": "External Fraud Review"
+      },
+      {
+        "internalId": "_forwardedToPayerAuthentication",
+        "name": "Forwarded To Payer Authentication"
+      },
+      {
+        "internalId": "_forwardRequested",
+        "name": "Forward Requested"
+      },
+      {
+        "internalId": "_gatewayError",
+        "name": "Gateway Error"
+      },
+      {
+        "internalId": "_overridenBy",
+        "name": "Overriden By"
+      },
+      {
+        "internalId": "_partnerDecline",
+        "name": "Partner Decline"
+      },
+      {
+        "internalId": "_systemError",
+        "name": "System Error"
+      },
+      {
+        "internalId": "_verbalAuthorizationRequested",
+        "name": "Verbal Authorization Requested"
+      },
+      {
+        "internalId": "_verificationRejection",
+        "name": "Verification Rejection"
+      },
+      {
+        "internalId": "_verificationRequired",
+        "name": "Verification Required"
+      }
+    ],
+    "totalRecords": 14
+  },
+  "TransactionPaymentEventType": {
+    "options": [
+      {
+        "internalId": "_authorizationRequest",
+        "name": "Authorization Request"
+      },
+      {
+        "internalId": "_captureRequest",
+        "name": "Capture Request"
+      },
+      {
+        "internalId": "_creditRequest",
+        "name": "Credit Request"
+      },
+      {
+        "internalId": "_overrideHold",
+        "name": "Override Hold"
+      },
+      {
+        "internalId": "_refundRequest",
+        "name": "Refund Request"
+      },
+      {
+        "internalId": "_saleRequest",
+        "name": "Sale Request"
+      }
+    ],
+    "totalRecords": 6
+  },
+  "IntercoStatus": {
+    "options": [
+      {
+        "internalId": "_paired",
+        "name": "Paired"
+      },
+      {
+        "internalId": "_pending",
+        "name": "Pending"
+      },
+      {
+        "internalId": "_rejected",
+        "name": "Rejected"
+      }
+    ],
+    "totalRecords": 3
+  },
+  "SalesOrderItemCommitInventory": {
+    "options": [
+      {
+        "internalId": "_availableQty",
+        "name": "Available Qty"
+      },
+      {
+        "internalId": "_completeQty",
+        "name": "Complete Qty"
+      },
+      {
+        "internalId": "_doNotCommit",
+        "name": "Do Not Commit"
+      }
+    ],
+    "totalRecords": 3
+  },
+  "SalesOrderItemCreatePo": {
+    "options": [
+      {
+        "internalId": "_dropShipment",
+        "name": "Drop Shipment"
+      },
+      {
+        "internalId": "_specialOrder",
+        "name": "Special Order"
+      }
+    ],
+    "totalRecords": 2
+  },
+  "ItemCostEstimateType": {
+    "options": [
+      {
+        "internalId": "_averageCost",
+        "name": "Average Cost"
+      },
+      {
+        "internalId": "_custom",
+        "name": "Custom"
+      },
+      {
+        "internalId": "_derivedFromMemberItems",
+        "name": "Derived From Member Items"
+      },
+      {
+        "internalId": "_itemDefinedCost",
+        "name": "Item Defined Cost"
+      },
+      {
+        "internalId": "_lastPurchasePrice",
+        "name": "Last Purchase Price"
+      },
+      {
+        "internalId": "_preferredVendorRate",
+        "name": "Preferred Vendor Rate"
+      },
+      {
+        "internalId": "_purchaseOrderRate",
+        "name": "Purchase Order Rate"
+      },
+      {
+        "internalId": "_purchasePrice",
+        "name": "Purchase Price"
+      }
+    ],
+    "totalRecords": 8
+  },
+  "VsoeSopGroup": {
+    "options": [
+      {
+        "internalId": "_exclude",
+        "name": "Exclude"
+      },
+      {
+        "internalId": "_normal",
+        "name": "Normal"
+      },
+      {
+        "internalId": "_software",
+        "name": "Software"
+      }
+    ],
+    "totalRecords": 3
+  },
+  "VsoeDeferral": {
+    "options": [
+      {
+        "internalId": "_deferBundleUntilDelivered",
+        "name": "Defer Bundle Until Delivered"
+      },
+      {
+        "internalId": "_deferUntilItemDelivered",
+        "name": "Defer Until Item Delivered"
+      }
+    ],
+    "totalRecords": 2
+  },
+  "VsoePermitDiscount": {
+    "options": [
+      {
+        "internalId": "_asAllowed",
+        "name": "As Allowed"
+      },
+      {
+        "internalId": "_never",
+        "name": "Never"
+      }
+    ],
+    "totalRecords": 2
   },
   "RecurrenceFrequency": {
     "options": [
@@ -1666,20 +1959,12 @@
         "name": " B M P I M A G E"
       },
       {
-        "internalId": "_CFF",
-        "name": " C F F"
-      },
-      {
         "internalId": "_CONFIG",
         "name": " C O N F I G"
       },
       {
         "internalId": "_CSV",
         "name": " C S V"
-      },
-      {
-        "internalId": "_EOT",
-        "name": " E O T"
       },
       {
         "internalId": "_EXCEL",
@@ -1726,10 +2011,6 @@
         "name": " J S O N"
       },
       {
-        "internalId": "_LZH",
-        "name": " L Z H"
-      },
-      {
         "internalId": "_MESSAGERFC",
         "name": " M E S S A G E R F C"
       },
@@ -1752,10 +2033,6 @@
       {
         "internalId": "_MSPROJECT",
         "name": " M S P R O J E C T"
-      },
-      {
-        "internalId": "_OTF",
-        "name": " O T F"
       },
       {
         "internalId": "_PDF",
@@ -1798,10 +2075,6 @@
         "name": " S T Y L E S H E E T"
       },
       {
-        "internalId": "_SVG",
-        "name": " S V G"
-      },
-      {
         "internalId": "_TAR",
         "name": " T A R"
       },
@@ -1814,10 +2087,6 @@
         "name": " T I F F I M A G E"
       },
       {
-        "internalId": "_TTF",
-        "name": " T T F"
-      },
-      {
         "internalId": "_VISIO",
         "name": " V I S I O"
       },
@@ -1828,14 +2097,6 @@
       {
         "internalId": "_WEBAPPSCRIPT",
         "name": " W E B A P P S C R I P T"
-      },
-      {
-        "internalId": "_WOFF",
-        "name": " W O F F"
-      },
-      {
-        "internalId": "_WOFF2",
-        "name": " W O F F2"
       },
       {
         "internalId": "_WORD",
@@ -1854,7 +2115,7 @@
         "name": " Z I P"
       }
     ],
-    "totalRecords": 49
+    "totalRecords": 41
   },
   "TextFileEncoding": {
     "options": [
@@ -1925,8 +2186,8 @@
         "name": "Attachments Received"
       },
       {
-        "internalId": "_attachmentsSent",
-        "name": "Attachments Sent"
+        "internalId": "_attachmentsToSend",
+        "name": "Attachments To Send"
       },
       {
         "internalId": "_certificates",
@@ -2011,28 +2272,16 @@
   "Language": {
     "options": [
       {
-        "internalId": "_afrikaans",
-        "name": "Afrikaans"
-      },
-      {
-        "internalId": "_albanian",
-        "name": "Albanian"
-      },
-      {
         "internalId": "_arabic",
         "name": "Arabic"
       },
       {
-        "internalId": "_armenian",
-        "name": "Armenian"
+        "internalId": "_australian",
+        "name": "Australian"
       },
       {
         "internalId": "_bengali",
         "name": "Bengali"
-      },
-      {
-        "internalId": "_bosnian",
-        "name": "Bosnian"
       },
       {
         "internalId": "_bulgarian",
@@ -2067,32 +2316,12 @@
         "name": "Dutch"
       },
       {
-        "internalId": "_englishAu",
-        "name": "English Au"
-      },
-      {
-        "internalId": "_englishCa",
-        "name": "English Ca"
-      },
-      {
-        "internalId": "_englishInternational",
-        "name": "English International"
-      },
-      {
-        "internalId": "_englishUK",
-        "name": "English U K"
-      },
-      {
-        "internalId": "_englishUS",
-        "name": "English U S"
+        "internalId": "_english",
+        "name": "English"
       },
       {
         "internalId": "_estonian",
         "name": "Estonian"
-      },
-      {
-        "internalId": "_filipino",
-        "name": "Filipino"
       },
       {
         "internalId": "_finnish",
@@ -2115,20 +2344,12 @@
         "name": "Greek"
       },
       {
-        "internalId": "_gujarati",
-        "name": "Gujarati"
-      },
-      {
         "internalId": "_haitian",
         "name": "Haitian"
       },
       {
         "internalId": "_hebrew",
         "name": "Hebrew"
-      },
-      {
-        "internalId": "_hindi",
-        "name": "Hindi"
       },
       {
         "internalId": "_hungarian",
@@ -2151,10 +2372,6 @@
         "name": "Japanese"
       },
       {
-        "internalId": "_kannada",
-        "name": "Kannada"
-      },
-      {
         "internalId": "_korean",
         "name": "Korean"
       },
@@ -2171,24 +2388,8 @@
         "name": "Lithuanian"
       },
       {
-        "internalId": "_luxembourgish",
-        "name": "Luxembourgish"
-      },
-      {
-        "internalId": "_malay",
-        "name": "Malay"
-      },
-      {
-        "internalId": "_marathi",
-        "name": "Marathi"
-      },
-      {
         "internalId": "_norwegian",
         "name": "Norwegian"
-      },
-      {
-        "internalId": "_persianIran",
-        "name": "Persian Iran"
       },
       {
         "internalId": "_polish",
@@ -2203,24 +2404,12 @@
         "name": "Portuguese Portugal"
       },
       {
-        "internalId": "_punjabi",
-        "name": "Punjabi"
-      },
-      {
         "internalId": "_romanian",
         "name": "Romanian"
       },
       {
         "internalId": "_russian",
         "name": "Russian"
-      },
-      {
-        "internalId": "_serbianCyrillic",
-        "name": "Serbian Cyrillic"
-      },
-      {
-        "internalId": "_serbianLatin",
-        "name": "Serbian Latin"
       },
       {
         "internalId": "_slovak",
@@ -2239,14 +2428,6 @@
         "name": "Swedish"
       },
       {
-        "internalId": "_tamil",
-        "name": "Tamil"
-      },
-      {
-        "internalId": "_telugu",
-        "name": "Telugu"
-      },
-      {
         "internalId": "_thai",
         "name": "Thai"
       },
@@ -2255,15 +2436,15 @@
         "name": "Turkish"
       },
       {
-        "internalId": "_ukrainian",
-        "name": "Ukrainian"
+        "internalId": "_usEnglish",
+        "name": "Us English"
       },
       {
         "internalId": "_vietnamese",
         "name": "Vietnamese"
       }
     ],
-    "totalRecords": 63
+    "totalRecords": 43
   },
   "CustomerNumberFormat": {
     "options": [
@@ -2387,19 +2568,6 @@
     ],
     "totalRecords": 2
   },
-  "AlcoholRecipientType": {
-    "options": [
-      {
-        "internalId": "_consumer",
-        "name": "Consumer"
-      },
-      {
-        "internalId": "_licensee",
-        "name": "Licensee"
-      }
-    ],
-    "totalRecords": 2
-  },
   "CustomerStage": {
     "options": [
       {
@@ -2501,6 +2669,245 @@
     ],
     "totalRecords": 5
   },
+  "EntityGroupDailyTime": {
+    "options": [
+      {
+        "internalId": "_1200am",
+        "name": "1200am"
+      },
+      {
+        "internalId": "_1230am",
+        "name": "1230am"
+      },
+      {
+        "internalId": "_100am",
+        "name": "100am"
+      },
+      {
+        "internalId": "_130am",
+        "name": "130am"
+      },
+      {
+        "internalId": "_200am",
+        "name": "200am"
+      },
+      {
+        "internalId": "_230am",
+        "name": "230am"
+      },
+      {
+        "internalId": "_300am",
+        "name": "300am"
+      },
+      {
+        "internalId": "_330am",
+        "name": "330am"
+      },
+      {
+        "internalId": "_400am",
+        "name": "400am"
+      },
+      {
+        "internalId": "_430am",
+        "name": "430am"
+      },
+      {
+        "internalId": "_500am",
+        "name": "500am"
+      },
+      {
+        "internalId": "_530am",
+        "name": "530am"
+      },
+      {
+        "internalId": "_600am",
+        "name": "600am"
+      },
+      {
+        "internalId": "_630am",
+        "name": "630am"
+      },
+      {
+        "internalId": "_700am",
+        "name": "700am"
+      },
+      {
+        "internalId": "_730am",
+        "name": "730am"
+      },
+      {
+        "internalId": "_800am",
+        "name": "800am"
+      },
+      {
+        "internalId": "_830am",
+        "name": "830am"
+      },
+      {
+        "internalId": "_900am",
+        "name": "900am"
+      },
+      {
+        "internalId": "_930am",
+        "name": "930am"
+      },
+      {
+        "internalId": "_1000am",
+        "name": "1000am"
+      },
+      {
+        "internalId": "_1030am",
+        "name": "1030am"
+      },
+      {
+        "internalId": "_1100am",
+        "name": "1100am"
+      },
+      {
+        "internalId": "_1130am",
+        "name": "1130am"
+      },
+      {
+        "internalId": "_noon",
+        "name": "Noon"
+      },
+      {
+        "internalId": "_1230pm",
+        "name": "1230pm"
+      },
+      {
+        "internalId": "_100pm",
+        "name": "100pm"
+      },
+      {
+        "internalId": "_130pm",
+        "name": "130pm"
+      },
+      {
+        "internalId": "_200pm",
+        "name": "200pm"
+      },
+      {
+        "internalId": "_230pm",
+        "name": "230pm"
+      },
+      {
+        "internalId": "_300pm",
+        "name": "300pm"
+      },
+      {
+        "internalId": "_330pm",
+        "name": "330pm"
+      },
+      {
+        "internalId": "_400pm",
+        "name": "400pm"
+      },
+      {
+        "internalId": "_430pm",
+        "name": "430pm"
+      },
+      {
+        "internalId": "_500pm",
+        "name": "500pm"
+      },
+      {
+        "internalId": "_530pm",
+        "name": "530pm"
+      },
+      {
+        "internalId": "_600pm",
+        "name": "600pm"
+      },
+      {
+        "internalId": "_630pm",
+        "name": "630pm"
+      },
+      {
+        "internalId": "_700pm",
+        "name": "700pm"
+      },
+      {
+        "internalId": "_730pm",
+        "name": "730pm"
+      },
+      {
+        "internalId": "_800pm",
+        "name": "800pm"
+      },
+      {
+        "internalId": "_830pm",
+        "name": "830pm"
+      },
+      {
+        "internalId": "_900pm",
+        "name": "900pm"
+      },
+      {
+        "internalId": "_930pm",
+        "name": "930pm"
+      },
+      {
+        "internalId": "_1000pm",
+        "name": "1000pm"
+      },
+      {
+        "internalId": "_1030pm",
+        "name": "1030pm"
+      },
+      {
+        "internalId": "_1100pm",
+        "name": "1100pm"
+      },
+      {
+        "internalId": "_1130pm",
+        "name": "1130pm"
+      }
+    ],
+    "totalRecords": 48
+  },
+  "EntityGroupDefView": {
+    "options": [
+      {
+        "internalId": "_daily",
+        "name": "Daily"
+      },
+      {
+        "internalId": "_weekly",
+        "name": "Weekly"
+      },
+      {
+        "internalId": "_monthly",
+        "name": "Monthly"
+      }
+    ],
+    "totalRecords": 3
+  },
+  "EntityGroupPeriodSize": {
+    "options": [
+      {
+        "internalId": "_10minutes",
+        "name": "10minutes"
+      },
+      {
+        "internalId": "_15minutes",
+        "name": "15minutes"
+      },
+      {
+        "internalId": "_20minutes",
+        "name": "20minutes"
+      },
+      {
+        "internalId": "_30minutes",
+        "name": "30minutes"
+      },
+      {
+        "internalId": "_oneHour",
+        "name": "One Hour"
+      }
+    ],
+    "totalRecords": 5
+  },
   "JobBillingType": {
     "options": [
       {
@@ -2525,83 +2932,6 @@
       }
     ],
     "totalRecords": 5
-  },
-  "BillingAccountFrequency": {
-    "options": [
-      {
-        "internalId": "_annually",
-        "name": "Annually"
-      },
-      {
-        "internalId": "_custom",
-        "name": "Custom"
-      },
-      {
-        "internalId": "_daily",
-        "name": "Daily"
-      },
-      {
-        "internalId": "_endOfPeriod",
-        "name": "End Of Period"
-      },
-      {
-        "internalId": "_everyFourWeeks",
-        "name": "Every Four Weeks"
-      },
-      {
-        "internalId": "_everyThreeYears",
-        "name": "Every Three Years"
-      },
-      {
-        "internalId": "_everyTwoMonths",
-        "name": "Every Two Months"
-      },
-      {
-        "internalId": "_everyTwoWeeks",
-        "name": "Every Two Weeks"
-      },
-      {
-        "internalId": "_everyTwoYears",
-        "name": "Every Two Years"
-      },
-      {
-        "internalId": "_hourly",
-        "name": "Hourly"
-      },
-      {
-        "internalId": "_monthly",
-        "name": "Monthly"
-      },
-      {
-        "internalId": "_never",
-        "name": "Never"
-      },
-      {
-        "internalId": "_oneTime",
-        "name": "One Time"
-      },
-      {
-        "internalId": "_quarterly",
-        "name": "Quarterly"
-      },
-      {
-        "internalId": "_startOfPeriod",
-        "name": "Start Of Period"
-      },
-      {
-        "internalId": "_twiceAMonth",
-        "name": "Twice A Month"
-      },
-      {
-        "internalId": "_twiceAYear",
-        "name": "Twice A Year"
-      },
-      {
-        "internalId": "_weekly",
-        "name": "Weekly"
-      }
-    ],
-    "totalRecords": 18
   },
   "SupportCaseStatusStage": {
     "options": [
@@ -2840,15 +3170,11 @@
         "name": "Service"
       },
       {
-        "internalId": "_subscriptionPlan",
-        "name": "Subscription Plan"
-      },
-      {
         "internalId": "_subtotal",
         "name": "Subtotal"
       }
     ],
-    "totalRecords": 15
+    "totalRecords": 14
   },
   "ItemSubType": {
     "options": [
@@ -2884,27 +3210,6 @@
     ],
     "totalRecords": 3
   },
-  "ItemCreateRevenuePlansOn": {
-    "options": [
-      {
-        "internalId": "_billing",
-        "name": "Billing"
-      },
-      {
-        "internalId": "_fulfillment",
-        "name": "Fulfillment"
-      },
-      {
-        "internalId": "_projectProgress",
-        "name": "Project Progress"
-      },
-      {
-        "internalId": "_revenueArrangementCreation",
-        "name": "Revenue Arrangement Creation"
-      }
-    ],
-    "totalRecords": 4
-  },
   "ItemMatrixType": {
     "options": [
       {
@@ -2939,7 +3244,7 @@
     ],
     "totalRecords": 4
   },
-  "ShippingCarrier": {
+  "ItemCarrier": {
     "options": [
       {
         "internalId": "_fedexUspsMore",
@@ -3118,43 +3423,6 @@
     ],
     "totalRecords": 6
   },
-  "ItemCostEstimateType": {
-    "options": [
-      {
-        "internalId": "_averageCost",
-        "name": "Average Cost"
-      },
-      {
-        "internalId": "_custom",
-        "name": "Custom"
-      },
-      {
-        "internalId": "_derivedFromMemberItems",
-        "name": "Derived From Member Items"
-      },
-      {
-        "internalId": "_itemDefinedCost",
-        "name": "Item Defined Cost"
-      },
-      {
-        "internalId": "_lastPurchasePrice",
-        "name": "Last Purchase Price"
-      },
-      {
-        "internalId": "_preferredVendorRate",
-        "name": "Preferred Vendor Rate"
-      },
-      {
-        "internalId": "_purchaseOrderRate",
-        "name": "Purchase Order Rate"
-      },
-      {
-        "internalId": "_purchasePrice",
-        "name": "Purchase Price"
-      }
-    ],
-    "totalRecords": 8
-  },
   "ItemOverallQuantityPricingType": {
     "options": [
       {
@@ -3175,49 +3443,6 @@
       }
     ],
     "totalRecords": 4
-  },
-  "VsoeSopGroup": {
-    "options": [
-      {
-        "internalId": "_exclude",
-        "name": "Exclude"
-      },
-      {
-        "internalId": "_normal",
-        "name": "Normal"
-      },
-      {
-        "internalId": "_software",
-        "name": "Software"
-      }
-    ],
-    "totalRecords": 3
-  },
-  "VsoeDeferral": {
-    "options": [
-      {
-        "internalId": "_deferBundleUntilDelivered",
-        "name": "Defer Bundle Until Delivered"
-      },
-      {
-        "internalId": "_deferUntilItemDelivered",
-        "name": "Defer Until Item Delivered"
-      }
-    ],
-    "totalRecords": 2
-  },
-  "VsoePermitDiscount": {
-    "options": [
-      {
-        "internalId": "_asAllowed",
-        "name": "As Allowed"
-      },
-      {
-        "internalId": "_never",
-        "name": "Never"
-      }
-    ],
-    "totalRecords": 2
   },
   "ItemInvtClassification": {
     "options": [
@@ -4346,6 +4571,10 @@
   "CurrencyCurrencyPrecision": {
     "options": [
       {
+        "internalId": "_one",
+        "name": "One"
+      },
+      {
         "internalId": "_two",
         "name": "Two"
       },
@@ -4354,7 +4583,7 @@
         "name": "Zero"
       }
     ],
-    "totalRecords": 2
+    "totalRecords": 3
   },
   "AccountType": {
     "options": [
@@ -4458,406 +4687,6 @@
     ],
     "totalRecords": 3
   },
-  "LocationType": {
-    "options": [
-      {
-        "internalId": "_store",
-        "name": "Store"
-      },
-      {
-        "internalId": "_warehouse",
-        "name": "Warehouse"
-      }
-    ],
-    "totalRecords": 2
-  },
-  "LocationTimeZone": {
-    "options": [
-      {
-        "internalId": "_africaCairo",
-        "name": "Africa Cairo"
-      },
-      {
-        "internalId": "_africaCasablanca",
-        "name": "Africa Casablanca"
-      },
-      {
-        "internalId": "_africaJohannesburg",
-        "name": "Africa Johannesburg"
-      },
-      {
-        "internalId": "_africaNairobi",
-        "name": "Africa Nairobi"
-      },
-      {
-        "internalId": "_africaTunis",
-        "name": "Africa Tunis"
-      },
-      {
-        "internalId": "_africaWindhoek",
-        "name": "Africa Windhoek"
-      },
-      {
-        "internalId": "_americaAnchorage",
-        "name": "America Anchorage"
-      },
-      {
-        "internalId": "_americaArgentinaBuenosAires",
-        "name": "America Argentina Buenos Aires"
-      },
-      {
-        "internalId": "_americaBogota",
-        "name": "America Bogota"
-      },
-      {
-        "internalId": "_americaCaracas",
-        "name": "America Caracas"
-      },
-      {
-        "internalId": "_americaCayenne",
-        "name": "America Cayenne"
-      },
-      {
-        "internalId": "_americaChicago",
-        "name": "America Chicago"
-      },
-      {
-        "internalId": "_americaChihuahua",
-        "name": "America Chihuahua"
-      },
-      {
-        "internalId": "_americaDenver",
-        "name": "America Denver"
-      },
-      {
-        "internalId": "_americaGodthab",
-        "name": "America Godthab"
-      },
-      {
-        "internalId": "_americaGuatemala",
-        "name": "America Guatemala"
-      },
-      {
-        "internalId": "_americaHalifax",
-        "name": "America Halifax"
-      },
-      {
-        "internalId": "_americaIndianaIndianapolis",
-        "name": "America Indiana Indianapolis"
-      },
-      {
-        "internalId": "_americaLaPaz",
-        "name": "America La Paz"
-      },
-      {
-        "internalId": "_americaLosAngeles",
-        "name": "America Los Angeles"
-      },
-      {
-        "internalId": "_americaManaus",
-        "name": "America Manaus"
-      },
-      {
-        "internalId": "_americaMexicoCity",
-        "name": "America Mexico City"
-      },
-      {
-        "internalId": "_americaMontevideo",
-        "name": "America Montevideo"
-      },
-      {
-        "internalId": "_americaNewYork",
-        "name": "America New York"
-      },
-      {
-        "internalId": "_americaNoronha",
-        "name": "America Noronha"
-      },
-      {
-        "internalId": "_americaPhoenix",
-        "name": "America Phoenix"
-      },
-      {
-        "internalId": "_americaRegina",
-        "name": "America Regina"
-      },
-      {
-        "internalId": "_americaSantiago",
-        "name": "America Santiago"
-      },
-      {
-        "internalId": "_americaSaoPaulo",
-        "name": "America Sao Paulo"
-      },
-      {
-        "internalId": "_americaStJohns",
-        "name": "America St Johns"
-      },
-      {
-        "internalId": "_americaTijuana",
-        "name": "America Tijuana"
-      },
-      {
-        "internalId": "_asiaAlmaty",
-        "name": "Asia Almaty"
-      },
-      {
-        "internalId": "_asiaAmman",
-        "name": "Asia Amman"
-      },
-      {
-        "internalId": "_asiaBaghdad",
-        "name": "Asia Baghdad"
-      },
-      {
-        "internalId": "_asiaBaku",
-        "name": "Asia Baku"
-      },
-      {
-        "internalId": "_asiaBangkok",
-        "name": "Asia Bangkok"
-      },
-      {
-        "internalId": "_asiaBeirut",
-        "name": "Asia Beirut"
-      },
-      {
-        "internalId": "_asiaDhaka",
-        "name": "Asia Dhaka"
-      },
-      {
-        "internalId": "_asiaHongKong",
-        "name": "Asia Hong Kong"
-      },
-      {
-        "internalId": "_asiaIrkutsk",
-        "name": "Asia Irkutsk"
-      },
-      {
-        "internalId": "_asiaJerusalem",
-        "name": "Asia Jerusalem"
-      },
-      {
-        "internalId": "_asiaKabul",
-        "name": "Asia Kabul"
-      },
-      {
-        "internalId": "_asiaKarachi",
-        "name": "Asia Karachi"
-      },
-      {
-        "internalId": "_asiaKathmandu",
-        "name": "Asia Kathmandu"
-      },
-      {
-        "internalId": "_asiaKolkata",
-        "name": "Asia Kolkata"
-      },
-      {
-        "internalId": "_asiaKrasnoyarsk",
-        "name": "Asia Krasnoyarsk"
-      },
-      {
-        "internalId": "_asiaKualaLumpur",
-        "name": "Asia Kuala Lumpur"
-      },
-      {
-        "internalId": "_asiaMagadan",
-        "name": "Asia Magadan"
-      },
-      {
-        "internalId": "_asiaManila",
-        "name": "Asia Manila"
-      },
-      {
-        "internalId": "_asiaMuscat",
-        "name": "Asia Muscat"
-      },
-      {
-        "internalId": "_asiaRangoon",
-        "name": "Asia Rangoon"
-      },
-      {
-        "internalId": "_asiaRiyadh",
-        "name": "Asia Riyadh"
-      },
-      {
-        "internalId": "_asiaSeoul",
-        "name": "Asia Seoul"
-      },
-      {
-        "internalId": "_asiaTaipei",
-        "name": "Asia Taipei"
-      },
-      {
-        "internalId": "_asiaTashkent",
-        "name": "Asia Tashkent"
-      },
-      {
-        "internalId": "_asiaTbilisi",
-        "name": "Asia Tbilisi"
-      },
-      {
-        "internalId": "_asiaTehran",
-        "name": "Asia Tehran"
-      },
-      {
-        "internalId": "_asiaTokyo",
-        "name": "Asia Tokyo"
-      },
-      {
-        "internalId": "_asiaVladivostok",
-        "name": "Asia Vladivostok"
-      },
-      {
-        "internalId": "_asiaYakutsk",
-        "name": "Asia Yakutsk"
-      },
-      {
-        "internalId": "_asiaYekaterinburg",
-        "name": "Asia Yekaterinburg"
-      },
-      {
-        "internalId": "_asiaYerevan",
-        "name": "Asia Yerevan"
-      },
-      {
-        "internalId": "_atlanticAzores",
-        "name": "Atlantic Azores"
-      },
-      {
-        "internalId": "_atlanticCapeVerde",
-        "name": "Atlantic Cape Verde"
-      },
-      {
-        "internalId": "_atlanticReykjavik",
-        "name": "Atlantic Reykjavik"
-      },
-      {
-        "internalId": "_australiaAdelaide",
-        "name": "Australia Adelaide"
-      },
-      {
-        "internalId": "_australiaBrisbane",
-        "name": "Australia Brisbane"
-      },
-      {
-        "internalId": "_australiaDarwin",
-        "name": "Australia Darwin"
-      },
-      {
-        "internalId": "_australiaHobart",
-        "name": "Australia Hobart"
-      },
-      {
-        "internalId": "_australiaPerth",
-        "name": "Australia Perth"
-      },
-      {
-        "internalId": "_australiaSydney",
-        "name": "Australia Sydney"
-      },
-      {
-        "internalId": "_etcGmtPlus12",
-        "name": "Etc Gmt Plus12"
-      },
-      {
-        "internalId": "_europeAmsterdam",
-        "name": "Europe Amsterdam"
-      },
-      {
-        "internalId": "_europeBudapest",
-        "name": "Europe Budapest"
-      },
-      {
-        "internalId": "_europeIstanbul",
-        "name": "Europe Istanbul"
-      },
-      {
-        "internalId": "_europeKiev",
-        "name": "Europe Kiev"
-      },
-      {
-        "internalId": "_europeLondon",
-        "name": "Europe London"
-      },
-      {
-        "internalId": "_europeMinsk",
-        "name": "Europe Minsk"
-      },
-      {
-        "internalId": "_europeMoscow",
-        "name": "Europe Moscow"
-      },
-      {
-        "internalId": "_europeParis",
-        "name": "Europe Paris"
-      },
-      {
-        "internalId": "_europeWarsaw",
-        "name": "Europe Warsaw"
-      },
-      {
-        "internalId": "_pacificAuckland",
-        "name": "Pacific Auckland"
-      },
-      {
-        "internalId": "_pacificGuam",
-        "name": "Pacific Guam"
-      },
-      {
-        "internalId": "_pacificHonolulu",
-        "name": "Pacific Honolulu"
-      },
-      {
-        "internalId": "_pacificKwajalein",
-        "name": "Pacific Kwajalein"
-      },
-      {
-        "internalId": "_pacificPagoPago",
-        "name": "Pacific Pago Pago"
-      },
-      {
-        "internalId": "_pacificTongatapu",
-        "name": "Pacific Tongatapu"
-      }
-    ],
-    "totalRecords": 87
-  },
-  "LocationGeolocationMethod": {
-    "options": [
-      {
-        "internalId": "_deriveFromPostalCode",
-        "name": "Derive From Postal Code"
-      },
-      {
-        "internalId": "_useLatLongCoordinates",
-        "name": "Use Lat Long Coordinates"
-      }
-    ],
-    "totalRecords": 2
-  },
-  "LocationAutoAssignmentRegionSetting": {
-    "options": [
-      {
-        "internalId": "_allowSpecifiedRegionsOnly",
-        "name": "Allow Specified Regions Only"
-      },
-      {
-        "internalId": "_allowWorldwide",
-        "name": "Allow Worldwide"
-      },
-      {
-        "internalId": "_allowWorldwideExceptExcludedRegions",
-        "name": "Allow Worldwide Except Excluded Regions"
-      },
-      {
-        "internalId": "_disallow",
-        "name": "Disallow"
-      }
-    ],
-    "totalRecords": 4
-  },
   "SalesTaxItemAvailable": {
     "options": [
       {
@@ -4891,27 +4720,6 @@
       }
     ],
     "totalRecords": 3
-  },
-  "ItemSource": {
-    "options": [
-      {
-        "internalId": "_stock",
-        "name": "Stock"
-      },
-      {
-        "internalId": "_phantom",
-        "name": "Phantom"
-      },
-      {
-        "internalId": "_workOrder",
-        "name": "Work Order"
-      },
-      {
-        "internalId": "_purchaseOrder",
-        "name": "Purchase Order"
-      }
-    ],
-    "totalRecords": 4
   },
   "AssemblyItemEffectiveBomControl": {
     "options": [
@@ -5075,19 +4883,6 @@
       }
     ],
     "totalRecords": 5
-  },
-  "BillingScheduleRecurrencePattern": {
-    "options": [
-      {
-        "internalId": "_anniversaryBillDate",
-        "name": "Anniversary Bill Date"
-      },
-      {
-        "internalId": "_fixedBillDate",
-        "name": "Fixed Bill Date"
-      }
-    ],
-    "totalRecords": 2
   },
   "BillingScheduleFrequency": {
     "options": [
@@ -5466,18 +5261,6 @@
         "name": "Income"
       },
       {
-        "internalId": "_intercompanyCostOfGoods",
-        "name": "Intercompany Cost Of Goods"
-      },
-      {
-        "internalId": "_intercompanyExpense",
-        "name": "Intercompany Expense"
-      },
-      {
-        "internalId": "_intercompanyIncome",
-        "name": "Intercompany Income"
-      },
-      {
         "internalId": "_liability",
         "name": "Liability"
       },
@@ -5534,323 +5317,7 @@
         "name": "Write Off"
       }
     ],
-    "totalRecords": 28
-  },
-  "FairValuePriceFairValueRangePolicy": {
-    "options": [
-      {
-        "internalId": "_boundary",
-        "name": "Boundary"
-      },
-      {
-        "internalId": "_fairValue",
-        "name": "Fair Value"
-      },
-      {
-        "internalId": "_high",
-        "name": "High"
-      },
-      {
-        "internalId": "_low",
-        "name": "Low"
-      }
-    ],
-    "totalRecords": 4
-  },
-  "SalesOrderOrderStatus": {
-    "options": [
-      {
-        "internalId": "_pendingApproval",
-        "name": "Pending Approval"
-      },
-      {
-        "internalId": "_pendingFulfillment",
-        "name": "Pending Fulfillment"
-      },
-      {
-        "internalId": "_cancelled",
-        "name": "Cancelled"
-      },
-      {
-        "internalId": "_partiallyFulfilled",
-        "name": "Partially Fulfilled"
-      },
-      {
-        "internalId": "_pendingBillingPartFulfilled",
-        "name": "Pending Billing Part Fulfilled"
-      },
-      {
-        "internalId": "_pendingBilling",
-        "name": "Pending Billing"
-      },
-      {
-        "internalId": "_fullyBilled",
-        "name": "Fully Billed"
-      },
-      {
-        "internalId": "_closed",
-        "name": "Closed"
-      },
-      {
-        "internalId": "_undefined",
-        "name": "Undefined"
-      }
-    ],
-    "totalRecords": 9
-  },
-  "RevenueStatus": {
-    "options": [
-      {
-        "internalId": "_pending",
-        "name": "Pending"
-      },
-      {
-        "internalId": "_inProgress",
-        "name": "In Progress"
-      },
-      {
-        "internalId": "_completed",
-        "name": "Completed"
-      },
-      {
-        "internalId": "_onRevCommitment",
-        "name": "On Rev Commitment"
-      }
-    ],
-    "totalRecords": 4
-  },
-  "RevenueCommitStatus": {
-    "options": [
-      {
-        "internalId": "_committed",
-        "name": "Committed"
-      },
-      {
-        "internalId": "_partiallyCommitted",
-        "name": "Partially Committed"
-      },
-      {
-        "internalId": "_pendingCommitment",
-        "name": "Pending Commitment"
-      }
-    ],
-    "totalRecords": 3
-  },
-  "AvsMatchCode": {
-    "options": [
-      {
-        "internalId": "_n",
-        "name": "N"
-      },
-      {
-        "internalId": "_x",
-        "name": "X"
-      },
-      {
-        "internalId": "_y",
-        "name": "Y"
-      }
-    ],
-    "totalRecords": 3
-  },
-  "TransactionPaymentEventResult": {
-    "options": [
-      {
-        "internalId": "_accept",
-        "name": "Accept"
-      },
-      {
-        "internalId": "_holdOverride",
-        "name": "Hold Override"
-      },
-      {
-        "internalId": "_paymentHold",
-        "name": "Payment Hold"
-      },
-      {
-        "internalId": "_reject",
-        "name": "Reject"
-      }
-    ],
-    "totalRecords": 4
-  },
-  "TransactionPaymentEventHoldReason": {
-    "options": [
-      {
-        "internalId": "_authorizationDecline",
-        "name": "Authorization Decline"
-      },
-      {
-        "internalId": "_cardExpired",
-        "name": "Card Expired"
-      },
-      {
-        "internalId": "_cardInvalid",
-        "name": "Card Invalid"
-      },
-      {
-        "internalId": "_confirmationOfTheOperationIsPending",
-        "name": "Confirmation Of The Operation Is Pending"
-      },
-      {
-        "internalId": "_externalFraudRejection",
-        "name": "External Fraud Rejection"
-      },
-      {
-        "internalId": "_externalFraudReview",
-        "name": "External Fraud Review"
-      },
-      {
-        "internalId": "_fatalError",
-        "name": "Fatal Error"
-      },
-      {
-        "internalId": "_forwardedToPayerAuthentication",
-        "name": "Forwarded To Payer Authentication"
-      },
-      {
-        "internalId": "_forwardRequested",
-        "name": "Forward Requested"
-      },
-      {
-        "internalId": "_gatewayError",
-        "name": "Gateway Error"
-      },
-      {
-        "internalId": "_generalHold",
-        "name": "General Hold"
-      },
-      {
-        "internalId": "_generalReject",
-        "name": "General Reject"
-      },
-      {
-        "internalId": "_operationWasTerminated",
-        "name": "Operation Was Terminated"
-      },
-      {
-        "internalId": "_overridenBy",
-        "name": "Overriden By"
-      },
-      {
-        "internalId": "_partnerDecline",
-        "name": "Partner Decline"
-      },
-      {
-        "internalId": "_paymentDeviceWasPrimed",
-        "name": "Payment Device Was Primed"
-      },
-      {
-        "internalId": "_systemError",
-        "name": "System Error"
-      },
-      {
-        "internalId": "_verbalAuthorizationRequested",
-        "name": "Verbal Authorization Requested"
-      },
-      {
-        "internalId": "_verificationRejection",
-        "name": "Verification Rejection"
-      },
-      {
-        "internalId": "_verificationRequired",
-        "name": "Verification Required"
-      }
-    ],
-    "totalRecords": 20
-  },
-  "TransactionPaymentEventType": {
-    "options": [
-      {
-        "internalId": "_authorizationRequest",
-        "name": "Authorization Request"
-      },
-      {
-        "internalId": "_captureRequest",
-        "name": "Capture Request"
-      },
-      {
-        "internalId": "_creditRequest",
-        "name": "Credit Request"
-      },
-      {
-        "internalId": "_overrideHold",
-        "name": "Override Hold"
-      },
-      {
-        "internalId": "_refundRequest",
-        "name": "Refund Request"
-      },
-      {
-        "internalId": "_saleRequest",
-        "name": "Sale Request"
-      },
-      {
-        "internalId": "_voidRequest",
-        "name": "Void Request"
-      }
-    ],
-    "totalRecords": 7
-  },
-  "IntercoStatus": {
-    "options": [
-      {
-        "internalId": "_paired",
-        "name": "Paired"
-      },
-      {
-        "internalId": "_pending",
-        "name": "Pending"
-      },
-      {
-        "internalId": "_rejected",
-        "name": "Rejected"
-      }
-    ],
-    "totalRecords": 3
-  },
-  "SalesOrderItemCommitInventory": {
-    "options": [
-      {
-        "internalId": "_availableQty",
-        "name": "Available Qty"
-      },
-      {
-        "internalId": "_completeQty",
-        "name": "Complete Qty"
-      },
-      {
-        "internalId": "_doNotCommit",
-        "name": "Do Not Commit"
-      }
-    ],
-    "totalRecords": 3
-  },
-  "SalesOrderItemCreatePo": {
-    "options": [
-      {
-        "internalId": "_dropShipment",
-        "name": "Drop Shipment"
-      },
-      {
-        "internalId": "_specialOrder",
-        "name": "Special Order"
-      }
-    ],
-    "totalRecords": 2
-  },
-  "SalesOrderItemFulfillmentChoice": {
-    "options": [
-      {
-        "internalId": "_ship",
-        "name": "Ship"
-      },
-      {
-        "internalId": "_storePickup",
-        "name": "Store Pickup"
-      }
-    ],
-    "totalRecords": 2
+    "totalRecords": 25
   },
   "ItemFulfillmentShipStatus": {
     "options": [
@@ -6103,51 +5570,19 @@
   "ItemFulfillmentTermsOfSaleFedEx": {
     "options": [
       {
-        "internalId": "_cfr",
-        "name": "Cfr"
+        "internalId": "_fob",
+        "name": "Fob"
+      },
+      {
+        "internalId": "_cf",
+        "name": "Cf"
       },
       {
         "internalId": "_cif",
         "name": "Cif"
-      },
-      {
-        "internalId": "_cip",
-        "name": "Cip"
-      },
-      {
-        "internalId": "_cpt",
-        "name": "Cpt"
-      },
-      {
-        "internalId": "_dap",
-        "name": "Dap"
-      },
-      {
-        "internalId": "_dat",
-        "name": "Dat"
-      },
-      {
-        "internalId": "_ddp",
-        "name": "Ddp"
-      },
-      {
-        "internalId": "_ddu",
-        "name": "Ddu"
-      },
-      {
-        "internalId": "_exw",
-        "name": "Exw"
-      },
-      {
-        "internalId": "_fca",
-        "name": "Fca"
-      },
-      {
-        "internalId": "_fob",
-        "name": "Fob"
       }
     ],
-    "totalRecords": 11
+    "totalRecords": 3
   },
   "ItemFulfillmentAncillaryEndorsementFedEx": {
     "options": [
@@ -6861,6 +6296,19 @@
     ],
     "totalRecords": 3
   },
+  "WorkOrderItemItemCreatePo": {
+    "options": [
+      {
+        "internalId": "_dropShipment",
+        "name": "Drop Shipment"
+      },
+      {
+        "internalId": "_specialOrder",
+        "name": "Special Order"
+      }
+    ],
+    "totalRecords": 2
+  },
   "WorkOrderSchedulingMethod": {
     "options": [
       {
@@ -7405,43 +6853,6 @@
       }
     ],
     "totalRecords": 4
-  },
-  "CampaignResponseResponse": {
-    "options": [
-      {
-        "internalId": "_bounced",
-        "name": "Bounced"
-      },
-      {
-        "internalId": "_clickedThru",
-        "name": "Clicked Thru"
-      },
-      {
-        "internalId": "_purchased",
-        "name": "Purchased"
-      },
-      {
-        "internalId": "_received",
-        "name": "Received"
-      },
-      {
-        "internalId": "_responded",
-        "name": "Responded"
-      },
-      {
-        "internalId": "_sent",
-        "name": "Sent"
-      },
-      {
-        "internalId": "_subscribed",
-        "name": "Subscribed"
-      },
-      {
-        "internalId": "_unsubscribed",
-        "name": "Unsubscribed"
-      }
-    ],
-    "totalRecords": 8
   },
   "PromotionCodeUseType": {
     "options": [

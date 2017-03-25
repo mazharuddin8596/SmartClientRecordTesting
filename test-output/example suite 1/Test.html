@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>3/3/0</td>
 </tr><tr>
-<td>Started on:</td><td>Mon Jan 23 22:10:09 IST 2017</td>
+<td>Started on:</td><td>Sat Mar 25 17:02:23 IST 2017</td>
 </tr>
-<tr><td>Total time:</td><td>40 seconds (40717 ms)</td>
+<tr><td>Total time:</td><td>277 seconds (277634 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -75,23 +75,17 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='WebDriverTest.ContactRecord.f()'><b>f</b><br>Test class: WebDriverTest.ContactRecord</td>
-<td><div><pre>java.lang.IndexOutOfBoundsException: Index: 2, Size: 2
-	at java.util.ArrayList.rangeCheck(ArrayList.java:653)
-	at java.util.ArrayList.get(ArrayList.java:429)
-	at Util.Login.officeLogin(Login.java:139)
-	at WebDriverTest.ContactRecord.f(ContactRecord.java:47)
-... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace764419760", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace764419760'><pre>java.lang.IndexOutOfBoundsException: Index: 2, Size: 2
-	at java.util.ArrayList.rangeCheck(ArrayList.java:653)
-	at java.util.ArrayList.get(ArrayList.java:429)
-	at Util.Login.officeLogin(Login.java:139)
-	at WebDriverTest.ContactRecord.f(ContactRecord.java:47)
+<td title='WebDriverTest.RecordTesting.deleteOperation()'><b>deleteOperation</b><br>Test class: WebDriverTest.RecordTesting</td>
+<td><div><pre>java.lang.NullPointerException
+	at WebDriverTest.RecordTesting.deleteOperation(RecordTesting.java:268)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1234905692", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1234905692'><pre>java.lang.NullPointerException
+	at WebDriverTest.RecordTesting.deleteOperation(RecordTesting.java:268)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:497)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
 	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
 	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
 	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
@@ -105,15 +99,110 @@ function toggleAllBoxes() {
 	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
 	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
 	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1198)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1123)
-	at org.testng.TestNG.run(TestNG.java:1031)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
 	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:115)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:207)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:178)
 </pre></div></td>
-<td>40</td>
-<td>WebDriverTest.ContactRecord@6bdf28bb</td></tr>
+<td>12</td>
+<td>WebDriverTest.RecordTesting@2812cbfa</td></tr>
+<tr>
+<td title='WebDriverTest.RecordTesting.insertOperation()'><b>insertOperation</b><br>Test class: WebDriverTest.RecordTesting</td>
+<td><div><pre>java.lang.NullPointerException
+	at WebDriverTest.RecordTesting.loadTemplateAndPerformDataOperation(RecordTesting.java:120)
+	at WebDriverTest.RecordTesting.insertOperation(RecordTesting.java:217)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace254918854", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace254918854'><pre>java.lang.NullPointerException
+	at WebDriverTest.RecordTesting.loadTemplateAndPerformDataOperation(RecordTesting.java:120)
+	at WebDriverTest.RecordTesting.insertOperation(RecordTesting.java:217)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:207)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:178)
+</pre></div></td>
+<td>13</td>
+<td>WebDriverTest.RecordTesting@2812cbfa</td></tr>
+<tr>
+<td title='WebDriverTest.RecordTesting.updateOperation()'><b>updateOperation</b><br>Test class: WebDriverTest.RecordTesting</td>
+<td><div><pre>java.lang.NullPointerException
+	at WebDriverTest.RecordTesting.loadTemplateAndPerformDataOperation(RecordTesting.java:120)
+	at WebDriverTest.RecordTesting.updateOperation(RecordTesting.java:235)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace626393072", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace626393072'><pre>java.lang.NullPointerException
+	at WebDriverTest.RecordTesting.loadTemplateAndPerformDataOperation(RecordTesting.java:120)
+	at WebDriverTest.RecordTesting.updateOperation(RecordTesting.java:235)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:207)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:178)
+</pre></div></td>
+<td>13</td>
+<td>WebDriverTest.RecordTesting@2812cbfa</td></tr>
+</table><p>
+<table width='100%' border='1' class='invocation-passed'>
+<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='WebDriverTest.RecordTesting.deleteOperation()'><b>deleteOperation</b><br>Test class: WebDriverTest.RecordTesting</td>
+<td></td>
+<td>24</td>
+<td>WebDriverTest.RecordTesting@2acf57e3</td></tr>
+<tr>
+<td title='WebDriverTest.RecordTesting.insertOperation()'><b>insertOperation</b><br>Test class: WebDriverTest.RecordTesting</td>
+<td></td>
+<td>110</td>
+<td>WebDriverTest.RecordTesting@2acf57e3</td></tr>
+<tr>
+<td title='WebDriverTest.RecordTesting.updateOperation()'><b>updateOperation</b><br>Test class: WebDriverTest.RecordTesting</td>
+<td></td>
+<td>102</td>
+<td>WebDriverTest.RecordTesting@2acf57e3</td></tr>
 </table><p>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,6 +15,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -21,6 +23,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -35,6 +39,7 @@ import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
 import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
 
 public class CommonLibrary {
 
@@ -186,7 +191,7 @@ public class CommonLibrary {
 			System.out.println(driver.getTitle());
 			if (driver.getTitle().contains("OneDrive"))
 			{
-				System.out.println(driver.getTitle());
+				//System.out.println(driver.getTitle());
 			} else
 				driver.switchTo().defaultContent();
 		}
@@ -303,14 +308,25 @@ public class CommonLibrary {
 		Thread.sleep(1000);
 		// *[@id="m_excelWebRenderer_ewaCtl_msospAFrameContainer"]/div[4]
 		checkSheetReady();
-
-		if (!driver.findElement(By.cssSelector("div.ewa-background-ready")).isDisplayed())
+		for (int l = 0; l < 4; l++)
 		{
-			Thread.sleep(1000);
+			if (!driver.findElement(By.cssSelector("div.ewa-background-ready")).isDisplayed())
+			{
+				Thread.sleep(2000);
+			}
 		}
-		List<WebElement> sheetList = driver.findElements(By
-				.cssSelector("table.ewr-grdcontarea-ltr  tbody tr td"));
-		sheetList.get(2).click();
+		try
+		{
+			List<WebElement> sheetList = driver.findElements(By
+					.cssSelector("table.ewr-grdcontarea-ltr  tbody tr td"));
+			sheetList.get(2).click();
+		} catch (org.openqa.selenium.WebDriverException e)
+		{
+			Thread.sleep(2000);
+			List<WebElement> sheetList = driver.findElements(By
+					.cssSelector("table.ewr-grdcontarea-ltr  tbody tr td"));
+			sheetList.get(2).click();
+		}
 		Thread.sleep(300);
 		press.pressKey(Keys.DOWN);
 		Thread.sleep(800);
@@ -354,29 +370,44 @@ public class CommonLibrary {
 
 	public void deleteSheet() throws Exception
 	{
-		String sheet = HttpLibrary.sheetName();
-		System.out.println("Deleting sheet named : " + sheet);
-		System.out.println("added new sheet named : " + HttpLibrary.addSheet());
-		HttpLibrary.restDelete(getAccessToken(), sheet);
+		String oldsheet = HttpLibrary.sheetName();
+		System.out.println("Deleting sheet named : " + oldsheet);
+		/*
+		 * if(oldsheet.split("\\,").length > 1){ String [] s =
+		 * oldsheet.split("\\,"); for(int j=0;j<s.length-1;j++){
+		 * HttpLibrary.restDelete(getAccessToken(), s[j]);}
+		 * 
+		 * 
+		 * }
+		 */
+		sheet = HttpLibrary.addSheet();
+		Thread.sleep(2000);
+		System.out.println("added new sheet named : " + sheet);
+		HttpLibrary.restDelete(getAccessToken(), oldsheet);
 		HttpLibrary.sheetName();
 		setSheet(sheet);
 	}
 
 	public void loadTemplate(String name) throws InterruptedException
 	{
+		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("input[ng-model='searchString']")).sendKeys(name);
+		Thread.sleep(1000);
 		List<WebElement> Template_List = driver.findElements(By.cssSelector("div.section ul li"));
 
 		for (WebElement we : Template_List)
 		{
+			// System.out.println(we.getText());
 			if (we.getText().contains(name))
 			{
-				System.out.println("Clicking on" + we.getText());
+				System.out.println("Clicking on " + we.getText());
 				Thread.sleep(1500);
 				we.findElement(By.cssSelector("a[title='Load template']")).click();
 				break;
 			}
 		}
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div#confirmationPopup button#accept")).click();
 	}
 
 	public static String remSpecialCharacters(String temp)
@@ -391,6 +422,15 @@ public class CommonLibrary {
 
 		}
 		return temp;
+	}
+
+	public String appendIdToUpdateTemplateValues(String idata, int id)
+	{
+		int dot1 = idata.indexOf(",");
+		int dot2 = idata.indexOf(",", dot1 + 1);
+		System.out.println(dot1 + " : " + dot2);
+		String substr = "," + id + "," + idata.substring(dot2 + 1, idata.length());
+		return substr;
 	}
 
 	public void insertDataIntoTemplate(String data) throws InterruptedException
@@ -441,6 +481,7 @@ public class CommonLibrary {
 
 	public void clickOn(App on) throws InterruptedException
 	{
+		Thread.sleep(1500);
 		List<WebElement> appMenu = driver.findElements(By.cssSelector("div.menuContent ul li"));
 		List<WebElement> middleButtons = driver.findElements(By.cssSelector("div.msgBox"));
 		List<WebElement> checkboxes = driver.findElements(By.cssSelector("div.checkbox"));
@@ -449,6 +490,7 @@ public class CommonLibrary {
 		{
 			case InsertAllRows :
 				appMenu.get(1).click();
+				Thread.sleep(500);
 				System.out.println("insert checkbox selected ? " + checkboxes.get(2).isSelected());
 				if (!checkboxes.get(2).isSelected())
 				{
@@ -461,6 +503,7 @@ public class CommonLibrary {
 				break;
 			case DeleteAllRows :
 				appMenu.get(2).click();
+				Thread.sleep(500);
 				if (!checkboxes.get(3).isSelected())
 				{
 					checkboxes.get(3).click();
@@ -472,11 +515,20 @@ public class CommonLibrary {
 				break;
 			case RefreshSelectedRows :
 				appMenu.get(3).click();
-				middleButtons.get(2).findElement(By.cssSelector("div.button-box a")).click();
+				Thread.sleep(1000);
+				if (checkboxes.get(4).isSelected())
+				{
+					checkboxes.get(4).click();
+				} else
+				{
+					System.out.println("already checkbox is unchecked");
+				}
+				middleButtons.get(3).findElement(By.cssSelector("div.button-box a")).click();
 				Thread.sleep(1500);
 				break;
 			case DownloadWithFilter :
 				appMenu.get(0).click();
+				Thread.sleep(500);
 				if (!checkboxes.get(1).isSelected())
 				{
 					checkboxes.get(1).click();
@@ -513,6 +565,13 @@ public class CommonLibrary {
 			case RefreshAllRows :
 				appMenu.get(3).click();
 				Thread.sleep(1000);
+				if (!checkboxes.get(4).isSelected())
+				{
+					checkboxes.get(4).click();
+				} else
+				{
+					System.out.println("already checkbox is checked");
+				}
 				middleButtons.get(3).findElement(By.cssSelector("div.button-box a")).click();
 				break;
 			case DownloadWithoutFilter :
@@ -592,35 +651,38 @@ public class CommonLibrary {
 		return head;
 	}
 
-	/*
-	 * public void setHeaderData(String head) throws Exception {
-	 * 
-	 * setHeader((HashMap<String, String>) HttpLibrary.setFieldsFormat(head));
-	 * 
-	 * }
-	 */
-
 	public void waitUntilLoadingEnds() throws InterruptedException
 	{
-		/*
-		 * for (int i = 0; i < 9; i++) { //
-		 * System.out.println("waiting for Loading to go"); WebElement loading =
-		 * driver.findElement(By.cssSelector("div#loadingDiv")); if
-		 * (loading.getAttribute("aria-hidden").equals("false")) {
-		 * Thread.sleep(5000); } else { break; }
-		 * 
-		 * }
-		 */
-		WebElement loading = driver.findElement(By.cssSelector("div#loadingDiv"));
-		System.out.println(loading.getAttribute("aria-hidden"));
-		while (loading.getAttribute("aria-hidden").equals("false"))
+		try
 		{
-			loading = driver.findElement(By.cssSelector("div#loadingDiv"));
+			WebElement loading = driver.findElement(By.cssSelector("div#loadingDiv"));
+			System.out.println(loading.getAttribute("aria-hidden"));
+			while (loading.getAttribute("aria-hidden").equals("false"))
+			{
+				loading = driver.findElement(By.cssSelector("div#loadingDiv"));
+			}
+		} catch (NoSuchElementException e)
+		{
+			System.out.println("no loading");
 		}
+	}
+
+	public static String capture(WebDriver driver, String screenShotName) throws IOException
+	{
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		File source = ts.getScreenshotAs(OutputType.FILE);
+		String dest = System.getProperty("user.dir") + "\\ErrorScreenshots\\" + screenShotName
+				+ ".png";
+		File destination = new File(dest);
+		FileUtils.copyFile(source, destination);
+
+		return dest;
 	}
 
 	public Map<String, String> rowData(int i) throws Exception
 	{
+		System.out.println("Waiting for Excel sheet to get latest data");
+		Thread.sleep(20000);
 		System.out.println("setting Row data");
 		String str = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")
 				+ "//src//test//resources//enums.json")));
@@ -629,10 +691,9 @@ public class CommonLibrary {
 		// Country..[?(@.internalId == "_angola")].name
 		Object enums = Configuration.defaultConfiguration().jsonProvider()
 				.parse(enumsJson.toString());
-
 		HashMap<String, String> header = getHeader();
 		ArrayList<String> head = templateHeader(getHeader());
-
+		// Thread.sleep(3000);
 		String[] rowData = HttpLibrary.getRowAtIndex(i);
 
 		for (int k = 0; k < 9; k++)
@@ -642,7 +703,7 @@ public class CommonLibrary {
 				System.out.println(rowData[0] + ":" + rowData[1]);
 				if (rowData[0].equals("") && rowData[1].equals(""))
 				{
-					Thread.sleep(3000);
+					Thread.sleep(5000);
 					rowData = HttpLibrary.getRowAtIndex(i);
 					System.out.println("Row" + " : " + Arrays.toString(rowData));
 				} else
@@ -654,31 +715,40 @@ public class CommonLibrary {
 				rowData = HttpLibrary.getRowAtIndex(i);
 			}
 		}
+		System.out.println(Arrays.toString(rowData));
+
 		for (int j = 0; j < header.size(); j++)
 		{
 			if (header.get(head.get(j)).equals("enum"))
 			{
+				System.out.println("enum feild found in header");
+				System.out.println(head.get(j));
 				if (rowData[j].startsWith("_"))
 				{
+					System.out.println("enum field: " + head.get(j));
 					// rowData.add(j, element)
-					System.out.println("got enum fields :" + rowData[j]);
+					String[] data = head.get(j).toString().split("\\.");
+					String enumField = data[data.length - 1];
+					System.out.println(enumField);
+					System.out.println("got enum data :" + rowData[j]);
+					// Country..[?(@.internalId == "_angola")].name
+					String q = enumField + "..[?(@.internalId == \"" + rowData[j] + "\")].name";
+					q = q.substring(0, 1).toUpperCase() + q.substring(1);
+					System.out.println("query : " + q);
+					String temp = remSpecialCharacters(JsonPath.read(enums, q).toString());
+					System.out.println("updated enum value from " + rowData[j] + " to " + temp);
+					// System.out.println("got enum data :" + rowData[j]);
+					rowData[j] = temp;
+					System.out.println("after changing enum data :" + rowData[j]);
 				}
 			}
 		}
-		/*
-		 * Map<String, String> fromExcel =
-		 * HttpLibrary.mapHeaderWithRowData(head, rowData); for (int k = 0; k <
-		 * 4; k++) { if (fromExcel.get(head.get(0)).equals("") &&
-		 * fromExcel.get(head.get(1)).equals("")) {
-		 * 
-		 * Thread.sleep(1500); fromExcel = rowData(i); // fromExcel =
-		 * HttpLibrary.mapHeaderWithRowData(head, rowData); } else { break; } }
-		 */
 		Map<String, String> fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
-
-		String s = Arrays.toString(rowData).replace(" =T(N(\\", "");
-		s = s.replace("\\))", "");
-		System.out.println("formula : " + s.toString());
+		CommonLibrary.report = new ExtentReports(System.getProperty("user.dir")
+				+ "\\Reports\\RecordTesting.html");
+		// have to change this and should pass logger as parameter
+		ExtentTest logger = CommonLibrary.report.startTest("Inserting Contact");
+		HttpLibrary.printCurrentDataValues(fromExcel, logger);
 
 		return fromExcel;
 	}
@@ -692,7 +762,7 @@ public class CommonLibrary {
 			String s = fromExcel.get(".internalId").trim();
 			s = remSpecialCharacters(s);
 			int i = Integer.parseInt(s);
-			System.out.println("i: " + i);
+			// System.out.println("i: " + i);
 			return i;
 		} catch (NullPointerException e)
 		{
@@ -700,103 +770,110 @@ public class CommonLibrary {
 		}
 	}
 	// Map<String, String>
-	@SuppressWarnings("null")
 	public Map<String, String> getFromNs(String recType, int id) throws IOException, ParseException
 	{
+		Map<String, String> fromNS = null;
 		StringBuilder rl = HttpLibrary.doGET(recType, id);
-		JSONArray nsData = new JSONArray(rl.toString());
-		org.json.JSONObject json = nsData.getJSONObject(0);
-		// System.out.println(json.toString());
 
-		// parsing JSON Response
-		Configuration conf = Configuration.defaultConfiguration();
-
-		Object document = conf.jsonProvider().parse(json.toString());
-		// !! important System.out.println(JsonPath.read(document,
-		// "$..addressbook[0].addressbookaddress.addressee").toString());
-		ArrayList<String> head = templateHeader(CommonLibrary.getHeader());
-		ArrayList<String> res = new ArrayList<String>();
-		res.add(0, "");
-		System.out.println("NS Object: " + document.toString());
-		// Print values from Ns JSON response
-		for (int j = 1; j < head.size(); j++)
+		if (!rl.toString().equals("[]"))
 		{
-			System.out.println("head value: " + head.get(j).toString());
-			System.out.println("header " + header.get(head.get(j)));
-			String[] data = head.get(j).toString().split("\\.");
-			String value = "";
-			String Query = "";
-			if (data.length > 2)
+
+			JSONArray nsData = new JSONArray(rl.toString());
+			org.json.JSONObject json = nsData.getJSONObject(0);
+			// System.out.println(json.toString());
+
+			// parsing JSON Response
+			Configuration conf = Configuration.defaultConfiguration();
+
+			Object document = conf.jsonProvider().parse(json.toString());
+			// !! important System.out.println(JsonPath.read(document,
+			// "$..addressbook[0].addressbookaddress.addressee").toString());
+			ArrayList<String> head = templateHeader(CommonLibrary.getHeader());
+			ArrayList<String> res = new ArrayList<String>();
+			res.add(0, "");
+			// System.out.println("NS Object: " + document.toString());
+			// Print values from Ns JSON response
+			for (int j = 1; j < head.size(); j++)
 			{
-				Query = generateJaywayQueryString(data, header.get(head.get(j))).toLowerCase();
-			} else
-			{
-				Query = head.get(j).toLowerCase();
-			}
-			try
-			{
-				if (Query.contains("internalid"))
+				// System.out.println("head value: " + head.get(j).toString());
+				// System.out.println("header " + header.get(head.get(j)));
+				String[] data = head.get(j).toString().split("\\.");
+				String value = "";
+				String Query = "";
+				if (data.length > 2)
 				{
-					Query = Query.replaceAll("internalid", "id");
-					if (Query.contains("addressbookaddress"))
-					{
-						res.add(j, "");
-					} else
-					{
-						value = remSpecialCharacters(JsonPath.read(document, "$" + Query)
-								.toString());
-						res.add(j, value);
-					}
-					System.out.println(value);
+					Query = generateJaywayQueryString(data, header.get(head.get(j))).toLowerCase();
 				} else
 				{
-					if (header.get(head.get(j)).equals("select"))
+					Query = head.get(j).toLowerCase();
+				}
+				try
+				{
+					if (Query.contains("internalid"))
 					{
-						value = remSpecialCharacters(JsonPath.read(document, "$" + Query + ".name")
-								.toString());
-						res.add(j, value);
-					} else if (header.get(head.get(j)).equals("enum"))
-					{
-						String s = remSpecialCharacters(JsonPath.read(document, "$" + Query
-								+ ".name").toString());
-						res.add(j, value);
+						Query = Query.replaceAll("internalid", "id");
+						if (Query.contains("addressbookaddress"))
+						{
+							res.add(j, "");
+						} else
+						{
+							value = remSpecialCharacters(JsonPath.read(document, "$" + Query)
+									.toString());
+							res.add(j, value);
+						}
+						// System.out.println(value);
 					} else
 					{
-						value = remSpecialCharacters(JsonPath.read(document, "$" + Query)
-								.toString());
-						res.add(j, value);
+						if (header.get(head.get(j)).equals("select"))
+						{
+							value = remSpecialCharacters(JsonPath.read(document, "$" + Query
+									+ ".name").toString());
+							res.add(j, value);
+						} else if (header.get(head.get(j)).equals("enum"))
+						{
+							value = remSpecialCharacters(JsonPath.read(document, "$" + Query
+									+ ".name").toString());
+							res.add(j, value);
+						} else
+						{
+							value = remSpecialCharacters(JsonPath.read(document, "$" + Query)
+									.toString());
+							res.add(j, value);
+						}
+
+						// System.out.println(value);
 					}
+				} catch (PathNotFoundException e)
+				{
 
-					System.out.println(value);
+					res.add(j, "");
+					// System.out.println(value);
 				}
-			} catch (PathNotFoundException e)
-			{
-
-				res.add(j, "");
-				System.out.println(value);
 			}
-		}
-		System.out.println("From NS: " + res);
-		String[] values = new String[res.size()];
+			System.out.println("From NS: " + res);
+			String[] values = new String[res.size()];
 
-		System.out.println(res.size());
-		for (int j = 0; j < res.size(); j++)
-		{
-			System.out.println(res.get(j));
-			if (res.get(j).equals("") || res.get(j) == null)
+			System.out.println(res.size());
+			for (int j = 0; j < res.size(); j++)
 			{
-				values[j] = "";
-			} else
-			{
-				values[j] = remSpecialCharacters(res.get(j));
+				System.out.println(res.get(j));
+				if (res.get(j).equals("") || res.get(j) == null)
+				{
+					values[j] = "";
+				} else
+				{
+					values[j] = remSpecialCharacters(res.get(j));
+				}
+
 			}
 
-		}
+			// Mapping header and row values as <Key,Value>
+			fromNS = HttpLibrary.mapHeaderWithRowData(head, values);
 
-		// Mapping header and row values as <Key,Value>
-		Map<String, String> fromNS = HttpLibrary.mapHeaderWithRowData(head, values);
+		}
 
 		return fromNS;
+
 	}
 	/*
 	 * public static String remExtraCharacters(String s) { if
@@ -815,20 +892,20 @@ public class CommonLibrary {
 			return true;
 		if (leftMap == null || rightMap == null || leftMap.size() != rightMap.size())
 			return false;
-		System.out.println("printing keyset" + leftMap.keySet());
+		// System.out.println("printing keyset" + leftMap.keySet());
+		System.out.println("Comparing sheet data with NS data");
 		for (String key : leftMap.keySet())
 		{
 			if (!key.equals(s))
 			{
 				String value1 = leftMap.get(key);
 				String value2 = rightMap.get(key);
-				System.out.println("Value1 " + value1);
-				System.out.println("Value2 " + value2);
+				System.out.println(value1 + " = " + value2);
 				if (value1 == null && value2 == null)
 					continue;
 				else if (value1 == null || value2 == null)
 					return false;
-				if (!value1.equals(value2))
+				if (!value1.equalsIgnoreCase(value2))
 				{
 					System.out.println(value1 + "is not equal to " + value2);
 					return false;

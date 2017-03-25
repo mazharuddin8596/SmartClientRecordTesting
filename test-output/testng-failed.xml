@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [Default suite]">
-  <test name="Default test(failed)">
+<suite name="Failed suite [example suite 1]">
+  <test name="Test(failed)">
     <classes>
-      <class name="WebDriverTest.ContactRecord">
+      <class name="WebDriverTest.RecordTesting">
         <methods>
+          <include name="tearDown"/>
+          <include name="updateOperation"/>
           <include name="InitialSetup"/>
-          <include name="insertContact"/>
+          <include name="insertOperation"/>
+          <include name="deleteOperation"/>
         </methods>
-      </class> <!-- WebDriverTest.ContactRecord -->
+      </class> <!-- WebDriverTest.RecordTesting -->
     </classes>
-  </test> <!-- Default test(failed) -->
-</suite> <!-- Failed suite [Default suite] -->
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [example suite 1] -->
