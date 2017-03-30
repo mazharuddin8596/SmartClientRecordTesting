@@ -6,6 +6,7 @@
 		<classes>
 			<!-- <class name="WebDriverTest.RecordTesting" /> -->
 			 <class name="util.RecordFactory"/>
+			<!--  <class name="util.SampleFactory"/> -->
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

@@ -26,9 +26,9 @@ public class RecordFactory {
 	{
 		Object[][] dataArray = {
 				{"contact", "Add Contacts 17", temp.getProperty("contactTemplate"),
-						temp.getProperty("contactInsert"), temp.getProperty("contactUpdate")},
-				{"customer", "Customer 17", temp.getProperty("customerTemplate"),
-						temp.getProperty("customerInsert"), temp.getProperty("customerUpdate")}};
+						temp.getProperty("contactInsert"), temp.getProperty("contactUpdate")}
+			,{"customer", "Customer 17", temp.getProperty("customerTemplate"),temp.getProperty("customerInsert"), temp.getProperty("customerUpdate")}
+						};
 		return dataArray;
 	}
 }

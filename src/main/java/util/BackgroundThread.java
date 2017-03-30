@@ -1,22 +1,11 @@
 package util;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.NoSuchElementException;
-
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 
 public class BackgroundThread implements Runnable {
 	WebDriver driver;
 	CommonLibrary lib = new CommonLibrary();
-	ExtentTest logger;
+	com.aventstack.extentreports.ExtentTest logger;
 	public BackgroundThread(WebDriver driver)
 	{
 		this.driver = driver;

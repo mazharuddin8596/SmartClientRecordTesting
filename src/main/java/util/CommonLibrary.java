@@ -33,13 +33,13 @@ import org.openqa.selenium.interactions.HasInputDevices;
 import org.openqa.selenium.interactions.Keyboard;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
+import org.testng.Assert;
 
+import com.aventstack.extentreports.ExtentTest;
 import com.google.common.base.Function;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
 
 public class CommonLibrary {
 
@@ -47,7 +47,7 @@ public class CommonLibrary {
 	public Properties data;
 	public Properties template;
 	public static WebDriver driver;
-	public static ExtentReports report;
+	// public static ExtentReports report;
 	public static AccessToken accessToken;
 	public static String workbookId = "01JNEAOJ6ZBLZDDYTT2FBZN66OLHFVYJNU";
 	public static String sheet;
@@ -191,7 +191,7 @@ public class CommonLibrary {
 			System.out.println(driver.getTitle());
 			if (driver.getTitle().contains("OneDrive"))
 			{
-				//System.out.println(driver.getTitle());
+				// System.out.println(driver.getTitle());
 			} else
 				driver.switchTo().defaultContent();
 		}
@@ -224,12 +224,23 @@ public class CommonLibrary {
 		Thread.sleep(2000);
 	}
 
-	public void switchToApp()
+	public void switchToApp() throws InterruptedException
 	{
 		// System.out.println("switching to App " + driver);
 		WebElement appFrame = driver.findElement(By
 				.cssSelector("iframe[title='SmartClient Staging App']"));
 		driver.switchTo().frame(appFrame);
+		try
+		{
+			driver.findElement(By.cssSelector("body[ng-app='SmartClient']"));
+		} catch (Exception e)
+		{
+			driver.navigate().refresh();
+			switchIntoSheet();
+			appFrame = driver
+					.findElement(By.cssSelector("iframe[title='SmartClient Staging App']"));
+			driver.switchTo().frame(appFrame);
+		}
 		System.out.println("Switched to app iframe");
 	}
 
@@ -408,6 +419,7 @@ public class CommonLibrary {
 		}
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div#confirmationPopup button#accept")).click();
+		Thread.sleep(1000);
 	}
 
 	public static String remSpecialCharacters(String temp)
@@ -481,117 +493,124 @@ public class CommonLibrary {
 
 	public void clickOn(App on) throws InterruptedException
 	{
-		Thread.sleep(1500);
-		List<WebElement> appMenu = driver.findElements(By.cssSelector("div.menuContent ul li"));
-		List<WebElement> middleButtons = driver.findElements(By.cssSelector("div.msgBox"));
-		List<WebElement> checkboxes = driver.findElements(By.cssSelector("div.checkbox"));
-
-		switch (on)
+		try
 		{
-			case InsertAllRows :
-				appMenu.get(1).click();
-				Thread.sleep(500);
-				System.out.println("insert checkbox selected ? " + checkboxes.get(2).isSelected());
-				if (!checkboxes.get(2).isSelected())
-				{
-					checkboxes.get(2).click();
-				} else
-				{
-					System.out.println("already checkbox is checked");
-				}
-				middleButtons.get(1).findElement(By.cssSelector("div.button-box a")).click();
-				break;
-			case DeleteAllRows :
-				appMenu.get(2).click();
-				Thread.sleep(500);
-				if (!checkboxes.get(3).isSelected())
-				{
-					checkboxes.get(3).click();
-				} else
-				{
-					System.out.println("already checkbox is checked");
-				}
-				middleButtons.get(2).findElement(By.cssSelector("div.button-box a")).click();
-				break;
-			case RefreshSelectedRows :
-				appMenu.get(3).click();
-				Thread.sleep(1000);
-				if (checkboxes.get(4).isSelected())
-				{
-					checkboxes.get(4).click();
-				} else
-				{
-					System.out.println("already checkbox is unchecked");
-				}
-				middleButtons.get(3).findElement(By.cssSelector("div.button-box a")).click();
-				Thread.sleep(1500);
-				break;
-			case DownloadWithFilter :
-				appMenu.get(0).click();
-				Thread.sleep(500);
-				if (!checkboxes.get(1).isSelected())
-				{
-					checkboxes.get(1).click();
-				} else
-				{
-					System.out.println("already checkbox is checked");
-				}
-				middleButtons.get(0).findElement(By.cssSelector("div.button-box a")).click();
-				break;
-			case InsertSelectedRows :
-				appMenu.get(1).click();
-				Thread.sleep(1000);
-				if (checkboxes.get(2).isSelected())
-				{
-					checkboxes.get(2).click();
-				} else
-				{
-					System.out.println("already checkbox is unchecked");
-				}
-				middleButtons.get(1).findElement(By.cssSelector("div.button-box a")).click();
-				break;
-			case DeleteSelectedRows :
-				appMenu.get(2).click();
-				Thread.sleep(1000);
-				if (checkboxes.get(3).isSelected())
-				{
-					checkboxes.get(3).click();
-				} else
-				{
-					System.out.println("already checkbox is unchecked");
-				}
-				middleButtons.get(2).findElement(By.cssSelector("div.button-box a")).click();
-				break;
-			case RefreshAllRows :
-				appMenu.get(3).click();
-				Thread.sleep(1000);
-				if (!checkboxes.get(4).isSelected())
-				{
-					checkboxes.get(4).click();
-				} else
-				{
-					System.out.println("already checkbox is checked");
-				}
-				middleButtons.get(3).findElement(By.cssSelector("div.button-box a")).click();
-				break;
-			case DownloadWithoutFilter :
-				appMenu.get(0).click();
-				Thread.sleep(1000);
-				if (checkboxes.get(1).isSelected())
-				{
-					checkboxes.get(1).click();
-				} else
-				{
-					System.out.println("already checkbox is unchecked");
-				}
-				middleButtons.get(0).findElement(By.cssSelector("div.button-box a")).click();
-				break;
-			default :
-				System.out.println("Invalid input");
+			Thread.sleep(1500);
+			List<WebElement> appMenu = driver.findElements(By.cssSelector("div.menuContent ul li"));
+			List<WebElement> middleButtons = driver.findElements(By.cssSelector("div.msgBox"));
+			List<WebElement> checkboxes = driver.findElements(By.cssSelector("div.checkbox"));
+
+			switch (on)
+			{
+				case InsertAllRows :
+					appMenu.get(1).click();
+					Thread.sleep(500);
+					System.out.println("insert checkbox selected ? "
+							+ checkboxes.get(2).isSelected());
+					if (!checkboxes.get(2).isSelected())
+					{
+						checkboxes.get(2).click();
+					} else
+					{
+						System.out.println("already checkbox is checked");
+					}
+					middleButtons.get(1).findElement(By.cssSelector("div.button-box a")).click();
+					break;
+				case DeleteAllRows :
+					appMenu.get(2).click();
+					Thread.sleep(500);
+					if (!checkboxes.get(3).isSelected())
+					{
+						checkboxes.get(3).click();
+					} else
+					{
+						System.out.println("already checkbox is checked");
+					}
+					middleButtons.get(2).findElement(By.cssSelector("div.button-box a")).click();
+					break;
+				case RefreshSelectedRows :
+					appMenu.get(3).click();
+					Thread.sleep(1000);
+					if (checkboxes.get(4).isSelected())
+					{
+						checkboxes.get(4).click();
+					} else
+					{
+						System.out.println("already checkbox is unchecked");
+					}
+					middleButtons.get(3).findElement(By.cssSelector("div.button-box a")).click();
+					Thread.sleep(1500);
+					break;
+				case DownloadWithFilter :
+					appMenu.get(0).click();
+					Thread.sleep(500);
+					if (!checkboxes.get(1).isSelected())
+					{
+						checkboxes.get(1).click();
+					} else
+					{
+						System.out.println("already checkbox is checked");
+					}
+					middleButtons.get(0).findElement(By.cssSelector("div.button-box a")).click();
+					break;
+				case InsertSelectedRows :
+					appMenu.get(1).click();
+					Thread.sleep(1000);
+					if (checkboxes.get(2).isSelected())
+					{
+						checkboxes.get(2).click();
+					} else
+					{
+						System.out.println("already checkbox is unchecked");
+					}
+					middleButtons.get(1).findElement(By.cssSelector("div.button-box a")).click();
+					break;
+				case DeleteSelectedRows :
+					appMenu.get(2).click();
+					Thread.sleep(1000);
+					if (checkboxes.get(3).isSelected())
+					{
+						checkboxes.get(3).click();
+					} else
+					{
+						System.out.println("already checkbox is unchecked");
+					}
+					middleButtons.get(2).findElement(By.cssSelector("div.button-box a")).click();
+					break;
+				case RefreshAllRows :
+					appMenu.get(3).click();
+					Thread.sleep(1000);
+					if (!checkboxes.get(4).isSelected())
+					{
+						checkboxes.get(4).click();
+					} else
+					{
+						System.out.println("already checkbox is checked");
+					}
+					middleButtons.get(3).findElement(By.cssSelector("div.button-box a")).click();
+					break;
+				case DownloadWithoutFilter :
+					appMenu.get(0).click();
+					Thread.sleep(1000);
+					if (checkboxes.get(1).isSelected())
+					{
+						checkboxes.get(1).click();
+					} else
+					{
+						System.out.println("already checkbox is unchecked");
+					}
+					middleButtons.get(0).findElement(By.cssSelector("div.button-box a")).click();
+					break;
+				default :
+					System.out.println("Invalid input");
+			}
+		} catch (org.openqa.selenium.WebDriverException e)
+		{
+			switchToApp();
+			clickOn(on);
 		}
 
 	}
-
 	public String getNotification() throws InterruptedException
 	{
 		int Time = 0;
@@ -679,7 +698,7 @@ public class CommonLibrary {
 		return dest;
 	}
 
-	public Map<String, String> rowData(int i) throws Exception
+	public Map<String, String> rowData(int i, ExtentTest logger) throws Exception
 	{
 		System.out.println("Waiting for Excel sheet to get latest data");
 		Thread.sleep(20000);
@@ -701,8 +720,11 @@ public class CommonLibrary {
 			try
 			{
 				System.out.println(rowData[0] + ":" + rowData[1]);
-				if (rowData[0].equals("") && rowData[1].equals(""))
-				{
+				/*
+				 * if (rowData[0].equals("") && rowData[1].equals("")) {
+				 */
+				System.out.println( " Length " +head.size()+ " : "+rowData.length);
+					if(head.size() != rowData.length){
 					Thread.sleep(5000);
 					rowData = HttpLibrary.getRowAtIndex(i);
 					System.out.println("Row" + " : " + Arrays.toString(rowData));
@@ -743,11 +765,19 @@ public class CommonLibrary {
 				}
 			}
 		}
-		Map<String, String> fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
-		CommonLibrary.report = new ExtentReports(System.getProperty("user.dir")
-				+ "\\Reports\\RecordTesting.html");
-		// have to change this and should pass logger as parameter
-		ExtentTest logger = CommonLibrary.report.startTest("Inserting Contact");
+		Map<String, String> fromExcel = null;
+		if(head.size() == rowData.length){
+			fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
+		}else{
+			Assert.fail("Header and rowdata length mismatch");
+		}
+		/*
+		 * CommonLibrary.report = new
+		 * ExtentReports(System.getProperty("user.dir") +
+		 * "\\Reports\\RecordTesting.html"); // have to change this and should
+		 * pass logger as parameter ExtentTest logger =
+		 * CommonLibrary.report.startTest("Inserting Contact");
+		 */
 		HttpLibrary.printCurrentDataValues(fromExcel, logger);
 
 		return fromExcel;
@@ -908,6 +938,7 @@ public class CommonLibrary {
 				if (!value1.equalsIgnoreCase(value2))
 				{
 					System.out.println(value1 + "is not equal to " + value2);
+					Assert.fail();
 					return false;
 				}
 

@@ -1,0 +1,981 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset='UTF-8' /> 
+	<meta name='description' content='' />
+	<meta name='robots' content='noodp, noydir' />
+	<meta name='viewport' content='width=device-width, initial-scale=1' />
+
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href='https://cdn.rawgit.com/anshooarora/extentreports-java/master/dist/css/extent.css' type='text/css' rel='stylesheet' />
+
+	<title>QA automation report</title>
+	
+</head>
+	<body class='extent standard default hide-overflow '>
+		<div id='theme-selector' alt='Click to toggle theme. To enable by default, use theme configuration.' title='Click to toggle theme. To enable by default, use theme configuration.'>
+			<span><i class='material-icons'>desktop_windows</i></span>
+		</div>
+
+<nav>
+	<div class="nav-wrapper">
+		<a href="http://extentreports.relevantcodes.com" class="brand-logo blue darken-3">Extent</a>
+
+		<!-- slideout menu -->
+		<ul id='slide-out' class='side-nav fixed hide-on-med-and-down'>
+			<li class='waves-effect active'><a href='#!' view='test-view' onclick="configureView(0);chartsView('test');"><i class='material-icons'>dashboard</i></a></li>
+						<li class='waves-effect'><a href='#!' onclick="configureView(-1);chartsView('dashboard');" view='dashboard-view'><i class='material-icons'>track_changes</i></i></a></li>
+		</ul>
+
+		<!-- report name -->
+		<span class='report-name'>Regression cycle</span>
+		
+		<!-- report headline -->
+		<span class='report-headline'></span>
+
+		<!-- nav-right -->
+		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
+			<a>
+				<span class='suite-start-time'>Mar 29, 2017 11:16:18 PM</span>
+			</a>
+			<a>
+				<span>v3.0.0</span>
+			</a>
+		</ul>
+	</div>
+</nav>
+		<!-- container -->
+		<div class='container'>
+
+<div id='test-view' class='view'>
+				
+	<section id='controls'>
+		<div class='controls grey lighten-4'>
+			<!-- test toggle -->
+			<div class='chip transparent'>
+				<a class='dropdown-button tests-toggle' data-activates='tests-toggle' data-constrainwidth='true' data-beloworigin='true' data-hover='true' href='#'>
+					<i class='material-icons'>warning</i> Status
+				</a>
+				<ul id='tests-toggle' class='dropdown-content'>
+					<li status='pass'><a href='#!'>Pass <i class='material-icons green-text'>check_circle</i></a></li>
+					<li status='fail'><a href='#!'>Fail <i class='material-icons red-text'>cancel</i></a></li>
+					<li status='error'><a href='#!'>Error <i class='material-icons red-text lighten-2'>error</i></a></li>
+					<li status='warning'><a href='#!'>Warning <i class='material-icons orange-text'>warning</i></a></li>
+					<li status='skip'><a href='#!'>Skip <i class='material-icons cyan-text'>redo</i></a></li>
+					<li class='divider'></li>
+					<li status='clear' clear='true'><a href='#!'>Clear Filters <i class='material-icons'>clear</i></a></li>
+				</ul>
+			</div>
+			<!-- test toggle -->
+
+			<!-- category toggle -->
+						<div class='chip transparent'>
+				<a class='dropdown-button category-toggle' data-activates='category-toggle' data-constrainwidth='false' data-beloworigin='true' data-hover='true' href='#'>
+					<i class='material-icons'>local_offer</i> Category
+				</a>
+				<ul id='category-toggle' class='dropdown-content'>
+					<li class='divider'></li>
+					<li class='clear'><a href='#!' clear='true'>Clear Filters</a></li>
+				</ul>
+			</div>
+			<!-- category toggle -->
+
+			<!-- clear filters -->
+			<div class='chip transparent hide'>
+				<a class='' id='clear-filters' alt='Clear Filters' title='Clear Filters'>
+					<i class='material-icons'>close</i> Clear
+				</a>
+			</div>
+			<!-- clear filters -->
+
+			<!-- enable dashboard -->
+			<div id='toggle-test-view-charts' class='chip transparent'>
+				<a class='pink-text' id='enable-dashboard' alt='Enable Dashboard' title='Enable Dashboard'>
+					<i class='material-icons'>track_changes</i> Dashboard
+				</a>
+			</div>
+			<!-- enable dashboard -->
+
+			<!-- search -->
+			<div class='chip transparent' alt='Search Tests' title='Search Tests'>
+				<a href="#" class='search-div'>
+					<i class='material-icons'>search</i> Search
+				</a>
+
+				<div class='input-field left hide'>
+					<input id='search-tests' type='text' class='validate browser-default' placeholder='Search Tests...'>
+				</div>
+				
+			</div>
+			<!-- search -->
+		</div>
+	</section>
+
+
+<div id='test-view-charts' class='subview-full'>
+	<div id='charts-row' class='row nm-v nm-h'>
+		<div class='col s12 m6 l6 np-h'>
+			<div class='card-panel nm-v'>
+				<div class='left panel-name'>Tests</div>
+				<div class='chart-box'>
+					<canvas id='parent-analysis' width='100' height='80'></canvas>
+				</div>
+				<div class='block text-small'>
+					<span><span class='strong'>8</span> test(s) passed</span>
+				</div>
+				<div class='block text-small'>
+					<span class='strong'>0</span> test(s) failed, <span class='strong'>0</span> others
+				</div>
+			</div>
+		</div>
+		
+		<div class='col s12 m6 l6 np-h'>
+			<div class='card-panel nm-v'>
+				<div class='left panel-name'>Steps</div>
+				<div class='chart-box'>
+					<canvas id='child-analysis' width='100' height='80'></canvas>
+				</div>
+				<div class='block text-small'>
+					<span><span class='strong'>20</span> step(s) passed</span>
+				</div>
+				<div class='block text-small'>
+					<span class='strong'>0</span> step(s) failed, <span class='strong'>72</span> others
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+	<div class='subview-left left'>
+		
+		<div class='view-summary'>
+			<h5>Tests</h5>
+
+			<ul id='test-collection' class='test-collection'>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='1'>
+					<div class='test-heading'>
+						<span class='test-name'>Insert Operation : customer</span>
+						<span class='test-time'>Mar 29, 2017 11:17:50 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Mar 29, 2017 11:17:50 PM</span>
+	<span class='label end-time'>Mar 29, 2017 11:29:09 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 11m 18s+607ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:18:08 PM</td>
+					<td class='step-details'>Loaded 'Customer 17' template</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:18:42 PM</td>
+					<td class='step-details'>Customer.NetSuite.1487671857840,.internalId,.companyName,.firstName,.lastName,.category,.isPerson,.parent,.url,.salesRep,.email,.phone,.custentity_free_from_text,.custentity_pick_list,.subsidiary</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:18:42 PM</td>
+					<td class='step-details'>,,celigo,Mazhar,testing,Customer7,TRUE,,,,started@customer1.com,4564564564,text,Payroll Adjustments,Parent Company</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:19:04 PM</td>
+					<td class='step-details'>Inserting Data into Template</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:19:24 PM</td>
+					<td class='step-details'>Operation success for 1 of 1 record(s)</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:19:49 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:19:49 PM</td>
+					<td class='step-details'>Customer.NetSuite.1487671857840 : .internalId : 80352.companyName : celigo.firstName : Mazhar.lastName : testing.category : Customer7.isPerson : TRUE.parent : .url : .salesRep : .email : started@customer1.com.phone : 4564564564.custentity_free_from_text : text.custentity_pick_list : Payroll Adjustments.subsidiary : Parent Company</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:19:49 PM</td>
+					<td class='step-details'>80352</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:19:49 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:19:49 PM</td>
+					<td class='step-details'>Customer.NetSuite.1487671857840 : .internalId : 80352.companyName : celigo.firstName : Mazhar.lastName : testing.category : Customer7.isPerson : TRUE.parent : .url : .salesRep : .email : started@customer1.com.phone : 4564564564.custentity_free_from_text : text.custentity_pick_list : Payroll Adjustments.subsidiary : Parent Company</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:19:49 PM</td>
+					<td class='step-details'>Getting data from NS</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:19:53 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:19:53 PM</td>
+					<td class='step-details'>Customer.NetSuite.1487671857840 : .internalId : 80352.companyName : celigo.firstName : Mazhar.lastName : testing.category : Customer7.isPerson : true.parent : .url : .salesRep : .email : started@customer1.com.phone : 4564564564.custentity_free_from_text : text.custentity_pick_list : Payroll Adjustments.subsidiary : Parent Company</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:19:53 PM</td>
+					<td class='step-details'>Cheers!! insertion is successfull</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='2'>
+					<div class='test-heading'>
+						<span class='test-name'>Update Operation : customer</span>
+						<span class='test-time'>Mar 29, 2017 11:19:54 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Mar 29, 2017 11:19:54 PM</span>
+	<span class='label end-time'>Mar 29, 2017 11:29:09 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 9m 15s+48ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:20:11 PM</td>
+					<td class='step-details'>Loaded 'Customer 17' template</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:20:31 PM</td>
+					<td class='step-details'>Customer.NetSuite.1487671857840,.internalId,.companyName,.firstName,.lastName,.category,.isPerson,.parent,.url,.salesRep,.email,.phone,.custentity_free_from_text,.custentity_pick_list,.subsidiary</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:20:31 PM</td>
+					<td class='step-details'>,80352,celigo,Mazhar update,testing,Customer7,TRUE,,,,started@customerupdate.com,666666666,fft,Estimates,Parent Company</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:20:53 PM</td>
+					<td class='step-details'>Inserting Data into Template</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:21:11 PM</td>
+					<td class='step-details'>Operation success for 1 of 1 record(s)</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:21:34 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:21:34 PM</td>
+					<td class='step-details'>Customer.NetSuite.1487671857840 : .internalId : 80352.companyName : celigo.firstName : Mazhar update.lastName : testing.category : Customer7.isPerson : TRUE.parent : .url : .salesRep : .email : started@customerupdate.com.phone : 666666666.custentity_free_from_text : fft.custentity_pick_list : Estimates.subsidiary : Parent Company</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:21:34 PM</td>
+					<td class='step-details'>80352</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:21:34 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:21:34 PM</td>
+					<td class='step-details'>Customer.NetSuite.1487671857840 : .internalId : 80352.companyName : celigo.firstName : Mazhar update.lastName : testing.category : Customer7.isPerson : TRUE.parent : .url : .salesRep : .email : started@customerupdate.com.phone : 666666666.custentity_free_from_text : fft.custentity_pick_list : Estimates.subsidiary : Parent Company</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:21:34 PM</td>
+					<td class='step-details'>Getting data from NS</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:21:38 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:21:38 PM</td>
+					<td class='step-details'>Customer.NetSuite.1487671857840 : .internalId : 80352.companyName : celigo.firstName : Mazhar update.lastName : testing.category : Customer7.isPerson : true.parent : .url : .salesRep : .email : started@customerupdate.com.phone : 666666666.custentity_free_from_text : fft.custentity_pick_list : Estimates.subsidiary : Parent Company</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:21:38 PM</td>
+					<td class='step-details'>Cheers!! insertion is successfull</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='3'>
+					<div class='test-heading'>
+						<span class='test-name'>Refresh Opearation : customer</span>
+						<span class='test-time'>Mar 29, 2017 11:21:38 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Mar 29, 2017 11:21:38 PM</span>
+	<span class='label end-time'>Mar 29, 2017 11:29:09 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 7m 30s+661ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:21:55 PM</td>
+					<td class='step-details'>Loaded 'Customer 17' template</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:22:17 PM</td>
+					<td class='step-details'>Customer.NetSuite.1487671857840,.internalId,.companyName,.firstName,.lastName,.category,.isPerson,.parent,.url,.salesRep,.email,.phone,.custentity_free_from_text,.custentity_pick_list,.subsidiary</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:22:17 PM</td>
+					<td class='step-details'>,80352,</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:22:20 PM</td>
+					<td class='step-details'>Inserting Data into Template</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:22:35 PM</td>
+					<td class='step-details'>Refresh successful</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:22:57 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:22:57 PM</td>
+					<td class='step-details'>Customer.NetSuite.1487671857840 : .internalId : 80352.companyName : celigo.firstName : Mazhar update.lastName : testing.category : Customer7.isPerson : TRUE.parent : .url : .salesRep : .email : started@customerupdate.com.phone : 666666666.custentity_free_from_text : fft.custentity_pick_list : Estimates.subsidiary : Parent Company</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:22:57 PM</td>
+					<td class='step-details'>80352</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:22:57 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:22:57 PM</td>
+					<td class='step-details'>Customer.NetSuite.1487671857840 : .internalId : 80352.companyName : celigo.firstName : Mazhar update.lastName : testing.category : Customer7.isPerson : TRUE.parent : .url : .salesRep : .email : started@customerupdate.com.phone : 666666666.custentity_free_from_text : fft.custentity_pick_list : Estimates.subsidiary : Parent Company</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:22:57 PM</td>
+					<td class='step-details'>Getting data from NS</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:23:03 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:23:03 PM</td>
+					<td class='step-details'>Customer.NetSuite.1487671857840 : .internalId : 80352.companyName : celigo.firstName : Mazhar update.lastName : testing.category : Customer7.isPerson : true.parent : .url : .salesRep : .email : started@customerupdate.com.phone : 666666666.custentity_free_from_text : fft.custentity_pick_list : Estimates.subsidiary : Parent Company</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:23:03 PM</td>
+					<td class='step-details'>Cheers!! insertion is successfull</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='4'>
+					<div class='test-heading'>
+						<span class='test-name'>delete Opearation : customer</span>
+						<span class='test-time'>Mar 29, 2017 11:23:16 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Mar 29, 2017 11:23:16 PM</span>
+	<span class='label end-time'>Mar 29, 2017 11:29:09 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 5m 53s+103ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:23:16 PM</td>
+					<td class='step-details'>Deleting record 80352</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:23:17 PM</td>
+					<td class='step-details'>Delete button pressed</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:23:29 PM</td>
+					<td class='step-details'>Operation success for 1 of 1 record(s)</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:23:37 PM</td>
+					<td class='step-details'>Successfully Deleted record</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='5'>
+					<div class='test-heading'>
+						<span class='test-name'>Insert Operation : contact</span>
+						<span class='test-time'>Mar 29, 2017 11:23:37 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Mar 29, 2017 11:23:37 PM</span>
+	<span class='label end-time'>Mar 29, 2017 11:29:09 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 5m 32s+204ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:23:53 PM</td>
+					<td class='step-details'>Loaded 'Add Contacts 17' template</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:24:20 PM</td>
+					<td class='step-details'>Contact.NetSuite.1487671332805,.internalId,.firstName,.lastName,.subsidiary,.salutation,.company,.title,.mobilePhone,.officePhone,.phone,.email,.addressbookList.addressbook.addressbookAddress.addr1,.addressbookList.addressbook.addressbookAddress.addr2,.custentity_free_from_text,.custentity_pick_list,.addressbookList.addressbook.addressbookAddress.internalId,.addressbookList.addressbook.addressbookAddress.country</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:24:20 PM</td>
+					<td class='step-details'>,,Jackson,James,Parent Company,mr.,1 Anonymous,title flow,958658965,6549876544,7894564655,jacksom.james@celigo.com,address one,address 2,testing fft,Organization Expense,,United States</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:24:46 PM</td>
+					<td class='step-details'>Inserting Data into Template</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:25:01 PM</td>
+					<td class='step-details'>Operation success for 1 of 1 record(s)</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:25:23 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:25:23 PM</td>
+					<td class='step-details'>Contact.NetSuite.1487671332805 : .internalId : 80452.firstName : Jackson.lastName : James.subsidiary : Parent Company.salutation : mr..company : 1 Anonymous.title : title flow.mobilePhone : 958658965.officePhone : 6549876544.phone : 7894564655.email : jacksom.james@celigo.com.addressbookList.addressbook.addressbookAddress.addr1 : address one.addressbookList.addressbook.addressbookAddress.addr2 : address 2.custentity_free_from_text : testing fft.custentity_pick_list : Organization Expense.addressbookList.addressbook.addressbookAddress.internalId : .addressbookList.addressbook.addressbookAddress.country : United States</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:25:23 PM</td>
+					<td class='step-details'>80452</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:25:23 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:25:23 PM</td>
+					<td class='step-details'>Contact.NetSuite.1487671332805 : .internalId : 80452.firstName : Jackson.lastName : James.subsidiary : Parent Company.salutation : mr..company : 1 Anonymous.title : title flow.mobilePhone : 958658965.officePhone : 6549876544.phone : 7894564655.email : jacksom.james@celigo.com.addressbookList.addressbook.addressbookAddress.addr1 : address one.addressbookList.addressbook.addressbookAddress.addr2 : address 2.custentity_free_from_text : testing fft.custentity_pick_list : Organization Expense.addressbookList.addressbook.addressbookAddress.internalId : .addressbookList.addressbook.addressbookAddress.country : United States</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:25:23 PM</td>
+					<td class='step-details'>Getting data from NS</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:25:27 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:25:27 PM</td>
+					<td class='step-details'>Contact.NetSuite.1487671332805 : .internalId : 80452.firstName : Jackson.lastName : James.subsidiary : Parent Company.salutation : mr..company : 1 Anonymous.title : title flow.mobilePhone : 958658965.officePhone : 6549876544.phone : 7894564655.email : jacksom.james@celigo.com.addressbookList.addressbook.addressbookAddress.addr1 : address one.addressbookList.addressbook.addressbookAddress.addr2 : address 2.custentity_free_from_text : testing fft.custentity_pick_list : Organization Expense.addressbookList.addressbook.addressbookAddress.internalId : .addressbookList.addressbook.addressbookAddress.country : United States</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:25:27 PM</td>
+					<td class='step-details'>Cheers!! insertion is successfull</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='6'>
+					<div class='test-heading'>
+						<span class='test-name'>Update Operation : contact</span>
+						<span class='test-time'>Mar 29, 2017 11:25:27 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Mar 29, 2017 11:25:27 PM</span>
+	<span class='label end-time'>Mar 29, 2017 11:29:09 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 3m 41s+553ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:25:44 PM</td>
+					<td class='step-details'>Loaded 'Add Contacts 17' template</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:26:05 PM</td>
+					<td class='step-details'>Contact.NetSuite.1487671332805,.internalId,.firstName,.lastName,.subsidiary,.salutation,.company,.title,.mobilePhone,.officePhone,.phone,.email,.addressbookList.addressbook.addressbookAddress.addr1,.addressbookList.addressbook.addressbookAddress.addr2,.custentity_free_from_text,.custentity_pick_list,.addressbookList.addressbook.addressbookAddress.internalId,.addressbookList.addressbook.addressbookAddress.country</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:26:05 PM</td>
+					<td class='step-details'>,80452,Jackson updates,James updates,Parent Company,mr.,1 Anonymous,title flow,555555555,6549876544,7894564655,jacksom.james@celigo.com,address one,address 2,testing fft,Advances Paid,,United States</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:26:31 PM</td>
+					<td class='step-details'>Inserting Data into Template</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:26:45 PM</td>
+					<td class='step-details'>Operation success for 1 of 1 record(s)</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:27:08 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:27:08 PM</td>
+					<td class='step-details'>Contact.NetSuite.1487671332805 : .internalId : 80452.firstName : Jackson updates.lastName : James updates.subsidiary : Parent Company.salutation : mr..company : 1 Anonymous.title : title flow.mobilePhone : 555555555.officePhone : 6549876544.phone : 7894564655.email : jacksom.james@celigo.com.addressbookList.addressbook.addressbookAddress.addr1 : address one.addressbookList.addressbook.addressbookAddress.addr2 : address 2.custentity_free_from_text : testing fft.custentity_pick_list : Advances Paid.addressbookList.addressbook.addressbookAddress.internalId : .addressbookList.addressbook.addressbookAddress.country : United States</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:27:08 PM</td>
+					<td class='step-details'>80452</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:27:08 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:27:08 PM</td>
+					<td class='step-details'>Contact.NetSuite.1487671332805 : .internalId : 80452.firstName : Jackson updates.lastName : James updates.subsidiary : Parent Company.salutation : mr..company : 1 Anonymous.title : title flow.mobilePhone : 555555555.officePhone : 6549876544.phone : 7894564655.email : jacksom.james@celigo.com.addressbookList.addressbook.addressbookAddress.addr1 : address one.addressbookList.addressbook.addressbookAddress.addr2 : address 2.custentity_free_from_text : testing fft.custentity_pick_list : Advances Paid.addressbookList.addressbook.addressbookAddress.internalId : .addressbookList.addressbook.addressbookAddress.country : United States</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:27:08 PM</td>
+					<td class='step-details'>Getting data from NS</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:27:13 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:27:13 PM</td>
+					<td class='step-details'>Contact.NetSuite.1487671332805 : .internalId : 80452.firstName : Jackson updates.lastName : James updates.subsidiary : Parent Company.salutation : mr..company : 1 Anonymous.title : title flow.mobilePhone : 555555555.officePhone : 6549876544.phone : 7894564655.email : jacksom.james@celigo.com.addressbookList.addressbook.addressbookAddress.addr1 : address one.addressbookList.addressbook.addressbookAddress.addr2 : address 2.custentity_free_from_text : testing fft.custentity_pick_list : Advances Paid.addressbookList.addressbook.addressbookAddress.internalId : .addressbookList.addressbook.addressbookAddress.country : United States</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:27:13 PM</td>
+					<td class='step-details'>Cheers!! insertion is successfull</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='7'>
+					<div class='test-heading'>
+						<span class='test-name'>Refresh Opearation : contact</span>
+						<span class='test-time'>Mar 29, 2017 11:27:13 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Mar 29, 2017 11:27:13 PM</span>
+	<span class='label end-time'>Mar 29, 2017 11:29:09 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 1m 55s+743ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:27:30 PM</td>
+					<td class='step-details'>Loaded 'Add Contacts 17' template</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:27:51 PM</td>
+					<td class='step-details'>Contact.NetSuite.1487671332805,.internalId,.firstName,.lastName,.subsidiary,.salutation,.company,.title,.mobilePhone,.officePhone,.phone,.email,.addressbookList.addressbook.addressbookAddress.addr1,.addressbookList.addressbook.addressbookAddress.addr2,.custentity_free_from_text,.custentity_pick_list,.addressbookList.addressbook.addressbookAddress.internalId,.addressbookList.addressbook.addressbookAddress.country</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:27:51 PM</td>
+					<td class='step-details'>,80452,</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:27:55 PM</td>
+					<td class='step-details'>Inserting Data into Template</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:28:06 PM</td>
+					<td class='step-details'>Refresh successful</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:28:28 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:28:28 PM</td>
+					<td class='step-details'>Contact.NetSuite.1487671332805 : .internalId : 80452.firstName : Jackson updates.lastName : James updates.subsidiary : Parent Company.salutation : mr..company : 1 Anonymous.title : title flow.mobilePhone : 555555555.officePhone : 6549876544.phone : 7894564655.email : jacksom.james@celigo.com.addressbookList.addressbook.addressbookAddress.addr1 : address one.addressbookList.addressbook.addressbookAddress.addr2 : address 2.custentity_free_from_text : testing fft.custentity_pick_list : Advances Paid.addressbookList.addressbook.addressbookAddress.internalId : .addressbookList.addressbook.addressbookAddress.country : United States</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:28:28 PM</td>
+					<td class='step-details'>80452</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:28:28 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:28:28 PM</td>
+					<td class='step-details'>Contact.NetSuite.1487671332805 : .internalId : 80452.firstName : Jackson updates.lastName : James updates.subsidiary : Parent Company.salutation : mr..company : 1 Anonymous.title : title flow.mobilePhone : 555555555.officePhone : 6549876544.phone : 7894564655.email : jacksom.james@celigo.com.addressbookList.addressbook.addressbookAddress.addr1 : address one.addressbookList.addressbook.addressbookAddress.addr2 : address 2.custentity_free_from_text : testing fft.custentity_pick_list : Advances Paid.addressbookList.addressbook.addressbookAddress.internalId : .addressbookList.addressbook.addressbookAddress.country : United States</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:28:28 PM</td>
+					<td class='step-details'>Getting data from NS</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:28:33 PM</td>
+					<td class='step-details'>Values:</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:28:33 PM</td>
+					<td class='step-details'>Contact.NetSuite.1487671332805 : .internalId : 80452.firstName : Jackson updates.lastName : James updates.subsidiary : Parent Company.salutation : mr..company : 1 Anonymous.title : title flow.mobilePhone : 555555555.officePhone : 6549876544.phone : 7894564655.email : jacksom.james@celigo.com.addressbookList.addressbook.addressbookAddress.addr1 : address one.addressbookList.addressbook.addressbookAddress.addr2 : address 2.custentity_free_from_text : testing fft.custentity_pick_list : Advances Paid.addressbookList.addressbook.addressbookAddress.internalId : .addressbookList.addressbook.addressbookAddress.country : United States</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:28:33 PM</td>
+					<td class='step-details'>Cheers!! insertion is successfull</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='8'>
+					<div class='test-heading'>
+						<span class='test-name'>delete Opearation : contact</span>
+						<span class='test-time'>Mar 29, 2017 11:28:45 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Mar 29, 2017 11:28:45 PM</span>
+	<span class='label end-time'>Mar 29, 2017 11:29:09 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 23s+351ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:28:45 PM</td>
+					<td class='step-details'>Deleting record 80452</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:28:47 PM</td>
+					<td class='step-details'>Delete button pressed</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>11:29:02 PM</td>
+					<td class='step-details'>Operation success for 1 of 1 record(s)</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:29:09 PM</td>
+					<td class='step-details'>Successfully Deleted record</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- subview left -->
+
+	<div class='subview-right left'>
+		<div class='view-summary'>
+			<h5 class='test-name'></h5>
+
+			<div id='step-filters' class="right">
+				<span class="blue-text" status="info" alt="info" title="info"><i class="material-icons">info_outline</i></span>
+				<span class="green-text" status="pass" alt="pass" title="pass"><i class="material-icons">check_circle</i></span>
+				<span class="red-text" status="fail" alt="fail" title="fail"><i class="material-icons">cancel</i></span>
+				<span class="red-text text-darken-4" status="fatal" alt="fatal" title="fatal"><i class="material-icons">cancel</i></span>
+				<span class="pink-text text-lighten-1" status="error" alt="error" title="error"><i class="material-icons">error</i></span>
+				<span class="orange-text" alt="warning" status="warning" title="warning"><i class="material-icons">warning</i></span>
+				<span class="teal-text" status="skip" alt="skip" title="skip"><i class="material-icons">redo</i></span>
+				<span status="clear" alt="Clear filters" title="Clear filters"><i class="material-icons">clear</i></span>
+			</div>
+		</div>
+	</div>
+	<!-- subview right -->
+
+</div>
+<!-- test view --><!-- category view --><!-- exception view --><div id='dashboard-view' class='view hide'>
+	<div class='card-panel transparent np-v'>
+		<h5>Dashboard</h5>
+
+		<div class='row'>
+			<div class='col s2'>
+				<div class='card-panel r'>
+					Tests
+					<div class='panel-lead'>8</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+					Steps
+					<div class='panel-lead'>92</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+					Start
+					<div class='panel-lead'>Mar 29, 2017 11:16:18 PM</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+			 		End
+			 		<div class='panel-lead'>Mar 29, 2017 11:29:09 PM</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+					Time Taken
+					<div class='panel-lead'>770,912ms</div>
+				</div>
+			</div>
+			<div class='col s4'>
+				<div class='card-panel'>
+					<span class='right label cyan white-text'>Environment</span><p>&nbsp;</p>
+					
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Value</th>
+						</tr>
+						<tr>
+							<td>User Name</td>
+							<td>Mazhar</td>
+						</tr>
+						<tr>
+							<td>OS</td>
+							<td>Windows 8.1</td>
+						</tr>
+						<tr>
+							<td>Java Version</td>
+							<td>1.8.0_40</td>
+						</tr>
+						<tr>
+							<td>Host Name</td>
+							<td>7BJL4Z1</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- dashboard view --><!-- testrunner-logs view -->
+		</div>
+		<!-- container -->
+
+		<script>
+			var statusGroup = {
+				passParent: 8,
+				failParent: 0,
+				fatalParent: 0,
+				errorParent: 0,
+				warningParent: 0,
+				skipParent: 0,
+				unknownParent: 0,
+				
+				passChild: 20,
+				failChild: 0,
+				fatalChild: 0,
+				errorChild: 0,
+				warningChild: 0,
+				skipChild: 0,
+				unknownChild: 0,
+				infoChild: 72,
+				
+				passGrandChild: 0,
+				failGrandChild: 0,
+				fatalGrandChild: 0,
+				errorGrandChild: 0,
+				warningGrandChild: 0,
+				skipGrandChild: 0,
+				unknownGrandChild: 0,
+				infoGrandChild: 0
+			};
+		</script>
+
+		<script src='https://cdn.rawgit.com/anshooarora/extentreports-java/master/dist/js/extent.js' type='text/javascript'></script>
+		
+		
+	</body>
+	
+</html>

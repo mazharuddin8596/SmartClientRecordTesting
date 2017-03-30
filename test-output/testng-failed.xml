@@ -5,9 +5,13 @@
     <classes>
       <class name="WebDriverTest.RecordTesting">
         <methods>
+          <include name="refreshOperation"/>
+          <include name="refreshOperation"/>
           <include name="tearDown"/>
           <include name="updateOperation"/>
+          <include name="updateOperation"/>
           <include name="InitialSetup"/>
+          <include name="insertOperation"/>
           <include name="insertOperation"/>
           <include name="deleteOperation"/>
         </methods>

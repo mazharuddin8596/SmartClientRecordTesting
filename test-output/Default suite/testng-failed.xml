@@ -3,11 +3,11 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="WebDriverTest.RecordTesting">
+      <class name="WebDriverTest.NewTest">
         <methods>
-          <include name="insertOperation"/>
+          <include name="testEasy"/>
         </methods>
-      </class> <!-- WebDriverTest.RecordTesting -->
+      </class> <!-- WebDriverTest.NewTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

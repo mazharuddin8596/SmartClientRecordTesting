@@ -26,11 +26,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 
 public class HttpLibrary {
 	static StringBuilder sb = null;
@@ -95,9 +94,8 @@ public class HttpLibrary {
 			{
 				HttpClient httpClient = HttpClientBuilder.create().build();
 				HttpDelete getRequest = new HttpDelete(
-						"https://graph.microsoft.com/v1.0/me/drive/items/" + CommonLibrary.workbookId
-				+ "/workbook/worksheets/"
-								+ sheet);
+						"https://graph.microsoft.com/v1.0/me/drive/items/"
+								+ CommonLibrary.workbookId + "/workbook/worksheets/" + sheet);
 				getRequest.addHeader("Content-Type", "application/json");
 				getRequest.addHeader("Authorization", "Bearer " + accessToken.getAccesstoken());
 
@@ -175,7 +173,7 @@ public class HttpLibrary {
 		if (accessToken.getExpires_on() < System.currentTimeMillis())
 		{
 			System.out.println("inside expire check");
-			// getAccessTokenRestApi();
+			CommonLibrary.setAccessToken(HttpLibrary.getAccessTokenRestApi());
 		}
 		HttpGet getRequest = new HttpGet(URL);
 		getRequest.addHeader("Content-Type", "application/json");
@@ -229,7 +227,7 @@ public class HttpLibrary {
 
 			HttpPost request = new HttpPost("https://login.microsoftonline.com/common/oauth2/token");
 			StringEntity params = new StringEntity(
-					"grant_type=\"refresh_token\"&redirect_uri=\"http://localhost:8080\"&client_id=\"94aaab54-f9e6-4032-a61f-88c07749a346\"&client_secret=\"Xo/MQ/YUE096WKeVumC6WzJyVpuAUJzJAd5/zWozoYo=\"&refresh_token=\"AQABAAAAAADRNYRQ3dhRSrm-4K-adpCJbcH1Owq_LQU_hUOePbPmOPLp6e3C-FxGkloSyo8pad_t8dAdvr9_wJ0Xpeba9GD93Kd1KLdyw5dSNiwvlKa09lE49eQ5pEJj_IaUSh6B9llsPznlnfPJLmcrW2vtBVHrD5z-qR3k6Z2L5qxd7cz9V0V65P_6gAgQ8sp2Zpr9oYAT-O4skIlS0ATEH7yQaE3njGw8R7wlckl6qF2azOQrEe0RAFNl8F49tuK9LZt-iwheoFtO_la26my5Jp4wtAoeDmAnlBJugckGtpuVPWe5tcWeHZalp89ISIRZe9mRLcm3SKx83K5ufVl1d0y-a3USrl6XFf4asf_wUD45w8bLw9CFXzQgoh1ZOKqYyMfkphhe78YgRorb2x9xMAGXOdtmCrHGW3qHUgz1UjzWxZHnMHHouWO1m6_L4Uw-86vac3IRq1Ux7LfBJ3o7BjKpxfJDUKUi32HqSAHVt8oA05q9FqTUw9vUnIUGRgG5Zj7vMfrE3xk43v7jrsb1ZuOmkGKI3Lm9Hgn4BASu_4CaRfGqKkygjIb7nhaG1F2ITM5hDoPUVcRMJOZclxNe-ALDw01RKwmbpxZkJVwbfTeO85pbFubLc_Osa3ULTCSo5wEk4I7kh67NLPUEyScusfnVVnYBF5smMqiP3aK5aIuKoe5YASAA\"&resource=\"https://graph.microsoft.com/\" ");
+					"grant_type=\"refresh_token\"&redirect_uri=\"http://localhost:8080\"&client_id=\"94aaab54-f9e6-4032-a61f-88c07749a346\"&client_secret=\"Xo/MQ/YUE096WKeVumC6WzJyVpuAUJzJAd5/zWozoYo=\"&refresh_token=\"AQABAAAAAADRNYRQ3dhRSrm-4K-adpCJ3cNAa8BhU_sEuuQTk9NcJhOsjtW8Lvq87kJfOV-8yDNRALIc9H6KqCecdqK6n7ovAOeO3gDF5PJT1rI0Jh3iKbaCvRrWjror9twwp-CoqdTOr8kQse8_D6_h6a_KwjIUJPpyJUf3_bYe7v48WUXWKdEy4Dy4Ysu2iOSIlpKVh303_saUuTXUYixYZbn9ak2XHhAaAI7hmI6_ySHm6ZxXk-1FJur1J03H7qWes2XSfysoKyctzN3K6lubmvdSLbf5ieuZMx5bP9fURYl-3ARZa2CzlyneYUaIDDTpFK5jIE-bU8tIcWIMChrXkHNhZYELnuaTAzJvWVlw-NWAsW9eIVN6viNANVdKwk1qxTswLxHnGlUK5_yhFqWhmrOJl2p1xV9nFZJOOMXHeJM6odnwpxOGiiWDpJrc00y7fcEEw8VLCmQm6uRt9rYJs9PKwt8oP6I0tciu7aJZAd2A1koBHkZKRj3nV97iG_JLovxwQNM1n4xJOXHPmkm0hpVaBEm1bcDqk7-cbhYyPQ7RLdrUUl4e1LUTB8eLvYaVL0pIJYEWkbdiyjnW57K9zJO9mO66S6DaQPv9aqZfJs5dVntHMJ0r7qENGY7n4KPS1BoHc77CipA--yEcSCjp0y65C-Bmg5RhgfW6gH71NLkD-tFgH7v4Mx0ZcoWr2-mZWua0om_NFcOmAGS_1dwU0xyZJBXsIAA\"&resource=\"https://graph.microsoft.com/\" ");
 			request.addHeader("content-type", "application/x-www-form-urlencoded");
 			request.setEntity(params);
 			HttpResponse response = httpClient.execute(request);
@@ -299,24 +297,22 @@ public class HttpLibrary {
 	}
 
 	public static void printCurrentDataValues(Map<String, String> map, ExtentTest logger)
-	{String s = "";
-	
-		logger.log(LogStatus.INFO,"Values:");
+	{
+		String s = "";
 		System.out.println("Printing values");
 		for (Map.Entry<String, String> entry : map.entrySet())
 		{
-			s = s+entry.getKey() + " : " + entry.getValue();
+			s = s + entry.getKey() + " : " + entry.getValue()+",";
 			System.out.println(entry.getKey() + " : " + entry.getValue());
 		}
-		logger.log(LogStatus.INFO,s);
+		logger.log(Status.INFO, s);
 	}
-	
 
 	public static Map<String, String> mapHeaderWithRowData(ArrayList<String> head, String[] rowData)
 	{
-		System.out.println("header "+head.toString());
-		System.out.println("row data : "+ Arrays.toString(rowData));
-		System.out.println(head.size()+" & "+rowData.length);
+		System.out.println("header " + head.toString());
+		System.out.println("row data : " + Arrays.toString(rowData));
+		System.out.println(head.size() + " & " + rowData.length);
 		// mapping header and row values
 		Map<String, String> map = new LinkedHashMap<String, String>();
 
@@ -329,7 +325,7 @@ public class HttpLibrary {
 				map.put(head.get(i), "");
 			} else
 			{
-				//System.out.println("row data: " + rowData[i]);
+				// System.out.println("row data: " + rowData[i]);
 				map.put(head.get(i), rowData[i]);
 			}
 		}
