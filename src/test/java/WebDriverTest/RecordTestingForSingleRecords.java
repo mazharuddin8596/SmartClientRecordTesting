@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.json.simple.parser.ParseException;
-import org.junit.AfterClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -32,7 +31,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 
-public class RecordTesting {
+public class RecordTestingForSingleRecords {
 
 	CommonLibrary lib = new CommonLibrary();
 	HttpLibrary http = new HttpLibrary();
@@ -49,7 +48,7 @@ public class RecordTesting {
 	private String insertValues = "";
 	private String updateValues = "";
 
-	public RecordTesting(
+	public RecordTestingForSingleRecords(
 			String recordType,
 			String templateName,
 			String templateFields,
@@ -81,15 +80,6 @@ public class RecordTesting {
 		lib.beforeTest();
 		CommonLibrary.setAccessToken(HttpLibrary.getAccessTokenRestApi());
 		report = ExtentManager.GetExtent();
-		/*
-		 * CommonLibrary.report = new
-		 * ExtentReports(System.getProperty("user.dir") +
-		 * "\\Reports\\RecordTesting.html");
-		 */
-		/*
-		 * System.out.println("Report path" + System.getProperty("user.dir") +
-		 * "\\Reports\\RecordTesting.html");
-		 */
 		driver = lib.getDriver();
 
 		Runnable r = new BackgroundThread(driver);
@@ -129,10 +119,7 @@ public class RecordTesting {
 		lib.switchIntoSheet();
 		Thread.sleep(2000);
 		lib.switchToApp();
-		
 		Thread.sleep(700);
-		System.out.println(driver);
-		//String text = "Text to save to file";
 		Files.write(Paths.get("e:/fileName.txt"), driver.getPageSource().getBytes());
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("a[title='Menu']")).click();
@@ -220,29 +207,22 @@ public class RecordTesting {
 	@Test(priority = 0)
 	public void insertOperation() throws Exception
 	{
-		// System.out.println(templateName);
+		System.out.println("******************");
 		logger = report.createTest("Insert Operation : " + recordType);
 		boolean success = false;
-		// String fields = temp.getProperty("contactTemplate");
 		String fields = templateFields;
-		// String values = temp.getProperty("contactInsert");
 		String values = insertValues;
-		// loadTemplateAndPerformDataOperation("Add Contacts 17", fields,
-		// values, CommonLibrary.App.InsertAllRows);
-		// System.out.println("Template name " + (String) templateName);
-		System.out.println("fields " + fields);
-		System.out.println("values " + values);
-		System.out.println("update values " + updateValues);
 		loadTemplateAndPerformDataOperation((String) templateName, fields, values, CommonLibrary.App.InsertAllRows, logger);
 		HttpLibrary.setFieldsFormat(fields);
 		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(2, logger);
 		getFromNsAndCompare(fromExcel, recordType, success, logger);
-		System.out.println("******************");
+
 	}
 
-	@Test(priority=1,dependsOnMethods = { "insertOperation"})
+	@Test(priority = 1, dependsOnMethods = {"insertOperation"})
 	public void updateOperation() throws Exception
 	{
+		System.out.println("******************");
 		System.out.println("Update operation : " + templateName);
 		logger = report.createTest("Update Operation : " + recordType);
 		String fields = templateFields;
@@ -257,9 +237,10 @@ public class RecordTesting {
 		System.out.println("******************");
 	}
 
-	@Test(priority=2 , dependsOnMethods = { "insertOperation"})
+	@Test(priority = 2, dependsOnMethods = {"insertOperation"})
 	public void refreshOperation() throws Exception
 	{
+		System.out.println("******************");
 		System.out.println(templateName);
 		logger = report.createTest("Refresh Opearation : " + recordType);
 		String substr = "," + getId() + ",";
@@ -274,7 +255,7 @@ public class RecordTesting {
 		System.out.println("******************");
 	}
 
-	@Test(priority=5 , dependsOnMethods = { "insertOperation"})
+	@Test(priority = 5, dependsOnMethods = {"insertOperation"})
 	public void deleteOperation() throws Exception
 	{
 		System.out.println("************");
@@ -317,10 +298,8 @@ public class RecordTesting {
 		{
 			logger.log(Status.FAIL, result.getName() + " function is fail");
 		}
-		// CommonLibrary.report.endTest(logger);
-		report.flush();
 
-		// CommonLibrary.report.flush();
+		report.flush();
 	}
 
 }

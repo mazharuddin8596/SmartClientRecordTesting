@@ -224,8 +224,9 @@ public class CommonLibrary {
 		Thread.sleep(2000);
 	}
 
-	public void switchToApp() throws InterruptedException
+	public void switchToApp() throws InterruptedException, IOException
 	{
+		
 		// System.out.println("switching to App " + driver);
 		WebElement appFrame = driver.findElement(By
 				.cssSelector("iframe[title='SmartClient Staging App']"));
@@ -491,7 +492,7 @@ public class CommonLibrary {
 		return query;
 	}
 
-	public void clickOn(App on) throws InterruptedException
+	public void clickOn(App on) throws InterruptedException, IOException
 	{
 		try
 		{
@@ -606,7 +607,8 @@ public class CommonLibrary {
 			}
 		} catch (org.openqa.selenium.WebDriverException e)
 		{
-			switchToApp();
+			Files.write(Paths.get("E://error.txt"), driver.getPageSource().getBytes());
+			//switchToApp();
 			clickOn(on);
 		}
 
@@ -723,8 +725,9 @@ public class CommonLibrary {
 				/*
 				 * if (rowData[0].equals("") && rowData[1].equals("")) {
 				 */
-				System.out.println( " Length " +head.size()+ " : "+rowData.length);
-					if(head.size() != rowData.length){
+				System.out.println(" Length " + head.size() + " : " + rowData.length);
+				if (head.size() != rowData.length)
+				{
 					Thread.sleep(5000);
 					rowData = HttpLibrary.getRowAtIndex(i);
 					System.out.println("Row" + " : " + Arrays.toString(rowData));
@@ -766,9 +769,11 @@ public class CommonLibrary {
 			}
 		}
 		Map<String, String> fromExcel = null;
-		if(head.size() == rowData.length){
+		if (head.size() == rowData.length)
+		{
 			fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
-		}else{
+		} else
+		{
 			Assert.fail("Header and rowdata length mismatch");
 		}
 		/*

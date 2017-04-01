@@ -2,136 +2,136 @@
 <testng-results skipped="0" failed="0" total="8" passed="8">
   <reporter-output>
   </reporter-output>
-  <suite name="example suite 1" duration-ms="678706" started-at="2017-03-29T17:47:50Z" finished-at="2017-03-29T17:59:09Z">
+  <suite name="example suite 1" duration-ms="685732" started-at="2017-03-31T12:11:27Z" finished-at="2017-03-31T12:22:53Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="678706" started-at="2017-03-29T17:47:50Z" finished-at="2017-03-29T17:59:09Z">
-      <class name="WebDriverTest.RecordTesting">
-        <test-method status="PASS" signature="InitialSetup()[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3]" name="InitialSetup" is-config="true" duration-ms="98019" started-at="2017-03-29T23:16:12Z" finished-at="2017-03-29T23:17:50Z">
+    <test name="Test" duration-ms="685732" started-at="2017-03-31T12:11:27Z" finished-at="2017-03-31T12:22:53Z">
+      <class name="WebDriverTest.RecordTestingForSingleRecords">
+        <test-method status="PASS" signature="InitialSetup()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665]" name="InitialSetup" is-config="true" duration-ms="103162" started-at="2017-03-31T17:39:44Z" finished-at="2017-03-31T17:41:27Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- InitialSetup -->
-        <test-method status="PASS" signature="insertOperation()[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3]" name="insertOperation" duration-ms="123046" started-at="2017-03-29T23:17:50Z" finished-at="2017-03-29T23:19:53Z">
+        <test-method status="PASS" signature="insertOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665]" name="insertOperation" duration-ms="130731" started-at="2017-03-31T17:41:27Z" finished-at="2017-03-31T17:43:38Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- insertOperation -->
-        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3]" name="tearDown" is-config="true" duration-ms="517" started-at="2017-03-29T23:19:53Z" finished-at="2017-03-29T23:19:54Z">
+        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665]" name="tearDown" is-config="true" duration-ms="834" started-at="2017-03-31T17:43:38Z" finished-at="2017-03-31T17:43:39Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=insertOperation status=SUCCESS method=RecordTesting.insertOperation()[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3] output={null}]]]>
+                <![CDATA[[TestResult name=insertOperation status=SUCCESS method=RecordTestingForSingleRecords.insertOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="updateOperation()[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3]" name="updateOperation" duration-ms="104289" started-at="2017-03-29T23:19:54Z" depends-on-methods="WebDriverTest.RecordTesting.insertOperation" finished-at="2017-03-29T23:21:38Z">
+        <test-method status="PASS" signature="updateOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665]" name="updateOperation" duration-ms="102245" started-at="2017-03-31T17:43:39Z" depends-on-methods="WebDriverTest.RecordTestingForSingleRecords.insertOperation" finished-at="2017-03-31T17:45:21Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- updateOperation -->
-        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3]" name="tearDown" is-config="true" duration-ms="97" started-at="2017-03-29T23:21:38Z" finished-at="2017-03-29T23:21:38Z">
+        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665]" name="tearDown" is-config="true" duration-ms="147" started-at="2017-03-31T17:45:21Z" finished-at="2017-03-31T17:45:21Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=updateOperation status=SUCCESS method=RecordTesting.updateOperation()[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3] output={null}]]]>
+                <![CDATA[[TestResult name=updateOperation status=SUCCESS method=RecordTestingForSingleRecords.updateOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="refreshOperation()[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3]" name="refreshOperation" duration-ms="85053" started-at="2017-03-29T23:21:38Z" depends-on-methods="WebDriverTest.RecordTesting.insertOperation" finished-at="2017-03-29T23:23:03Z">
+        <test-method status="PASS" signature="refreshOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665]" name="refreshOperation" duration-ms="81142" started-at="2017-03-31T17:45:21Z" depends-on-methods="WebDriverTest.RecordTestingForSingleRecords.insertOperation" finished-at="2017-03-31T17:46:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- refreshOperation -->
-        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3]" name="tearDown" is-config="true" duration-ms="73" started-at="2017-03-29T23:23:03Z" finished-at="2017-03-29T23:23:03Z">
+        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665]" name="tearDown" is-config="true" duration-ms="87" started-at="2017-03-31T17:46:42Z" finished-at="2017-03-31T17:46:42Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=refreshOperation status=SUCCESS method=RecordTesting.refreshOperation()[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3] output={null}]]]>
+                <![CDATA[[TestResult name=refreshOperation status=SUCCESS method=RecordTestingForSingleRecords.refreshOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="deleteOperation()[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3]" name="deleteOperation" duration-ms="33254" started-at="2017-03-29T23:23:03Z" depends-on-methods="WebDriverTest.RecordTesting.insertOperation" finished-at="2017-03-29T23:23:37Z">
+        <test-method status="PASS" signature="deleteOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665]" name="deleteOperation" duration-ms="33064" started-at="2017-03-31T17:46:42Z" depends-on-methods="WebDriverTest.RecordTestingForSingleRecords.insertOperation" finished-at="2017-03-31T17:47:16Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- deleteOperation -->
-        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3]" name="tearDown" is-config="true" duration-ms="70" started-at="2017-03-29T23:23:37Z" finished-at="2017-03-29T23:23:37Z">
+        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665]" name="tearDown" is-config="true" duration-ms="71" started-at="2017-03-31T17:47:16Z" finished-at="2017-03-31T17:47:16Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=deleteOperation status=SUCCESS method=RecordTesting.deleteOperation()[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3] output={null}]]]>
+                <![CDATA[[TestResult name=deleteOperation status=SUCCESS method=RecordTestingForSingleRecords.deleteOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="insertOperation()[pri:0, instance:WebDriverTest.RecordTesting@2812cbfa]" name="insertOperation" duration-ms="110573" started-at="2017-03-29T23:23:37Z" finished-at="2017-03-29T23:25:27Z">
+        <test-method status="PASS" signature="insertOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@2ac273d3]" name="insertOperation" duration-ms="114700" started-at="2017-03-31T17:47:16Z" finished-at="2017-03-31T17:49:10Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- insertOperation -->
-        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3]" name="tearDown" is-config="true" duration-ms="74" started-at="2017-03-29T23:25:27Z" finished-at="2017-03-29T23:25:27Z">
+        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665]" name="tearDown" is-config="true" duration-ms="70" started-at="2017-03-31T17:49:10Z" finished-at="2017-03-31T17:49:10Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=insertOperation status=SUCCESS method=RecordTesting.insertOperation()[pri:0, instance:WebDriverTest.RecordTesting@2812cbfa] output={null}]]]>
+                <![CDATA[[TestResult name=insertOperation status=SUCCESS method=RecordTestingForSingleRecords.insertOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@2ac273d3] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="updateOperation()[pri:0, instance:WebDriverTest.RecordTesting@2812cbfa]" name="updateOperation" duration-ms="105741" started-at="2017-03-29T23:25:27Z" depends-on-methods="WebDriverTest.RecordTesting.insertOperation" finished-at="2017-03-29T23:27:13Z">
+        <test-method status="PASS" signature="updateOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@2ac273d3]" name="updateOperation" duration-ms="107496" started-at="2017-03-31T17:49:10Z" depends-on-methods="WebDriverTest.RecordTestingForSingleRecords.insertOperation" finished-at="2017-03-31T17:50:58Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- updateOperation -->
-        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3]" name="tearDown" is-config="true" duration-ms="68" started-at="2017-03-29T23:27:13Z" finished-at="2017-03-29T23:27:13Z">
+        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665]" name="tearDown" is-config="true" duration-ms="71" started-at="2017-03-31T17:50:58Z" finished-at="2017-03-31T17:50:58Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=updateOperation status=SUCCESS method=RecordTesting.updateOperation()[pri:0, instance:WebDriverTest.RecordTesting@2812cbfa] output={null}]]]>
+                <![CDATA[[TestResult name=updateOperation status=SUCCESS method=RecordTestingForSingleRecords.updateOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@2ac273d3] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="refreshOperation()[pri:0, instance:WebDriverTest.RecordTesting@2812cbfa]" name="refreshOperation" duration-ms="79909" started-at="2017-03-29T23:27:13Z" depends-on-methods="WebDriverTest.RecordTesting.insertOperation" finished-at="2017-03-29T23:28:33Z">
+        <test-method status="PASS" signature="refreshOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@2ac273d3]" name="refreshOperation" duration-ms="79851" started-at="2017-03-31T17:50:58Z" depends-on-methods="WebDriverTest.RecordTestingForSingleRecords.insertOperation" finished-at="2017-03-31T17:52:18Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- refreshOperation -->
-        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3]" name="tearDown" is-config="true" duration-ms="66" started-at="2017-03-29T23:28:33Z" finished-at="2017-03-29T23:28:33Z">
+        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665]" name="tearDown" is-config="true" duration-ms="67" started-at="2017-03-31T17:52:18Z" finished-at="2017-03-31T17:52:18Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=refreshOperation status=SUCCESS method=RecordTesting.refreshOperation()[pri:0, instance:WebDriverTest.RecordTesting@2812cbfa] output={null}]]]>
+                <![CDATA[[TestResult name=refreshOperation status=SUCCESS method=RecordTestingForSingleRecords.refreshOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@2ac273d3] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="deleteOperation()[pri:0, instance:WebDriverTest.RecordTesting@2812cbfa]" name="deleteOperation" duration-ms="35768" started-at="2017-03-29T23:28:33Z" depends-on-methods="WebDriverTest.RecordTesting.insertOperation" finished-at="2017-03-29T23:29:09Z">
+        <test-method status="PASS" signature="deleteOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@2ac273d3]" name="deleteOperation" duration-ms="35032" started-at="2017-03-31T17:52:18Z" depends-on-methods="WebDriverTest.RecordTestingForSingleRecords.insertOperation" finished-at="2017-03-31T17:52:53Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- deleteOperation -->
-        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTesting@2acf57e3]" name="tearDown" is-config="true" duration-ms="71" started-at="2017-03-29T23:29:09Z" finished-at="2017-03-29T23:29:09Z">
+        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@71423665]" name="tearDown" is-config="true" duration-ms="73" started-at="2017-03-31T17:52:53Z" finished-at="2017-03-31T17:52:53Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=deleteOperation status=SUCCESS method=RecordTesting.deleteOperation()[pri:0, instance:WebDriverTest.RecordTesting@2812cbfa] output={null}]]]>
+                <![CDATA[[TestResult name=deleteOperation status=SUCCESS method=RecordTestingForSingleRecords.deleteOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@2ac273d3] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- WebDriverTest.RecordTesting -->
+      </class> <!-- WebDriverTest.RecordTestingForSingleRecords -->
     </test> <!-- Test -->
   </suite> <!-- example suite 1 -->
 </testng-results>

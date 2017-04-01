@@ -1,15 +1,24 @@
 package util;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Properties;
 
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 
-import WebDriverTest.RecordTesting;
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.JsonPath;
+
+import WebDriverTest.RecordTestingForSingleRecords;
 
 public class RecordFactory {
 	static CommonLibrary lib = new CommonLibrary();
 	static Properties temp = lib.getTemplate();
+
 	@Factory(dataProvider = "dp")
 	public Object[] createInstances(
 			String recordType,
@@ -18,28 +27,35 @@ public class RecordFactory {
 			String insertValues,
 			String updateValues)
 	{
-		return new Object[]{new RecordTesting(recordType, name, fields, insertValues, updateValues)};
+
+		return new Object[]{new RecordTestingForSingleRecords(
+				recordType,
+				name,
+				fields,
+				insertValues,
+				updateValues)};
 	}
 
 	@DataProvider(name = "dp")
-	public static Object[][] dataProvider()
+	public static Object[][] dataProvider() throws Exception
 	{
+		String str = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")
+				+ "//src//main//resources//properties//dataProvider.json")));
+		org.json.simple.JSONObject metaData = (org.json.simple.JSONObject) new JSONParser()
+				.parse(str);
+		Object document = Configuration.defaultConfiguration().jsonProvider()
+				.parse(metaData.toString());
+
 		Object[][] dataArray = {
-				{"contact", "Add Contacts 17", temp.getProperty("contactTemplate"),
-						temp.getProperty("contactInsert"), temp.getProperty("contactUpdate")}
-			,{"customer", "Customer 17", temp.getProperty("customerTemplate"),temp.getProperty("customerInsert"), temp.getProperty("customerUpdate")}
-						};
+				{"contact", "Add Contacts 17",
+						JsonPath.read(document, "$.contactTemplate").toString(),
+						JsonPath.read(document, "$.contactInsert").toString(),
+						JsonPath.read(document, "$.contactUpdate").toString()},
+				{"customer", "Customer 17",
+						JsonPath.read(document, "$.customerTemplate").toString(),
+						JsonPath.read(document, "$.customerInsert").toString(),
+						JsonPath.read(document, "$.customerUpdate").toString()}};
 		return dataArray;
 	}
 }
 
-/*
- * 
- * <parameter name="browser" value="chrome" /> <parameter name="TestingType"
- * value="SanityPhase1.html" /> <test name="HE Phase 1"> <classes> <!-- <class
- * name="com.test.Login_Validation"> <methods> <include name="inValidCreds" />
- * <include name="Logged_Out_LicenseNetsuiteAccount" /> </methods> </class>
- * <class name="com.test.Attach_mail_and_Verify_In_NS"> <methods> <include
- * name="attach_To_Single_RecordFrom_SenderList_With_Attachments" /> </methods>
- * </class> <class name="com.test.test1"></class> </classes> </test>
- */
