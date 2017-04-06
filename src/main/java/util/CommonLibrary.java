@@ -45,7 +45,7 @@ public class CommonLibrary {
 
 	public Properties obj;
 	public Properties data;
-	public Properties template;
+	// public Properties template;
 	public static WebDriver driver;
 	// public static ExtentReports report;
 	public static AccessToken accessToken;
@@ -124,17 +124,16 @@ public class CommonLibrary {
 				+ "//src//main//resources//properties//testdata.properties");
 		data.load(testdatafile);
 
-		template = new Properties();
-		FileInputStream templatefile = new FileInputStream(System.getProperty("user.dir")
-				+ "//src//main//resources//properties//Template.properties");
-		template.load(templatefile);
+		/*
+		 * template = new Properties(); FileInputStream templatefile = new
+		 * FileInputStream(System.getProperty("user.dir") +
+		 * "//src//main//resources//properties//Template.properties");
+		 * template.load(templatefile);
+		 */
 
 	}
 
-	public Properties getTemplate()
-	{
-		return template;
-	}
+	/**/
 	public Properties getObj()
 	{
 		return obj;
@@ -226,7 +225,7 @@ public class CommonLibrary {
 
 	public void switchToApp() throws InterruptedException, IOException
 	{
-		
+
 		// System.out.println("switching to App " + driver);
 		WebElement appFrame = driver.findElement(By
 				.cssSelector("iframe[title='SmartClient Staging App']"));
@@ -449,11 +448,7 @@ public class CommonLibrary {
 	public void insertDataIntoTemplate(String data) throws InterruptedException
 	{
 		Keyboard press = ((HasInputDevices) driver).getKeyboard();
-		press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
-		Thread.sleep(200);
-		press.pressKey(Keys.LEFT);
-		press.pressKey(Keys.DOWN);
-		press.pressKey(Keys.DOWN);
+		
 		Thread.sleep(200);
 		System.out.println("Inserting data into Template");
 
@@ -608,7 +603,7 @@ public class CommonLibrary {
 		} catch (org.openqa.selenium.WebDriverException e)
 		{
 			Files.write(Paths.get("E://error.txt"), driver.getPageSource().getBytes());
-			//switchToApp();
+			// switchToApp();
 			clickOn(on);
 		}
 
@@ -715,7 +710,7 @@ public class CommonLibrary {
 		HashMap<String, String> header = getHeader();
 		ArrayList<String> head = templateHeader(getHeader());
 		// Thread.sleep(3000);
-		String[] rowData = HttpLibrary.getRowAtIndex(i);
+		String[] rowData = HttpLibrary.getRowAtIndex(i+2);
 
 		for (int k = 0; k < 9; k++)
 		{
@@ -729,7 +724,7 @@ public class CommonLibrary {
 				if (head.size() != rowData.length)
 				{
 					Thread.sleep(5000);
-					rowData = HttpLibrary.getRowAtIndex(i);
+					rowData = HttpLibrary.getRowAtIndex(i+2);
 					System.out.println("Row" + " : " + Arrays.toString(rowData));
 				} else
 				{
@@ -737,7 +732,7 @@ public class CommonLibrary {
 				}
 			} catch (ArrayIndexOutOfBoundsException e)
 			{
-				rowData = HttpLibrary.getRowAtIndex(i);
+				rowData = HttpLibrary.getRowAtIndex(i+2);
 			}
 		}
 		System.out.println(Arrays.toString(rowData));

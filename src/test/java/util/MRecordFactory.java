@@ -1,32 +1,30 @@
 package util;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Properties;
+import java.util.ArrayList;
 
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
+
+import WebDriverTest.RecordTestingForMultipleRecords;
 
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 
-import WebDriverTest.RecordTestingForSingleRecords;
-
-public class RecordFactory {
+public class MRecordFactory {
 
 	@Factory(dataProvider = "dp")
 	public Object[] createInstances(
 			String recordType,
 			String name,
 			String fields,
-			String insertValues,
+			ArrayList<String> insertValues,
 			String updateValues)
 	{
 
-		return new Object[]{new RecordTestingForSingleRecords(
+		return new Object[]{new RecordTestingForMultipleRecords(
 				recordType,
 				name,
 				fields,
@@ -45,15 +43,12 @@ public class RecordFactory {
 		Object document = Configuration.defaultConfiguration().jsonProvider()
 				.parse(metaData.toString());
 
-		Object[][] dataArray = {
-				{"contact", "Add Contacts 17",
-						JsonPath.read(document, "$.contactTemplate").toString(),
-						JsonPath.read(document, "$.contactInsert").toString(),
-						JsonPath.read(document, "$.contactUpdate").toString()},
-				{"customer", "Customer 17",
-						JsonPath.read(document, "$.customerTemplate").toString(),
-						JsonPath.read(document, "$.customerInsert").toString(),
-						JsonPath.read(document, "$.customerUpdate").toString()}};
+		Object[][] dataArray = {{"contact", "Add Contacts 17",
+				JsonPath.read(document, "$.contactTemplate").toString(),
+				JsonPath.read(document, "$.contactInsertMultipleValues"),
+				JsonPath.read(document, "$.contactUpdate").toString()}
+
+		};
 		return dataArray;
 	}
 }

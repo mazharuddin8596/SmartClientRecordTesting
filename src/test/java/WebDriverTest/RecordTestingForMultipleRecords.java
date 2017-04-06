@@ -35,7 +35,7 @@ public class RecordTestingForMultipleRecords {
 
 	CommonLibrary lib = new CommonLibrary();
 	HttpLibrary http = new HttpLibrary();
-	Properties temp = lib.getTemplate();
+	// Properties temp = lib.getTemplate();
 	Properties data = lib.getData();
 	Properties obj = lib.getObj();
 	static WebDriver driver;
@@ -45,14 +45,14 @@ public class RecordTestingForMultipleRecords {
 	private String recordType = "";
 	private String templateName = "";
 	private String templateFields = "";
-	private String insertValues[] ;
+	private ArrayList<String> insertValues = new ArrayList<String>();
 	private String updateValues = "";
 
 	public RecordTestingForMultipleRecords(
 			String recordType,
 			String templateName,
 			String templateFields,
-			String insertValues,
+			ArrayList<String> insertValues,
 			String updateValues)
 	{
 		this.recordType = recordType;
@@ -112,10 +112,12 @@ public class RecordTestingForMultipleRecords {
 	public void loadTemplateAndPerformDataOperation(
 			String Template,
 			String templateFields,
-			String values,
+			ArrayList<String> values,
 			CommonLibrary.App clickOn,
 			com.aventstack.extentreports.ExtentTest logger) throws InterruptedException, IOException
 	{
+		Keyboard press = ((HasInputDevices) driver).getKeyboard();
+
 		lib.switchIntoSheet();
 		Thread.sleep(2000);
 		lib.switchToApp();
@@ -134,8 +136,28 @@ public class RecordTestingForMultipleRecords {
 		logger.log(Status.INFO, templateFields);
 		System.out.println("Header: " + templateFields);
 		System.out.println("data: " + values);
-		logger.log(Status.INFO, values);
-		lib.insertDataIntoTemplate(values);
+		logger.log(Status.INFO, values.toString());
+		press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
+		Thread.sleep(200);
+		press.pressKey(Keys.LEFT);
+		press.pressKey(Keys.DOWN);
+		press.pressKey(Keys.DOWN);
+		for (String s : values)
+		{
+			lib.insertDataIntoTemplate(s);
+			Thread.sleep(1000);
+ 			press.pressKey(Keys.chord(Keys.HOME));
+			Thread.sleep(100);
+			press.pressKey(Keys.chord(Keys.DOWN));
+
+		}
+		press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
+		press.pressKey(Keys.chord(Keys.DOWN));
+		press.pressKey(Keys.chord(Keys.DOWN));
+		for (int m = 0; m <= values.size(); m++)
+		{
+			press.pressKey(Keys.chord(Keys.SHIFT, Keys.DOWN));
+		}
 		lib.switchToApp();
 		try
 		{
@@ -177,7 +199,7 @@ public class RecordTestingForMultipleRecords {
 					+ fromExcel.get(head.get(0)));
 		}
 
-		HttpLibrary.printCurrentDataValues(fromExcel, logger);
+		//HttpLibrary.printCurrentDataValues(fromExcel, logger);
 
 		if (getId() != 0)
 		{
@@ -211,15 +233,19 @@ public class RecordTestingForMultipleRecords {
 		logger = report.createTest("Insert Operation : " + recordType);
 		boolean success = false;
 		String fields = templateFields;
-		String values = insertValues;
+		ArrayList<String> values = insertValues;
 		loadTemplateAndPerformDataOperation((String) templateName, fields, values, CommonLibrary.App.InsertAllRows, logger);
 		HttpLibrary.setFieldsFormat(fields);
-		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(2, logger);
+		
+		for (int m = 0; m <= values.size(); m++)
+		{
+		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(m, logger);
 		getFromNsAndCompare(fromExcel, recordType, success, logger);
+		}
 
 	}
 
-	@Test(priority = 1, dependsOnMethods = {"insertOperation"})
+	//@Test(priority = 1, dependsOnMethods = {"insertOperation"})
 	public void updateOperation() throws Exception
 	{
 		System.out.println("******************");
@@ -230,14 +256,15 @@ public class RecordTestingForMultipleRecords {
 		System.out.println("[" + substr + "]");
 		boolean success = false;
 		// String fields = temp.getProperty("contactTemplate");
-		loadTemplateAndPerformDataOperation((String) templateName, fields, substr, CommonLibrary.App.InsertAllRows, logger);
+		// loadTemplateAndPerformDataOperation((String) templateName, fields,
+		// substr, CommonLibrary.App.InsertAllRows, logger);
 		HttpLibrary.setFieldsFormat(fields);
-		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(2, logger);
+		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(0, logger);
 		getFromNsAndCompare(fromExcel, recordType, success, logger);
 		System.out.println("******************");
 	}
 
-	@Test(priority = 2, dependsOnMethods = {"insertOperation"})
+	//@Test(priority = 2, dependsOnMethods = {"insertOperation"})
 	public void refreshOperation() throws Exception
 	{
 		System.out.println("******************");
@@ -247,15 +274,15 @@ public class RecordTestingForMultipleRecords {
 		System.out.println("[" + substr + "]");
 		boolean success = false;
 		String fields = templateFields;
-		loadTemplateAndPerformDataOperation((String) templateName, fields, substr, CommonLibrary.App.RefreshSelectedRows, logger);
+		//loadTemplateAndPerformDataOperation((String) templateName, fields,substr, CommonLibrary.App.RefreshSelectedRows, logger);
 		HttpLibrary.setFieldsFormat(fields);
 
-		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(2, logger);
+		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(0, logger);
 		getFromNsAndCompare(fromExcel, recordType, success, logger);
 		System.out.println("******************");
 	}
 
-	@Test(priority = 5, dependsOnMethods = {"insertOperation"})
+	//@Test(priority = 5, dependsOnMethods = {"insertOperation"})
 	public void deleteOperation() throws Exception
 	{
 		System.out.println("************");
@@ -286,7 +313,7 @@ public class RecordTestingForMultipleRecords {
 		{
 			logger.log(Status.FAIL, "Record is not deleted");
 			Assert.fail("Record is not deleted :( ");
-			HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(2, logger);
+			HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(0, logger);
 			System.out.println(fromExcel.get(0));
 		}
 

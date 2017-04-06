@@ -35,7 +35,7 @@ public class RecordTestingForSingleRecords {
 
 	CommonLibrary lib = new CommonLibrary();
 	HttpLibrary http = new HttpLibrary();
-	Properties temp = lib.getTemplate();
+	// Properties temp = lib.getTemplate();
 	Properties data = lib.getData();
 	Properties obj = lib.getObj();
 	static WebDriver driver;
@@ -134,7 +134,13 @@ public class RecordTestingForSingleRecords {
 		logger.log(Status.INFO, templateFields);
 		System.out.println("Header: " + templateFields);
 		System.out.println("data: " + values);
+		Keyboard press = ((HasInputDevices) driver).getKeyboard();
 		logger.log(Status.INFO, values);
+		press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
+		Thread.sleep(200);
+		press.pressKey(Keys.LEFT);
+		press.pressKey(Keys.DOWN);
+		press.pressKey(Keys.DOWN);
 		lib.insertDataIntoTemplate(values);
 		lib.switchToApp();
 		try
@@ -214,7 +220,7 @@ public class RecordTestingForSingleRecords {
 		String values = insertValues;
 		loadTemplateAndPerformDataOperation((String) templateName, fields, values, CommonLibrary.App.InsertAllRows, logger);
 		HttpLibrary.setFieldsFormat(fields);
-		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(2, logger);
+		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(0, logger);
 		getFromNsAndCompare(fromExcel, recordType, success, logger);
 
 	}
@@ -232,7 +238,7 @@ public class RecordTestingForSingleRecords {
 		// String fields = temp.getProperty("contactTemplate");
 		loadTemplateAndPerformDataOperation((String) templateName, fields, substr, CommonLibrary.App.InsertAllRows, logger);
 		HttpLibrary.setFieldsFormat(fields);
-		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(2, logger);
+		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(0, logger);
 		getFromNsAndCompare(fromExcel, recordType, success, logger);
 		System.out.println("******************");
 	}
@@ -250,7 +256,7 @@ public class RecordTestingForSingleRecords {
 		loadTemplateAndPerformDataOperation((String) templateName, fields, substr, CommonLibrary.App.RefreshSelectedRows, logger);
 		HttpLibrary.setFieldsFormat(fields);
 
-		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(2, logger);
+		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(0, logger);
 		getFromNsAndCompare(fromExcel, recordType, success, logger);
 		System.out.println("******************");
 	}
@@ -286,7 +292,7 @@ public class RecordTestingForSingleRecords {
 		{
 			logger.log(Status.FAIL, "Record is not deleted");
 			Assert.fail("Record is not deleted :( ");
-			HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(2, logger);
+			HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(0, logger);
 			System.out.println(fromExcel.get(0));
 		}
 

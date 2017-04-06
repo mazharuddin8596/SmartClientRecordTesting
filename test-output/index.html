@@ -23,7 +23,7 @@
     <div class="top-banner-root">
       <span class="top-banner-title-font">Test results</span>
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 1 failed test</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -37,7 +37,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" class="navigator-link" panel-name="suite-example_suite_1">
-              <span class="suite-name border-passed">example suite 1</span>
+              <span class="suite-name border-failed">example suite 1</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -90,56 +90,40 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">8 methods,   8 passed</span>
+                    <span class="method-stats">3 methods, 1 failed,  2 skipped,  </span>
                   </li>
                   <li>
-                    <span class="method-list-title passed">Passed methods</span>
-                    <span class="show-or-hide-methods passed">
-                      <a href="#" panel-name="suite-example_suite_1" class="hide-methods passed suite-example_suite_1"> (hide)</a> <!-- hide-methods passed suite-example_suite_1 -->
-                      <a href="#" panel-name="suite-example_suite_1" class="show-methods passed suite-example_suite_1"> (show)</a> <!-- show-methods passed suite-example_suite_1 -->
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-example_suite_1" class="hide-methods failed suite-example_suite_1"> (hide)</a> <!-- hide-methods failed suite-example_suite_1 -->
+                      <a href="#" panel-name="suite-example_suite_1" class="show-methods failed suite-example_suite_1"> (show)</a> <!-- show-methods failed suite-example_suite_1 -->
                     </span>
-                    <div class="method-list-content passed suite-example_suite_1">
+                    <div class="method-list-content failed suite-example_suite_1">
                       <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-example_suite_1" title="WebDriverTest.RecordTestingForSingleRecords" hash-for-method="deleteOperation">deleteOperation</a> <!-- method navigator-link -->
+                        <img width="3%" src="failed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-example_suite_1" title="WebDriverTest.RecordTestingForMultipleRecords" hash-for-method="insertOperation">insertOperation</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content failed suite-example_suite_1 -->
+                  </li>
+                  <li>
+                    <span class="method-list-title skipped">Skipped methods</span>
+                    <span class="show-or-hide-methods skipped">
+                      <a href="#" panel-name="suite-example_suite_1" class="hide-methods skipped suite-example_suite_1"> (hide)</a> <!-- hide-methods skipped suite-example_suite_1 -->
+                      <a href="#" panel-name="suite-example_suite_1" class="show-methods skipped suite-example_suite_1"> (show)</a> <!-- show-methods skipped suite-example_suite_1 -->
+                    </span>
+                    <div class="method-list-content skipped suite-example_suite_1">
+                      <span>
+                        <img width="3%" src="skipped.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-example_suite_1" title="WebDriverTest.RecordTestingForMultipleRecords" hash-for-method="deleteOperation">deleteOperation</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                       <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-example_suite_1" title="WebDriverTest.RecordTestingForSingleRecords" hash-for-method="deleteOperation">deleteOperation</a> <!-- method navigator-link -->
+                        <img width="3%" src="skipped.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-example_suite_1" title="WebDriverTest.RecordTestingForMultipleRecords" hash-for-method="refreshOperation">refreshOperation</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-example_suite_1" title="WebDriverTest.RecordTestingForSingleRecords" hash-for-method="insertOperation">insertOperation</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-example_suite_1" title="WebDriverTest.RecordTestingForSingleRecords" hash-for-method="insertOperation">insertOperation</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-example_suite_1" title="WebDriverTest.RecordTestingForSingleRecords" hash-for-method="refreshOperation">refreshOperation</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-example_suite_1" title="WebDriverTest.RecordTestingForSingleRecords" hash-for-method="refreshOperation">refreshOperation</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-example_suite_1" title="WebDriverTest.RecordTestingForSingleRecords" hash-for-method="updateOperation">updateOperation</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-example_suite_1" title="WebDriverTest.RecordTestingForSingleRecords" hash-for-method="updateOperation">updateOperation</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                    </div> <!-- method-list-content passed suite-example_suite_1 -->
+                    </div> <!-- method-list-content skipped suite-example_suite_1 -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -151,10 +135,30 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-example_suite_1" class="panel example_suite_1">
-          <div class="suite-example_suite_1-class-passed">
+          <div class="suite-example_suite_1-class-failed">
             <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
-              <span class="class-name">WebDriverTest.RecordTestingForSingleRecords</span>
+              <img src="failed.png"/>
+              <span class="class-name">WebDriverTest.RecordTestingForMultipleRecords</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="insertOperation">
+                  </a> <!-- insertOperation -->
+                  <span class="method-name">insertOperation</span>
+                  <div class="stack-trace">java.lang.ArrayIndexOutOfBoundsException: 17
+	at util.CommonLibrary.rowData(CommonLibrary.java:746)
+	at WebDriverTest.RecordTestingForMultipleRecords.insertOperation(RecordTestingForMultipleRecords.java:242)
+... Removed 24 stack frames
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-example_suite_1-class-failed -->
+          <div class="suite-example_suite_1-class-skipped">
+            <div class="main-panel-header rounded-window-top">
+              <img src="skipped.png"/>
+              <span class="class-name">WebDriverTest.RecordTestingForMultipleRecords</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
@@ -166,55 +170,13 @@
               </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
-                  <a name="deleteOperation">
-                  </a> <!-- deleteOperation -->
-                  <span class="method-name">deleteOperation</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="insertOperation">
-                  </a> <!-- insertOperation -->
-                  <span class="method-name">insertOperation</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="insertOperation">
-                  </a> <!-- insertOperation -->
-                  <span class="method-name">insertOperation</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
                   <a name="refreshOperation">
                   </a> <!-- refreshOperation -->
                   <span class="method-name">refreshOperation</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="refreshOperation">
-                  </a> <!-- refreshOperation -->
-                  <span class="method-name">refreshOperation</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="updateOperation">
-                  </a> <!-- updateOperation -->
-                  <span class="method-name">updateOperation</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="updateOperation">
-                  </a> <!-- updateOperation -->
-                  <span class="method-name">updateOperation</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-example_suite_1-class-passed -->
+          </div> <!-- suite-example_suite_1-class-skipped -->
         </div> <!-- panel example_suite_1 -->
         <div panel-name="test-xml-example_suite_1" class="panel">
           <div class="main-panel-header rounded-window-top">
@@ -227,7 +189,7 @@
 &lt;suite name=&quot;example suite 1&quot;&gt;
   &lt;test name=&quot;Test&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;util.RecordFactory&quot;/&gt;
+      &lt;class name=&quot;util.MRecordFactory&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Test --&gt;
 &lt;/suite&gt; &lt;!-- example suite 1 --&gt;
@@ -267,44 +229,24 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(8);
+data.addRows(3);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'insertOperation')
-data.setCell(0, 2, 'WebDriverTest.RecordTestingForSingleRecords')
-data.setCell(0, 3, 130731);
+data.setCell(0, 2, 'WebDriverTest.RecordTestingForMultipleRecords')
+data.setCell(0, 3, 288461);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'insertOperation')
-data.setCell(1, 2, 'WebDriverTest.RecordTestingForSingleRecords')
-data.setCell(1, 3, 114700);
+data.setCell(1, 1, 'refreshOperation')
+data.setCell(1, 2, 'WebDriverTest.RecordTestingForMultipleRecords')
+data.setCell(1, 3, 0);
 data.setCell(2, 0, 2)
-data.setCell(2, 1, 'updateOperation')
-data.setCell(2, 2, 'WebDriverTest.RecordTestingForSingleRecords')
-data.setCell(2, 3, 107496);
-data.setCell(3, 0, 3)
-data.setCell(3, 1, 'updateOperation')
-data.setCell(3, 2, 'WebDriverTest.RecordTestingForSingleRecords')
-data.setCell(3, 3, 102245);
-data.setCell(4, 0, 4)
-data.setCell(4, 1, 'refreshOperation')
-data.setCell(4, 2, 'WebDriverTest.RecordTestingForSingleRecords')
-data.setCell(4, 3, 81142);
-data.setCell(5, 0, 5)
-data.setCell(5, 1, 'refreshOperation')
-data.setCell(5, 2, 'WebDriverTest.RecordTestingForSingleRecords')
-data.setCell(5, 3, 79851);
-data.setCell(6, 0, 6)
-data.setCell(6, 1, 'deleteOperation')
-data.setCell(6, 2, 'WebDriverTest.RecordTestingForSingleRecords')
-data.setCell(6, 3, 35032);
-data.setCell(7, 0, 7)
-data.setCell(7, 1, 'deleteOperation')
-data.setCell(7, 2, 'WebDriverTest.RecordTestingForSingleRecords')
-data.setCell(7, 3, 33064);
+data.setCell(2, 1, 'deleteOperation')
+data.setCell(2, 2, 'WebDriverTest.RecordTestingForMultipleRecords')
+data.setCell(2, 3, 0);
 window.suiteTableData['example_suite_1']= { tableData: data, tableDiv: 'times-div-example_suite_1'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 11 minutes</span>
+              <span class="suite-total-time">Total running time: 4 minutes</span>
               <div id="times-div-example_suite_1">
               </div> <!-- times-div-example_suite_1 -->
             </div> <!-- times-div -->
@@ -330,74 +272,20 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">WebDriverTest.RecordTestingForSingleRecords</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">WebDriverTest.RecordTestingForMultipleRecords</div> <!-- chronological-class-name -->
               <div class="configuration-suite before">
                 <span class="method-name">InitialSetup</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-suite before -->
               <div class="test-method">
+                <img src="failed.png">
+                </img>
                 <span class="method-name">insertOperation</span>
-                <span class="method-start">103197 ms</span>
+                <span class="method-start">118583 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
-                <span class="method-name">tearDown([TestResult name=insertOperation status=SUCCESS method=RecordTestingForSingleRecords.insertOperation...)</span>
-                <span class="method-start">233929 ms</span>
-              </div> <!-- configuration-method after -->
-              <div class="test-method">
-                <span class="method-name">updateOperation</span>
-                <span class="method-start">234765 ms</span>
-              </div> <!-- test-method -->
-              <div class="configuration-method after">
-                <span class="method-name">tearDown([TestResult name=updateOperation status=SUCCESS method=RecordTestingForSingleRecords.updateOperation...)</span>
-                <span class="method-start">337011 ms</span>
-              </div> <!-- configuration-method after -->
-              <div class="test-method">
-                <span class="method-name">refreshOperation</span>
-                <span class="method-start">337159 ms</span>
-              </div> <!-- test-method -->
-              <div class="configuration-method after">
-                <span class="method-name">tearDown([TestResult name=refreshOperation status=SUCCESS method=RecordTestingForSingleRecords.refreshOperati...)</span>
-                <span class="method-start">418303 ms</span>
-              </div> <!-- configuration-method after -->
-              <div class="test-method">
-                <span class="method-name">deleteOperation</span>
-                <span class="method-start">418390 ms</span>
-              </div> <!-- test-method -->
-              <div class="configuration-method after">
-                <span class="method-name">tearDown([TestResult name=deleteOperation status=SUCCESS method=RecordTestingForSingleRecords.deleteOperation...)</span>
-                <span class="method-start">451455 ms</span>
-              </div> <!-- configuration-method after -->
-              <div class="test-method">
-                <span class="method-name">insertOperation</span>
-                <span class="method-start">451526 ms</span>
-              </div> <!-- test-method -->
-              <div class="configuration-method after">
-                <span class="method-name">tearDown([TestResult name=insertOperation status=SUCCESS method=RecordTestingForSingleRecords.insertOperation...)</span>
-                <span class="method-start">566231 ms</span>
-              </div> <!-- configuration-method after -->
-              <div class="test-method">
-                <span class="method-name">updateOperation</span>
-                <span class="method-start">566301 ms</span>
-              </div> <!-- test-method -->
-              <div class="configuration-method after">
-                <span class="method-name">tearDown([TestResult name=updateOperation status=SUCCESS method=RecordTestingForSingleRecords.updateOperation...)</span>
-                <span class="method-start">673798 ms</span>
-              </div> <!-- configuration-method after -->
-              <div class="test-method">
-                <span class="method-name">refreshOperation</span>
-                <span class="method-start">673869 ms</span>
-              </div> <!-- test-method -->
-              <div class="configuration-method after">
-                <span class="method-name">tearDown([TestResult name=refreshOperation status=SUCCESS method=RecordTestingForSingleRecords.refreshOperati...)</span>
-                <span class="method-start">753721 ms</span>
-              </div> <!-- configuration-method after -->
-              <div class="test-method">
-                <span class="method-name">deleteOperation</span>
-                <span class="method-start">753789 ms</span>
-              </div> <!-- test-method -->
-              <div class="configuration-method after">
-                <span class="method-name">tearDown([TestResult name=deleteOperation status=SUCCESS method=RecordTestingForSingleRecords.deleteOperation...)</span>
-                <span class="method-start">788822 ms</span>
+                <span class="method-name">tearDown([TestResult name=insertOperation status=FAILURE method=RecordTestingForMultipleRecords.insertOperati...)</span>
+                <span class="method-start">407123 ms</span>
               </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

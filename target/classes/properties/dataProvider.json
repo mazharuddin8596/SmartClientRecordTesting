@@ -3,6 +3,7 @@
 "contactTemplate" : "Contact.NetSuite.1487671332805,.internalId,.firstName,.lastName,.subsidiary,.salutation,.company,.title,.mobilePhone,.officePhone,.phone,.email,.addressbookList.addressbook.addressbookAddress.addr1,.addressbookList.addressbook.addressbookAddress.addr2,.custentity_free_from_text,.custentity_pick_list,.addressbookList.addressbook.addressbookAddress.internalId,.addressbookList.addressbook.addressbookAddress.country",
 "contactInsert" : ",,Jackson,James,Parent Company,mr.,1 Anonymous,title flow,958658965,6549876544,7894564655,jacksom.james@celigo.com,address one,address 2,testing fft,Organization Expense,,United States",
 "contactUpdate" : ",,Jackson updates,James updates,Parent Company,mr.,1 Anonymous,title flow,555555555,6549876544,7894564655,jacksom.james@celigo.com,address one,address 2,testing fft,Advances Paid,,United States",
+
 "contactInsertMultipleValues" : [
 ",,Jackson1,James1,Parent Company,mr.,1 Anonymous,title flow,111111111,2222222222,7894564655,jacksom.james1@celigo.com,address one,address 2,testing fft,Organization Expense,,United States",
 ",,Jackson2,James2,Parent Company,mr.,1 Anonymous,title flow,222222222,3333333333,7894564655,jacksom.james2@celigo.com,address one,address 2,testing fft,Advances Paid,,Albania",

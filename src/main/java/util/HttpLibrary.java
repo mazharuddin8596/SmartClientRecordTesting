@@ -69,13 +69,13 @@ public class HttpLibrary {
 		con.getInputStream();
 
 		System.out.println("\nSending 'GET' request to URL : " + request);
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		String inputLine;
 		StringBuilder response = new StringBuilder();
-		System.out.println("Response message" + con.getResponseMessage());
-		System.out.println(con.getErrorStream());
+		//System.out.println("Response message" + con.getResponseMessage());
+		//System.out.println(con.getErrorStream());
 		while ((inputLine = in.readLine()) != null)
 		{
 			response.append(inputLine);
