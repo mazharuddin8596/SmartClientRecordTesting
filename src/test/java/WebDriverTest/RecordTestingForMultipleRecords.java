@@ -122,7 +122,7 @@ public class RecordTestingForMultipleRecords {
 		Thread.sleep(2000);
 		lib.switchToApp();
 		Thread.sleep(700);
-		Files.write(Paths.get("e:/fileName.txt"), driver.getPageSource().getBytes());
+		Files.write(Paths.get("D:/fileName.txt"), driver.getPageSource().getBytes());
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("a[title='Menu']")).click();
 		driver.findElement(By.linkText("Templates")).click();

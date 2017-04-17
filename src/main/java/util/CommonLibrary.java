@@ -51,54 +51,48 @@ public class CommonLibrary {
 	public static AccessToken accessToken;
 	public static String workbookId = "01JNEAOJ6ZBLZDDYTT2FBZN66OLHFVYJNU";
 	public static String sheet;
-	public static String getSheet()
-	{
+
+	public static String getSheet() {
 		return sheet;
 	}
 
-	public static void setSheet(String sheet)
-	{
+	public static void setSheet(String sheet) {
 		CommonLibrary.sheet = sheet;
 	}
 
 	public static HashMap<String, String> header;
-	public static AccessToken getAccessToken()
-	{
+
+	public static AccessToken getAccessToken() {
 		return accessToken;
 	}
 
-	public static void setAccessToken(AccessToken accessToken)
-	{
+	public static void setAccessToken(AccessToken accessToken) {
 		CommonLibrary.accessToken = accessToken;
 	}
 
-	public static HashMap<String, String> getHeader()
-	{
+	public static HashMap<String, String> getHeader() {
 		return header;
 	}
 
-	public static void setHeader(HashMap<String, String> header)
-	{
+	public static void setHeader(HashMap<String, String> header) {
 		CommonLibrary.header = header;
 	}
 
-	public CommonLibrary()
-	{
-		try
-		{
+	public CommonLibrary() {
+		try {
 			LoadPropertyFiles();
-		} catch (IOException e)
-		{
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public void beforeTest()
-	{
+	public void beforeTest() {
 
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")
-				+ "//src//main//resources//webdrivers//chromedriver.exe");
+		System.setProperty(
+				"webdriver.chrome.driver",
+				System.getProperty("user.dir")
+						+ "//src//main//resources//webdrivers//chromedriver.exe");
 		driver = new ChromeDriver();
 
 		/*
@@ -112,16 +106,17 @@ public class CommonLibrary {
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	}
 
-	public void LoadPropertyFiles() throws IOException
-	{
+	public void LoadPropertyFiles() throws IOException {
 		obj = new Properties();
-		FileInputStream objfile = new FileInputStream(System.getProperty("user.dir")
-				+ "//src//main//resources//properties//objects.properties");
+		FileInputStream objfile = new FileInputStream(
+				System.getProperty("user.dir")
+						+ "//src//main//resources//properties//objects.properties");
 		obj.load(objfile);
 
 		data = new Properties();
-		FileInputStream testdatafile = new FileInputStream(System.getProperty("user.dir")
-				+ "//src//main//resources//properties//testdata.properties");
+		FileInputStream testdatafile = new FileInputStream(
+				System.getProperty("user.dir")
+						+ "//src//main//resources//properties//testdata.properties");
 		data.load(testdatafile);
 
 		/*
@@ -134,62 +129,58 @@ public class CommonLibrary {
 	}
 
 	/**/
-	public Properties getObj()
-	{
+	public Properties getObj() {
 		return obj;
 	}
 
-	public Properties getData()
-	{
+	public Properties getData() {
 		return data;
 	}
 
-	public WebDriver getDriver()
-	{
+	public WebDriver getDriver() {
 		return driver;
 	}
 
-	public void setDriver(WebDriver driver)
-	{
+	public void setDriver(WebDriver driver) {
 		CommonLibrary.driver = driver;
 	}
 
-	public WebElement Locator(final WebElement selector)
-	{
-		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(150, TimeUnit.SECONDS)
-				.pollingEvery(20, TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class);
+	public WebElement Locator(final WebElement selector) {
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				.withTimeout(150, TimeUnit.SECONDS)
+				.pollingEvery(20, TimeUnit.MILLISECONDS)
+				.ignoring(NoSuchElementException.class);
 
-		WebElement selectorObj = wait.until(new Function<WebDriver, WebElement>() {
-			public WebElement apply(WebDriver driver)
-			{
-				return selector;
-			}
-		});
+		WebElement selectorObj = wait
+				.until(new Function<WebDriver, WebElement>() {
+					public WebElement apply(WebDriver driver) {
+						return selector;
+					}
+				});
 		return selectorObj;
 	}
 
-	public void officeLogin(WebDriver driver) throws InterruptedException
-	{
+	public void officeLogin(WebDriver driver) throws InterruptedException {
 		driver.get("https://portal.office.com");
 
-		driver.findElement(By.id("cred_userid_inputtext"))
-				.sendKeys("mazhar@celigo2.onmicrosoft.com");
+		driver.findElement(By.id("cred_userid_inputtext")).sendKeys(
+				"mazhar@celigo2.onmicrosoft.com");
 		driver.findElement(By.cssSelector("input#cred_password_inputtext"))
 				.sendKeys("Celigo!@#$%6");
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("button[id='cred_sign_in_button']")).click();
+		driver.findElement(By.cssSelector("button[id='cred_sign_in_button']"))
+				.click();
 
-		WebElement oneDrive = driver.findElement(By.id("ShellDocuments_link_text"));
+		WebElement oneDrive = driver.findElement(By
+				.id("ShellDocuments_link_text"));
 		oneDrive.click();
 		// driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL
 		// +"\t");
 		Thread.sleep(3000);
-		for (String s : driver.getWindowHandles())
-		{
+		for (String s : driver.getWindowHandles()) {
 			driver.switchTo().window(s);
 			System.out.println(driver.getTitle());
-			if (driver.getTitle().contains("OneDrive"))
-			{
+			if (driver.getTitle().contains("OneDrive")) {
 				// System.out.println(driver.getTitle());
 			} else
 				driver.switchTo().defaultContent();
@@ -201,55 +192,51 @@ public class CommonLibrary {
 		WebElement book = driver.findElement(By.linkText("Book.xlsx"));
 		Actions act = new Actions(driver);
 		act.contextClick(book).build().perform();
-		WebElement we = driver.findElement(By.cssSelector("div[aria-label='Open']"));
+		WebElement we = driver.findElement(By
+				.cssSelector("div[aria-label='Open']"));
 		we.click();
 		Thread.sleep(1000);
 		driver.findElement(By.linkText("Open in Excel Online")).click();
 		Thread.sleep(1000);
-		ArrayList<String> allTabs = new ArrayList<String>(driver.getWindowHandles());
+		ArrayList<String> allTabs = new ArrayList<String>(
+				driver.getWindowHandles());
 		driver.switchTo().window(allTabs.get(2));
 
 	}
 
-	public void liveLogin() throws InterruptedException
-	{
+	public void liveLogin() throws InterruptedException {
 		driver.get("https://login.live.com");
-		driver.findElement(By.cssSelector("input[type='email']"))
-				.sendKeys("mazharuddin8596@outlook.com");
+		driver.findElement(By.cssSelector("input[type='email']")).sendKeys(
+				"mazharuddin8596@outlook.com");
 		driver.findElement(By.cssSelector("input[type='submit']")).click();
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("input[type='password']")).sendKeys("Celigo!@#4");
+		driver.findElement(By.cssSelector("input[type='password']")).sendKeys(
+				"Celigo!@#4");
 		driver.findElement(By.cssSelector("input[type='submit']")).click();
 		Thread.sleep(2000);
 	}
 
-	public void switchToApp() throws InterruptedException, IOException
-	{
+	public void switchToApp() throws InterruptedException, IOException {
 
 		// System.out.println("switching to App " + driver);
 		WebElement appFrame = driver.findElement(By
 				.cssSelector("iframe[title='SmartClient Staging App']"));
 		driver.switchTo().frame(appFrame);
-		try
-		{
+		try {
 			driver.findElement(By.cssSelector("body[ng-app='SmartClient']"));
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			driver.navigate().refresh();
 			switchIntoSheet();
-			appFrame = driver
-					.findElement(By.cssSelector("iframe[title='SmartClient Staging App']"));
+			appFrame = driver.findElement(By
+					.cssSelector("iframe[title='SmartClient Staging App']"));
 			driver.switchTo().frame(appFrame);
 		}
 		System.out.println("Switched to app iframe");
 	}
 
-	public void waitForOfficeAddin() throws InterruptedException
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			try
-			{
+	public void waitForOfficeAddin() throws InterruptedException {
+		for (int i = 0; i < 10; i++) {
+			try {
 				driver.navigate().refresh();
 				WebElement f = driver.findElement(By
 						.cssSelector("iframe[name='WebApplicationFrame']"));
@@ -260,79 +247,67 @@ public class CommonLibrary {
 				JavascriptExecutor jse = (JavascriptExecutor) driver;
 				WebElement pane = (WebElement) jse
 						.executeScript("return document.getElementById('m_excelWebRenderer_ewaCtl_novTaskPaneToolbarContainer')");
-				try
-				{
+				try {
 					// System.out.println("pane visible? " +
 					// pane.isDisplayed());
-					if (pane.isDisplayed())
-					{
+					if (pane.isDisplayed()) {
 						System.out.println("able to detect taskpane");
 						break;
 					}
-				} catch (NullPointerException n)
-				{
+				} catch (NullPointerException n) {
 					System.out.println("retrying");
 				}
-			} catch (NoSuchElementException e)
-			{
+			} catch (NoSuchElementException e) {
 				System.out.println("Task pane fails in catch: " + i);
 				Thread.sleep(1000);
 			}
-			if (i == 7)
-			{
+			if (i == 7) {
 				driver.navigate().refresh();
 				Thread.sleep(4000);
 			}
 		}
 	}
 
-	public void handleMSDialogBox()
-	{
-		for (int i = 0; i < 3; i++)
-		{
-			try
-			{
+	public void handleMSDialogBox() {
+		for (int i = 0; i < 3; i++) {
+			try {
 				WebElement mainsheet;
 				driver.switchTo().defaultContent();
-				mainsheet = driver
-						.findElement(By.cssSelector("iframe[name='WebApplicationFrame']"));
+				mainsheet = driver.findElement(By
+						.cssSelector("iframe[name='WebApplicationFrame']"));
 				driver.switchTo().frame(mainsheet);
 				System.out.println("checking error dialog box");
 				driver.findElement(By.id("errorewaDialogInner"));
 				System.out.println("Found... refreshing page");
 				driver.navigate().refresh();
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				System.out.println("No dialog box found");
 				break;
 			}
 		}
 	}
 
-	public void switchIntoSheet() throws InterruptedException
-	{
+	public void switchIntoSheet() throws InterruptedException {
 		WebElement mainsheet;
 		Keyboard press = ((HasInputDevices) driver).getKeyboard();
 		driver.switchTo().defaultContent();
-		mainsheet = driver.findElement(By.cssSelector("iframe[name='WebApplicationFrame']"));
+		mainsheet = driver.findElement(By
+				.cssSelector("iframe[name='WebApplicationFrame']"));
 		driver.switchTo().frame(mainsheet);
 		Thread.sleep(1000);
 		// *[@id="m_excelWebRenderer_ewaCtl_msospAFrameContainer"]/div[4]
 		checkSheetReady();
-		for (int l = 0; l < 4; l++)
-		{
-			if (!driver.findElement(By.cssSelector("div.ewa-background-ready")).isDisplayed())
-			{
+		for (int l = 0; l < 4; l++) {
+			if (!driver.findElement(By.cssSelector("div.ewa-background-ready"))
+					.isDisplayed()) {
 				Thread.sleep(2000);
 			}
 		}
-		try
-		{
+		try {
 			List<WebElement> sheetList = driver.findElements(By
 					.cssSelector("table.ewr-grdcontarea-ltr  tbody tr td"));
 			sheetList.get(2).click();
-		} catch (org.openqa.selenium.WebDriverException e)
-		{
+		} catch (org.openqa.selenium.WebDriverException e) {
 			Thread.sleep(2000);
 			List<WebElement> sheetList = driver.findElements(By
 					.cssSelector("table.ewr-grdcontarea-ltr  tbody tr td"));
@@ -344,22 +319,17 @@ public class CommonLibrary {
 		press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
 	}
 
-	public void checkSheetReady()
-	{
-		for (int i = 0; i < 3; i++)
-		{
-			try
-			{
+	public void checkSheetReady() {
+		for (int i = 0; i < 3; i++) {
+			try {
 				driver.findElement(By.className("ewa-background-ready"));
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 
 			}
 		}
 	}
 
-	public void deleteSheetData() throws InterruptedException
-	{
+	public void deleteSheetData() throws InterruptedException {
 		System.out.println("clearing screen Data..");
 		Keyboard press = ((HasInputDevices) driver).getKeyboard();
 		Thread.sleep(3000);
@@ -379,8 +349,7 @@ public class CommonLibrary {
 		System.out.println("cleared screen Data..");
 	}
 
-	public void deleteSheet() throws Exception
-	{
+	public void deleteSheet() throws Exception {
 		String oldsheet = HttpLibrary.sheetName();
 		System.out.println("Deleting sheet named : " + oldsheet);
 		/*
@@ -399,66 +368,61 @@ public class CommonLibrary {
 		setSheet(sheet);
 	}
 
-	public void loadTemplate(String name) throws InterruptedException
-	{
+	public void loadTemplate(String name) throws InterruptedException {
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("input[ng-model='searchString']")).sendKeys(name);
+		driver.findElement(By.cssSelector("input[ng-model='searchString']"))
+				.sendKeys(name);
 		Thread.sleep(1000);
-		List<WebElement> Template_List = driver.findElements(By.cssSelector("div.section ul li"));
+		List<WebElement> Template_List = driver.findElements(By
+				.cssSelector("div.section ul li"));
 
-		for (WebElement we : Template_List)
-		{
+		for (WebElement we : Template_List) {
 			// System.out.println(we.getText());
-			if (we.getText().contains(name))
-			{
+			if (we.getText().contains(name)) {
 				System.out.println("Clicking on " + we.getText());
 				Thread.sleep(1500);
-				we.findElement(By.cssSelector("a[title='Load template']")).click();
+				we.findElement(By.cssSelector("a[title='Load template']"))
+						.click();
 				break;
 			}
 		}
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("div#confirmationPopup button#accept")).click();
+		driver.findElement(
+				By.cssSelector("div#confirmationPopup button#accept")).click();
 		Thread.sleep(1000);
 	}
 
-	public static String remSpecialCharacters(String temp)
-	{
-		try
-		{
+	public static String remSpecialCharacters(String temp) {
+		try {
 			temp = temp.replace("[", "");
 			temp = temp.replace("]", "");
 			temp = temp.replace("\"", "");
-		} catch (java.lang.NullPointerException e)
-		{
+		} catch (java.lang.NullPointerException e) {
 
 		}
 		return temp;
 	}
 
-	public String appendIdToUpdateTemplateValues(String idata, int id)
-	{
+	public String appendIdToUpdateTemplateValues(String idata, int id) {
 		int dot1 = idata.indexOf(",");
 		int dot2 = idata.indexOf(",", dot1 + 1);
 		System.out.println(dot1 + " : " + dot2);
-		String substr = "," + id + "," + idata.substring(dot2 + 1, idata.length());
+		String substr = "," + id + ","
+				+ idata.substring(dot2 + 1, idata.length());
 		return substr;
 	}
 
-	public void insertDataIntoTemplate(String data) throws InterruptedException
-	{
+	public void insertDataIntoTemplate(String data) throws InterruptedException {
 		Keyboard press = ((HasInputDevices) driver).getKeyboard();
-		
+
 		Thread.sleep(200);
 		System.out.println("Inserting data into Template");
 
 		String[] col_data = data.split("\\,");
 		// inserting data in contact template
 		// press.pressKey(Keys.TAB);
-		for (int i = 0; i < col_data.length; i++)
-		{
-			if (i != 0)
-			{
+		for (int i = 0; i < col_data.length; i++) {
+			if (i != 0) {
 				press.pressKey(Keys.TAB);
 			}
 			press.pressKey(col_data[i]);
@@ -467,171 +431,163 @@ public class CommonLibrary {
 		}
 	}
 
-	public String generateJaywayQueryString(String[] data, String type)
-	{
+	public String generateJaywayQueryString(String[] data, String type) {
 		String query = "";
 		// System.out.println("type: " + type);
-		for (int k = 2; k < data.length; k++)
-		{
-			if (k == data.length - 1)
-			{
+		for (int k = 2; k < data.length; k++) {
+			if (k == data.length - 1) {
 				if (type.equals("enum"))
 					query += ".." + data[k];
 				else
 					query += "." + data[k];
-			} else
-			{
+			} else {
 				query += ".." + data[k];
 			}
 		}
 		return query;
 	}
 
-	public void clickOn(App on) throws InterruptedException, IOException
-	{
-		try
-		{
+	public void clickOn(App on) throws InterruptedException, IOException {
+		try {
 			Thread.sleep(1500);
-			List<WebElement> appMenu = driver.findElements(By.cssSelector("div.menuContent ul li"));
-			List<WebElement> middleButtons = driver.findElements(By.cssSelector("div.msgBox"));
-			List<WebElement> checkboxes = driver.findElements(By.cssSelector("div.checkbox"));
+			List<WebElement> appMenu = driver.findElements(By
+					.cssSelector("div.menuContent ul li"));
+			List<WebElement> middleButtons = driver.findElements(By
+					.cssSelector("div.msgBox"));
+			List<WebElement> checkboxes = driver.findElements(By
+					.cssSelector("div.checkbox"));
 
-			switch (on)
-			{
-				case InsertAllRows :
-					appMenu.get(1).click();
-					Thread.sleep(500);
-					System.out.println("insert checkbox selected ? "
-							+ checkboxes.get(2).isSelected());
-					if (!checkboxes.get(2).isSelected())
-					{
-						checkboxes.get(2).click();
-					} else
-					{
-						System.out.println("already checkbox is checked");
-					}
-					middleButtons.get(1).findElement(By.cssSelector("div.button-box a")).click();
-					break;
-				case DeleteAllRows :
-					appMenu.get(2).click();
-					Thread.sleep(500);
-					if (!checkboxes.get(3).isSelected())
-					{
-						checkboxes.get(3).click();
-					} else
-					{
-						System.out.println("already checkbox is checked");
-					}
-					middleButtons.get(2).findElement(By.cssSelector("div.button-box a")).click();
-					break;
-				case RefreshSelectedRows :
-					appMenu.get(3).click();
-					Thread.sleep(1000);
-					if (checkboxes.get(4).isSelected())
-					{
-						checkboxes.get(4).click();
-					} else
-					{
-						System.out.println("already checkbox is unchecked");
-					}
-					middleButtons.get(3).findElement(By.cssSelector("div.button-box a")).click();
-					Thread.sleep(1500);
-					break;
-				case DownloadWithFilter :
-					appMenu.get(0).click();
-					Thread.sleep(500);
-					if (!checkboxes.get(1).isSelected())
-					{
-						checkboxes.get(1).click();
-					} else
-					{
-						System.out.println("already checkbox is checked");
-					}
-					middleButtons.get(0).findElement(By.cssSelector("div.button-box a")).click();
-					break;
-				case InsertSelectedRows :
-					appMenu.get(1).click();
-					Thread.sleep(1000);
-					if (checkboxes.get(2).isSelected())
-					{
-						checkboxes.get(2).click();
-					} else
-					{
-						System.out.println("already checkbox is unchecked");
-					}
-					middleButtons.get(1).findElement(By.cssSelector("div.button-box a")).click();
-					break;
-				case DeleteSelectedRows :
-					appMenu.get(2).click();
-					Thread.sleep(1000);
-					if (checkboxes.get(3).isSelected())
-					{
-						checkboxes.get(3).click();
-					} else
-					{
-						System.out.println("already checkbox is unchecked");
-					}
-					middleButtons.get(2).findElement(By.cssSelector("div.button-box a")).click();
-					break;
-				case RefreshAllRows :
-					appMenu.get(3).click();
-					Thread.sleep(1000);
-					if (!checkboxes.get(4).isSelected())
-					{
-						checkboxes.get(4).click();
-					} else
-					{
-						System.out.println("already checkbox is checked");
-					}
-					middleButtons.get(3).findElement(By.cssSelector("div.button-box a")).click();
-					break;
-				case DownloadWithoutFilter :
-					appMenu.get(0).click();
-					Thread.sleep(1000);
-					if (checkboxes.get(1).isSelected())
-					{
-						checkboxes.get(1).click();
-					} else
-					{
-						System.out.println("already checkbox is unchecked");
-					}
-					middleButtons.get(0).findElement(By.cssSelector("div.button-box a")).click();
-					break;
-				default :
-					System.out.println("Invalid input");
+			switch (on) {
+			case InsertAllRows:
+				appMenu.get(1).click();
+				Thread.sleep(500);
+				System.out.println("insert checkbox selected ? "
+						+ checkboxes.get(2).isSelected());
+				if (!checkboxes.get(2).isSelected()) {
+					checkboxes.get(2).click();
+				} else {
+					System.out.println("already checkbox is checked");
+				}
+				middleButtons.get(1)
+						.findElement(By.cssSelector("div.button-box a"))
+						.click();
+				break;
+			case DeleteAllRows:
+				appMenu.get(2).click();
+				Thread.sleep(500);
+				if (!checkboxes.get(3).isSelected()) {
+					checkboxes.get(3).click();
+				} else {
+					System.out.println("already checkbox is checked");
+				}
+				middleButtons.get(2)
+						.findElement(By.cssSelector("div.button-box a"))
+						.click();
+				break;
+			case RefreshSelectedRows:
+				appMenu.get(3).click();
+				Thread.sleep(1000);
+				if (checkboxes.get(4).isSelected()) {
+					checkboxes.get(4).click();
+				} else {
+					System.out.println("already checkbox is unchecked");
+				}
+				middleButtons.get(3)
+						.findElement(By.cssSelector("div.button-box a"))
+						.click();
+				Thread.sleep(1500);
+				break;
+			case DownloadWithFilter:
+				appMenu.get(0).click();
+				Thread.sleep(500);
+				if (!checkboxes.get(1).isSelected()) {
+					checkboxes.get(1).click();
+				} else {
+					System.out.println("already checkbox is checked");
+				}
+				middleButtons.get(0)
+						.findElement(By.cssSelector("div.button-box a"))
+						.click();
+				break;
+			case InsertSelectedRows:
+				appMenu.get(1).click();
+				Thread.sleep(1000);
+				if (checkboxes.get(2).isSelected()) {
+					checkboxes.get(2).click();
+				} else {
+					System.out.println("already checkbox is unchecked");
+				}
+				middleButtons.get(1)
+						.findElement(By.cssSelector("div.button-box a"))
+						.click();
+				break;
+			case DeleteSelectedRows:
+				appMenu.get(2).click();
+				Thread.sleep(1000);
+				if (checkboxes.get(3).isSelected()) {
+					checkboxes.get(3).click();
+				} else {
+					System.out.println("already checkbox is unchecked");
+				}
+				middleButtons.get(2)
+						.findElement(By.cssSelector("div.button-box a"))
+						.click();
+				break;
+			case RefreshAllRows:
+				appMenu.get(3).click();
+				Thread.sleep(1000);
+				if (!checkboxes.get(4).isSelected()) {
+					checkboxes.get(4).click();
+				} else {
+					System.out.println("already checkbox is checked");
+				}
+				middleButtons.get(3)
+						.findElement(By.cssSelector("div.button-box a"))
+						.click();
+				break;
+			case DownloadWithoutFilter:
+				appMenu.get(0).click();
+				Thread.sleep(1000);
+				if (checkboxes.get(1).isSelected()) {
+					checkboxes.get(1).click();
+				} else {
+					System.out.println("already checkbox is unchecked");
+				}
+				middleButtons.get(0)
+						.findElement(By.cssSelector("div.button-box a"))
+						.click();
+				break;
+			default:
+				System.out.println("Invalid input");
 			}
-		} catch (org.openqa.selenium.WebDriverException e)
-		{
-			Files.write(Paths.get("E://error.txt"), driver.getPageSource().getBytes());
+		} catch (org.openqa.selenium.WebDriverException e) {
+			Files.write(Paths.get("D://error.txt"), driver.getPageSource()
+					.getBytes());
 			// switchToApp();
 			clickOn(on);
 		}
 
 	}
-	public String getNotification() throws InterruptedException
-	{
+
+	public String getNotification() throws InterruptedException {
 		int Time = 0;
 		String notification = "";
-		do
-		{
+		do {
 			Time += 1;
-			try
-			{
+			try {
 				WebElement notify = driver.findElement(By
 						.cssSelector("div.notifyjs-container span"));
-				if (notify.isDisplayed())
-				{
+				if (notify.isDisplayed()) {
 					notification = notify.getText();
-					if (notification.equals(""))
-					{
-						notify = driver.findElement(By.cssSelector("div.notifyjs-container span"));
+					if (notification.equals("")) {
+						notify = driver.findElement(By
+								.cssSelector("div.notifyjs-container span"));
 						System.out.println("trying to get notification again");
 					}
 					Thread.sleep(2000);
 					break;
 				}
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				System.out.println("not visible");
 				Thread.sleep(20);
 			}
@@ -641,8 +597,7 @@ public class CommonLibrary {
 		return notification;
 	}
 
-	public String tableId() throws Exception
-	{
+	public String tableId() throws Exception {
 
 		setAccessToken(HttpLibrary.getAccessTokenRestApi());
 
@@ -652,14 +607,13 @@ public class CommonLibrary {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static ArrayList<String> templateHeader(HashMap<String, String> header)
-	{
+	public static ArrayList<String> templateHeader(
+			HashMap<String, String> header) {
 		// Getting header row text
 		ArrayList<String> head = new ArrayList<String>();
 		Set set = header.entrySet();
 		Iterator i = set.iterator();
-		while (i.hasNext())
-		{
+		while (i.hasNext()) {
 			Map.Entry me = (Map.Entry) i.next();
 			head.add((String) me.getKey());
 
@@ -667,41 +621,39 @@ public class CommonLibrary {
 		return head;
 	}
 
-	public void waitUntilLoadingEnds() throws InterruptedException
-	{
-		try
-		{
-			WebElement loading = driver.findElement(By.cssSelector("div#loadingDiv"));
+	public void waitUntilLoadingEnds() throws InterruptedException {
+		try {
+			WebElement loading = driver.findElement(By
+					.cssSelector("div#loadingDiv"));
 			System.out.println(loading.getAttribute("aria-hidden"));
-			while (loading.getAttribute("aria-hidden").equals("false"))
-			{
+			while (loading.getAttribute("aria-hidden").equals("false")) {
 				loading = driver.findElement(By.cssSelector("div#loadingDiv"));
 			}
-		} catch (NoSuchElementException e)
-		{
+		} catch (NoSuchElementException e) {
 			System.out.println("no loading");
 		}
 	}
 
-	public static String capture(WebDriver driver, String screenShotName) throws IOException
-	{
+	public static String capture(WebDriver driver, String screenShotName)
+			throws IOException {
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File source = ts.getScreenshotAs(OutputType.FILE);
-		String dest = System.getProperty("user.dir") + "\\ErrorScreenshots\\" + screenShotName
-				+ ".png";
+		String dest = System.getProperty("user.dir") + "\\ErrorScreenshots\\"
+				+ screenShotName + ".png";
 		File destination = new File(dest);
 		FileUtils.copyFile(source, destination);
 
 		return dest;
 	}
 
-	public Map<String, String> rowData(int i, ExtentTest logger) throws Exception
-	{
+	public Map<String, String> rowData(int i, ExtentTest logger)
+			throws Exception {
 		System.out.println("Waiting for Excel sheet to get latest data");
 		Thread.sleep(20000);
 		System.out.println("setting Row data");
-		String str = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")
-				+ "//src//test//resources//enums.json")));
+		String str = new String(
+				Files.readAllBytes(Paths.get(System.getProperty("user.dir")
+						+ "//src//test//resources//enums.json")));
 		org.json.simple.JSONObject enumsJson = (org.json.simple.JSONObject) new JSONParser()
 				.parse(str);
 		// Country..[?(@.internalId == "_angola")].name
@@ -710,41 +662,35 @@ public class CommonLibrary {
 		HashMap<String, String> header = getHeader();
 		ArrayList<String> head = templateHeader(getHeader());
 		// Thread.sleep(3000);
-		String[] rowData = HttpLibrary.getRowAtIndex(i+2);
+		String[] rowData = HttpLibrary.getRowAtIndex(i + 2);
 
-		for (int k = 0; k < 9; k++)
-		{
-			try
-			{
+		for (int k = 0; k < 9; k++) {
+			try {
 				System.out.println(rowData[0] + ":" + rowData[1]);
 				/*
 				 * if (rowData[0].equals("") && rowData[1].equals("")) {
 				 */
-				System.out.println(" Length " + head.size() + " : " + rowData.length);
-				if (head.size() != rowData.length)
-				{
+				System.out.println(" Length " + head.size() + " : "
+						+ rowData.length);
+				if (head.size() != rowData.length) {
 					Thread.sleep(5000);
-					rowData = HttpLibrary.getRowAtIndex(i+2);
-					System.out.println("Row" + " : " + Arrays.toString(rowData));
-				} else
-				{
+					rowData = HttpLibrary.getRowAtIndex(i + 2);
+					System.out
+							.println("Row" + " : " + Arrays.toString(rowData));
+				} else {
 					break;
 				}
-			} catch (ArrayIndexOutOfBoundsException e)
-			{
-				rowData = HttpLibrary.getRowAtIndex(i+2);
+			} catch (ArrayIndexOutOfBoundsException e) {
+				rowData = HttpLibrary.getRowAtIndex(i + 2);
 			}
 		}
 		System.out.println(Arrays.toString(rowData));
 
-		for (int j = 0; j < header.size(); j++)
-		{
-			if (header.get(head.get(j)).equals("enum"))
-			{
+		for (int j = 0; j < header.size(); j++) {
+			if (header.get(head.get(j)).equals("enum")) {
 				System.out.println("enum feild found in header");
 				System.out.println(head.get(j));
-				if (rowData[j].startsWith("_"))
-				{
+				if (rowData[j].startsWith("_")) {
 					System.out.println("enum field: " + head.get(j));
 					// rowData.add(j, element)
 					String[] data = head.get(j).toString().split("\\.");
@@ -752,61 +698,54 @@ public class CommonLibrary {
 					System.out.println(enumField);
 					System.out.println("got enum data :" + rowData[j]);
 					// Country..[?(@.internalId == "_angola")].name
-					String q = enumField + "..[?(@.internalId == \"" + rowData[j] + "\")].name";
+					String q = enumField + "..[?(@.internalId == \""
+							+ rowData[j] + "\")].name";
 					q = q.substring(0, 1).toUpperCase() + q.substring(1);
 					System.out.println("query : " + q);
-					String temp = remSpecialCharacters(JsonPath.read(enums, q).toString());
-					System.out.println("updated enum value from " + rowData[j] + " to " + temp);
+					String temp = remSpecialCharacters(JsonPath.read(enums, q)
+							.toString());
+					System.out.println("updated enum value from " + rowData[j]
+							+ " to " + temp);
 					// System.out.println("got enum data :" + rowData[j]);
 					rowData[j] = temp;
-					System.out.println("after changing enum data :" + rowData[j]);
+					System.out.println("after changing enum data :"
+							+ rowData[j]);
 				}
 			}
 		}
 		Map<String, String> fromExcel = null;
-		if (head.size() == rowData.length)
-		{
+		if (head.size() == rowData.length) {
 			fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
-		} else
-		{
+		} else {
 			Assert.fail("Header and rowdata length mismatch");
 		}
-		/*
-		 * CommonLibrary.report = new
-		 * ExtentReports(System.getProperty("user.dir") +
-		 * "\\Reports\\RecordTesting.html"); // have to change this and should
-		 * pass logger as parameter ExtentTest logger =
-		 * CommonLibrary.report.startTest("Inserting Contact");
-		 */
+
 		HttpLibrary.printCurrentDataValues(fromExcel, logger);
 
 		return fromExcel;
 	}
 
-	public int getRecordId(Map<String, String> fromExcel)
-	{
+	public int getRecordId(Map<String, String> fromExcel) {
 		// System.out.println("internal id: " +
 		// fromExcel.get(".internalid").trim());
-		try
-		{
+		try {
 			String s = fromExcel.get(".internalId").trim();
 			s = remSpecialCharacters(s);
 			int i = Integer.parseInt(s);
 			// System.out.println("i: " + i);
 			return i;
-		} catch (NullPointerException e)
-		{
+		} catch (NullPointerException e) {
 			return 0;
 		}
 	}
+
 	// Map<String, String>
-	public Map<String, String> getFromNs(String recType, int id) throws IOException, ParseException
-	{
+	public Map<String, String> getFromNs(String recType, int id)
+			throws IOException, ParseException {
 		Map<String, String> fromNS = null;
 		StringBuilder rl = HttpLibrary.doGET(recType, id);
 
-		if (!rl.toString().equals("[]"))
-		{
+		if (!rl.toString().equals("[]")) {
 
 			JSONArray nsData = new JSONArray(rl.toString());
 			org.json.JSONObject json = nsData.getJSONObject(0);
@@ -823,58 +762,47 @@ public class CommonLibrary {
 			res.add(0, "");
 			// System.out.println("NS Object: " + document.toString());
 			// Print values from Ns JSON response
-			for (int j = 1; j < head.size(); j++)
-			{
+			for (int j = 1; j < head.size(); j++) {
 				// System.out.println("head value: " + head.get(j).toString());
 				// System.out.println("header " + header.get(head.get(j)));
 				String[] data = head.get(j).toString().split("\\.");
 				String value = "";
 				String Query = "";
-				if (data.length > 2)
-				{
-					Query = generateJaywayQueryString(data, header.get(head.get(j))).toLowerCase();
-				} else
-				{
+				if (data.length > 2) {
+					Query = generateJaywayQueryString(data,
+							header.get(head.get(j))).toLowerCase();
+				} else {
 					Query = head.get(j).toLowerCase();
 				}
-				try
-				{
-					if (Query.contains("internalid"))
-					{
+				try {
+					if (Query.contains("internalid")) {
 						Query = Query.replaceAll("internalid", "id");
-						if (Query.contains("addressbookaddress"))
-						{
+						if (Query.contains("addressbookaddress")) {
 							res.add(j, "");
-						} else
-						{
-							value = remSpecialCharacters(JsonPath.read(document, "$" + Query)
-									.toString());
+						} else {
+							value = remSpecialCharacters(JsonPath.read(
+									document, "$" + Query).toString());
 							res.add(j, value);
 						}
 						// System.out.println(value);
-					} else
-					{
-						if (header.get(head.get(j)).equals("select"))
-						{
-							value = remSpecialCharacters(JsonPath.read(document, "$" + Query
-									+ ".name").toString());
+					} else {
+						if (header.get(head.get(j)).equals("select")) {
+							value = remSpecialCharacters(JsonPath.read(
+									document, "$" + Query + ".name").toString());
 							res.add(j, value);
-						} else if (header.get(head.get(j)).equals("enum"))
-						{
-							value = remSpecialCharacters(JsonPath.read(document, "$" + Query
-									+ ".name").toString());
+						} else if (header.get(head.get(j)).equals("enum")) {
+							value = remSpecialCharacters(JsonPath.read(
+									document, "$" + Query + ".name").toString());
 							res.add(j, value);
-						} else
-						{
-							value = remSpecialCharacters(JsonPath.read(document, "$" + Query)
-									.toString());
+						} else {
+							value = remSpecialCharacters(JsonPath.read(
+									document, "$" + Query).toString());
 							res.add(j, value);
 						}
 
 						// System.out.println(value);
 					}
-				} catch (PathNotFoundException e)
-				{
+				} catch (PathNotFoundException e) {
 
 					res.add(j, "");
 					// System.out.println(value);
@@ -884,14 +812,11 @@ public class CommonLibrary {
 			String[] values = new String[res.size()];
 
 			System.out.println(res.size());
-			for (int j = 0; j < res.size(); j++)
-			{
+			for (int j = 0; j < res.size(); j++) {
 				System.out.println(res.get(j));
-				if (res.get(j).equals("") || res.get(j) == null)
-				{
+				if (res.get(j).equals("") || res.get(j) == null) {
 					values[j] = "";
-				} else
-				{
+				} else {
 					values[j] = remSpecialCharacters(res.get(j));
 				}
 
@@ -905,6 +830,7 @@ public class CommonLibrary {
 		return fromNS;
 
 	}
+
 	/*
 	 * public static String remExtraCharacters(String s) { if
 	 * (s.startsWith("[\"")) { s = s.substring(2, s.length() - 2);
@@ -915,19 +841,18 @@ public class CommonLibrary {
 	 * }
 	 */
 
-	public boolean compareData(Map<String, String> leftMap, Map<String, String> rightMap, String s)
-	{
+	public boolean compareData(Map<String, String> leftMap,
+			Map<String, String> rightMap, String s) {
 
 		if (leftMap == rightMap)
 			return true;
-		if (leftMap == null || rightMap == null || leftMap.size() != rightMap.size())
+		if (leftMap == null || rightMap == null
+				|| leftMap.size() != rightMap.size())
 			return false;
 		// System.out.println("printing keyset" + leftMap.keySet());
 		System.out.println("Comparing sheet data with NS data");
-		for (String key : leftMap.keySet())
-		{
-			if (!key.equals(s))
-			{
+		for (String key : leftMap.keySet()) {
+			if (!key.equals(s)) {
 				String value1 = leftMap.get(key);
 				String value2 = rightMap.get(key);
 				System.out.println(value1 + " = " + value2);
@@ -935,8 +860,7 @@ public class CommonLibrary {
 					continue;
 				else if (value1 == null || value2 == null)
 					return false;
-				if (!value1.equalsIgnoreCase(value2))
-				{
+				if (!value1.equalsIgnoreCase(value2)) {
 					System.out.println(value1 + "is not equal to " + value2);
 					Assert.fail();
 					return false;

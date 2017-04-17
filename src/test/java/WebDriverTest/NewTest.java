@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
 import util.BackgroundThread;
 import util.CommonLibrary;
 import util.HttpLibrary;
-public class NewTest {
+public class NewTest {/*
 	CommonLibrary lib = new CommonLibrary();
 	Properties template = lib.getTemplate();
 	private WebDriver driver;
@@ -85,5 +85,5 @@ public class NewTest {
 
 		lib.beforeTest();
 	}
-	
+	*/
 }
