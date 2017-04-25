@@ -48,13 +48,9 @@ public class RecordTestingForMultipleRecords {
 	private ArrayList<String> insertValues = new ArrayList<String>();
 	private String updateValues = "";
 
-	public RecordTestingForMultipleRecords(
-			String recordType,
-			String templateName,
-			String templateFields,
-			ArrayList<String> insertValues,
-			String updateValues)
-	{
+	public RecordTestingForMultipleRecords(String recordType,
+			String templateName, String templateFields,
+			ArrayList<String> insertValues, String updateValues) {
 		this.recordType = recordType;
 		this.templateName = templateName;
 		this.templateFields = templateFields;
@@ -63,19 +59,16 @@ public class RecordTestingForMultipleRecords {
 
 	}
 
-	public void setId(int id)
-	{
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
 
 	@BeforeSuite
-	public void InitialSetup() throws Exception
-	{
+	public void InitialSetup() throws Exception {
 		System.out.println("initial setup");
 		lib.beforeTest();
 		CommonLibrary.setAccessToken(HttpLibrary.getAccessTokenRestApi());
@@ -92,14 +85,17 @@ public class RecordTestingForMultipleRecords {
 		lib.handleMSDialogBox();
 		lib.switchIntoSheet();
 		lib.waitForOfficeAddin();
-		driver.findElement(By.cssSelector("table.moe-infobar-infotable tbody td.moe-infobar-button-cell button"))
+		driver.findElement(
+				By.cssSelector("table.moe-infobar-infotable tbody td.moe-infobar-button-cell button"))
 				.click();
 		System.out.println("Clicked on Start button in App");
 		Thread.sleep(2000);
 		lib.switchToApp();
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("div.welcomepage p.microsoft-btn a")).click();
-		ArrayList<String> allTabs = new ArrayList<String>(driver.getWindowHandles());
+		driver.findElement(By.cssSelector("div.welcomepage p.microsoft-btn a"))
+				.click();
+		ArrayList<String> allTabs = new ArrayList<String>(
+				driver.getWindowHandles());
 		driver.switchTo().window(allTabs.get(3));
 		List<WebElement> sign = driver.findElements(By
 				.cssSelector("div#main-panel-content table.tile td.tile-name"));
@@ -109,25 +105,24 @@ public class RecordTestingForMultipleRecords {
 		lib.switchIntoSheet();
 	}
 
-	public void loadTemplateAndPerformDataOperation(
-			String Template,
-			String templateFields,
-			ArrayList<String> values,
+	public void loadTemplateAndPerformDataOperation(String Template,
+			String templateFields, ArrayList<String> values,
 			CommonLibrary.App clickOn,
-			com.aventstack.extentreports.ExtentTest logger) throws InterruptedException, IOException
-	{
+			com.aventstack.extentreports.ExtentTest logger)
+			throws InterruptedException, IOException {
 		Keyboard press = ((HasInputDevices) driver).getKeyboard();
 
 		lib.switchIntoSheet();
 		Thread.sleep(2000);
 		lib.switchToApp();
-		Thread.sleep(700);
-		Files.write(Paths.get("D:/fileName.txt"), driver.getPageSource().getBytes());
-		Thread.sleep(2000);
+		Thread.sleep(5000);
+		Files.write(Paths.get("D:/fileName.html"), driver.getPageSource()
+				.getBytes());
+		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("a[title='Menu']")).click();
+		Thread.sleep(500);
 		driver.findElement(By.linkText("Templates")).click();
 		Thread.sleep(1000);
-
 		logger.log(Status.INFO, "Loaded '" + Template + "' template");
 		lib.loadTemplate(Template);
 		lib.waitUntilLoadingEnds();
@@ -143,10 +138,11 @@ public class RecordTestingForMultipleRecords {
 		press.pressKey(Keys.DOWN);
 		press.pressKey(Keys.DOWN);
 		for (String s : values)
+
 		{
 			lib.insertDataIntoTemplate(s);
 			Thread.sleep(1000);
- 			press.pressKey(Keys.chord(Keys.HOME));
+			press.pressKey(Keys.chord(Keys.HOME));
 			Thread.sleep(100);
 			press.pressKey(Keys.chord(Keys.DOWN));
 
@@ -154,19 +150,16 @@ public class RecordTestingForMultipleRecords {
 		press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
 		press.pressKey(Keys.chord(Keys.DOWN));
 		press.pressKey(Keys.chord(Keys.DOWN));
-		for (int m = 0; m <= values.size(); m++)
-		{
+		for (int m = 1; m < values.size(); m++) {
 			press.pressKey(Keys.chord(Keys.SHIFT, Keys.DOWN));
 		}
 		lib.switchToApp();
-		try
-		{
+		try {
 			WebElement modalWindow = driver.findElement(By
 					.cssSelector("div.modal-content div.alertAction button"));
 			modalWindow.click();
 			System.out.println("Modal window is dislayed");
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			System.out.println("Modal window is not dislayed");
 		}
 		logger.log(Status.INFO, "Inserting Data into Template");
@@ -177,96 +170,90 @@ public class RecordTestingForMultipleRecords {
 		logger.log(Status.INFO, notification);
 	}
 
-	public boolean getFromNsAndCompare(
-			HashMap<String, String> fromExcel,
-			String recordType,
-			boolean success,
-			ExtentTest logger) throws IOException, ParseException
-	{
-		ArrayList<String> head = CommonLibrary.templateHeader(CommonLibrary.getHeader());
+	public boolean getFromNsAndCompare(HashMap<String, String> fromExcel,
+			String recordType, boolean success, ExtentTest logger)
+			throws IOException, ParseException {
+		ArrayList<String> head = CommonLibrary.templateHeader(CommonLibrary
+				.getHeader());
 
 		success = fromExcel.get(head.get(0)).equals("");
-		if (success)
-		{
+		if (success) {
 			id = lib.getRecordId(fromExcel);
 			System.out.println("id: " + id);
 			setId(id);
 			logger.log(Status.PASS, Integer.toString(id));
-		} else
-		{
+		} else {
 			setId(0);
 			logger.log(Status.FAIL, "insertion failed \n Error message :"
 					+ fromExcel.get(head.get(0)));
 		}
 
-		//HttpLibrary.printCurrentDataValues(fromExcel, logger);
+		// HttpLibrary.printCurrentDataValues(fromExcel, logger);
 
-		if (getId() != 0)
-		{
+		if (getId() != 0) {
 			logger.log(Status.PASS, "Getting data from NS");
 			Map<String, String> fromNS = lib.getFromNs(recordType, id);
 			System.out.println("\ndata from NS\n\n");
 			HttpLibrary.printCurrentDataValues(fromNS, logger);
-			if (!lib.compareData(fromExcel, fromNS, head.get(0)))
-			{
+			if (!lib.compareData(fromExcel, fromNS, head.get(0))) {
 				logger.log(Status.FAIL, "Opps Data Mismatch");
 				System.out.println("Data Mismatch");
 				return false;
-			} else
-			{
+			} else {
 				logger.log(Status.PASS, "Cheers!! Opertion is successfull");
 				return true;
 			}
-		} else
-		{
-			logger.log(Status.FAIL, "Failed because " + fromExcel.get(head.get(0)));
-			System.out.println("insertion failed \n Error message :" + fromExcel.get(head.get(0)));
-			Assert.fail(fromExcel.get(head.get(0)));
+		} else {
+			logger.log(Status.FAIL,
+					"Failed because " + fromExcel.get(head.get(0)));
+			System.out.println("insertion failed \n Error message :"
+					+ fromExcel.get(head.get(0)));
+			//Assert.fail(fromExcel.get(head.get(0)));
 			return false;
 		}
 	}
 
 	@Test(priority = 0)
-	public void insertOperation() throws Exception
-	{
+	public void insertOperation() throws Exception {
 		System.out.println("******************");
 		logger = report.createTest("Insert Operation : " + recordType);
 		boolean success = false;
 		String fields = templateFields;
 		ArrayList<String> values = insertValues;
-		loadTemplateAndPerformDataOperation((String) templateName, fields, values, CommonLibrary.App.InsertAllRows, logger);
+		loadTemplateAndPerformDataOperation((String) templateName, fields,
+				values, CommonLibrary.App.InsertAllRows, logger);
 		HttpLibrary.setFieldsFormat(fields);
-		
-		for (int m = 0; m <= values.size(); m++)
-		{
-		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(m, logger);
-		getFromNsAndCompare(fromExcel, recordType, success, logger);
+
+		for (int m = 1; m < values.size(); m++) {
+			HashMap<String, String> fromExcel = (HashMap<String, String>) lib
+					.rowData(m, logger);
+			getFromNsAndCompare(fromExcel, recordType, success, logger);
 		}
 
 	}
 
-	//@Test(priority = 1, dependsOnMethods = {"insertOperation"})
-	public void updateOperation() throws Exception
-	{
+	// @Test(priority = 1, dependsOnMethods = {"insertOperation"})
+	public void updateOperation() throws Exception {
 		System.out.println("******************");
 		System.out.println("Update operation : " + templateName);
 		logger = report.createTest("Update Operation : " + recordType);
 		String fields = templateFields;
-		String substr = lib.appendIdToUpdateTemplateValues(updateValues, getId());
+		String substr = lib.appendIdToUpdateTemplateValues(updateValues,
+				getId());
 		System.out.println("[" + substr + "]");
 		boolean success = false;
 		// String fields = temp.getProperty("contactTemplate");
 		// loadTemplateAndPerformDataOperation((String) templateName, fields,
 		// substr, CommonLibrary.App.InsertAllRows, logger);
 		HttpLibrary.setFieldsFormat(fields);
-		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(0, logger);
+		HashMap<String, String> fromExcel = (HashMap<String, String>) lib
+				.rowData(0, logger);
 		getFromNsAndCompare(fromExcel, recordType, success, logger);
 		System.out.println("******************");
 	}
 
-	//@Test(priority = 2, dependsOnMethods = {"insertOperation"})
-	public void refreshOperation() throws Exception
-	{
+	// @Test(priority = 2, dependsOnMethods = {"insertOperation"})
+	public void refreshOperation() throws Exception {
 		System.out.println("******************");
 		System.out.println(templateName);
 		logger = report.createTest("Refresh Opearation : " + recordType);
@@ -274,17 +261,18 @@ public class RecordTestingForMultipleRecords {
 		System.out.println("[" + substr + "]");
 		boolean success = false;
 		String fields = templateFields;
-		//loadTemplateAndPerformDataOperation((String) templateName, fields,substr, CommonLibrary.App.RefreshSelectedRows, logger);
+		// loadTemplateAndPerformDataOperation((String) templateName,
+		// fields,substr, CommonLibrary.App.RefreshSelectedRows, logger);
 		HttpLibrary.setFieldsFormat(fields);
 
-		HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(0, logger);
+		HashMap<String, String> fromExcel = (HashMap<String, String>) lib
+				.rowData(0, logger);
 		getFromNsAndCompare(fromExcel, recordType, success, logger);
 		System.out.println("******************");
 	}
 
-	//@Test(priority = 5, dependsOnMethods = {"insertOperation"})
-	public void deleteOperation() throws Exception
-	{
+	// @Test(priority = 5, dependsOnMethods = {"insertOperation"})
+	public void deleteOperation() throws Exception {
 		System.out.println("************");
 		Thread.sleep(2000);
 		lib.switchIntoSheet();
@@ -306,23 +294,21 @@ public class RecordTestingForMultipleRecords {
 		Thread.sleep(5000);
 		StringBuilder rl = HttpLibrary.doGET(recordType, getId());
 		System.out.println(rl.toString());
-		if (rl.toString().equals("[]"))
-		{
+		if (rl.toString().equals("[]")) {
 			logger.log(Status.PASS, "Successfully Deleted record");
-		} else
-		{
+		} else {
 			logger.log(Status.FAIL, "Record is not deleted");
 			Assert.fail("Record is not deleted :( ");
-			HashMap<String, String> fromExcel = (HashMap<String, String>) lib.rowData(0, logger);
+			HashMap<String, String> fromExcel = (HashMap<String, String>) lib
+					.rowData(0, logger);
 			System.out.println(fromExcel.get(0));
 		}
 
 	}
+
 	@AfterMethod
-	public void tearDown(ITestResult result)
-	{
-		if (result.getStatus() == ITestResult.FAILURE)
-		{
+	public void tearDown(ITestResult result) {
+		if (result.getStatus() == ITestResult.FAILURE) {
 			logger.log(Status.FAIL, result.getName() + " function is fail");
 		}
 

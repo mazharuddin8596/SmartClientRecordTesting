@@ -5,8 +5,8 @@
 	<test name="Test" group-by-instances="true" parallel="false">
 		<classes>
 			<!-- <class name="WebDriverTest.RecordTesting" /> -->
-			<!-- <class name="util.RecordFactory"/> -->
-			<class name="util.MRecordFactory" />
+			 <class name="util.RecordFactory"/> 
+		<!--	<class name="util.MRecordFactory" />-->
 			<!-- <class name="util.SampleFactory"/> -->
 		</classes>
 	</test> <!-- Test -->

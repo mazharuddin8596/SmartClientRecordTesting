@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
@@ -666,10 +667,6 @@ public class CommonLibrary {
 
 		for (int k = 0; k < 9; k++) {
 			try {
-				System.out.println(rowData[0] + ":" + rowData[1]);
-				/*
-				 * if (rowData[0].equals("") && rowData[1].equals("")) {
-				 */
 				System.out.println(" Length " + head.size() + " : "
 						+ rowData.length);
 				if (head.size() != rowData.length) {
@@ -706,14 +703,14 @@ public class CommonLibrary {
 							.toString());
 					System.out.println("updated enum value from " + rowData[j]
 							+ " to " + temp);
-					// System.out.println("got enum data :" + rowData[j]);
 					rowData[j] = temp;
 					System.out.println("after changing enum data :"
 							+ rowData[j]);
 				}
 			}
 		}
-		Map<String, String> fromExcel = null;
+		//Map<String, String> fromExcel = null;
+		 org.json.JSONObject fromExcel = null;
 		if (head.size() == rowData.length) {
 			fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
 		} else {
@@ -726,13 +723,10 @@ public class CommonLibrary {
 	}
 
 	public int getRecordId(Map<String, String> fromExcel) {
-		// System.out.println("internal id: " +
-		// fromExcel.get(".internalid").trim());
 		try {
 			String s = fromExcel.get(".internalId").trim();
 			s = remSpecialCharacters(s);
 			int i = Integer.parseInt(s);
-			// System.out.println("i: " + i);
 			return i;
 		} catch (NullPointerException e) {
 			return 0;
@@ -760,11 +754,9 @@ public class CommonLibrary {
 			ArrayList<String> head = templateHeader(CommonLibrary.getHeader());
 			ArrayList<String> res = new ArrayList<String>();
 			res.add(0, "");
-			// System.out.println("NS Object: " + document.toString());
+
 			// Print values from Ns JSON response
 			for (int j = 1; j < head.size(); j++) {
-				// System.out.println("head value: " + head.get(j).toString());
-				// System.out.println("header " + header.get(head.get(j)));
 				String[] data = head.get(j).toString().split("\\.");
 				String value = "";
 				String Query = "";
@@ -784,7 +776,6 @@ public class CommonLibrary {
 									document, "$" + Query).toString());
 							res.add(j, value);
 						}
-						// System.out.println(value);
 					} else {
 						if (header.get(head.get(j)).equals("select")) {
 							value = remSpecialCharacters(JsonPath.read(
@@ -800,12 +791,10 @@ public class CommonLibrary {
 							res.add(j, value);
 						}
 
-						// System.out.println(value);
 					}
 				} catch (PathNotFoundException e) {
 
 					res.add(j, "");
-					// System.out.println(value);
 				}
 			}
 			System.out.println("From NS: " + res);
@@ -821,7 +810,6 @@ public class CommonLibrary {
 				}
 
 			}
-
 			// Mapping header and row values as <Key,Value>
 			fromNS = HttpLibrary.mapHeaderWithRowData(head, values);
 
@@ -831,16 +819,6 @@ public class CommonLibrary {
 
 	}
 
-	/*
-	 * public static String remExtraCharacters(String s) { if
-	 * (s.startsWith("[\"")) { s = s.substring(2, s.length() - 2);
-	 * 
-	 * } else if (s.startsWith("[") || s.startsWith("\"")) { s = s.substring(1,
-	 * s.length() - 1); } return s;
-	 * 
-	 * }
-	 */
-
 	public boolean compareData(Map<String, String> leftMap,
 			Map<String, String> rightMap, String s) {
 
@@ -849,7 +827,6 @@ public class CommonLibrary {
 		if (leftMap == null || rightMap == null
 				|| leftMap.size() != rightMap.size())
 			return false;
-		// System.out.println("printing keyset" + leftMap.keySet());
 		System.out.println("Comparing sheet data with NS data");
 		for (String key : leftMap.keySet()) {
 			if (!key.equals(s)) {
