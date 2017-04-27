@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONException;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
@@ -34,6 +34,7 @@ import org.openqa.selenium.interactions.HasInputDevices;
 import org.openqa.selenium.interactions.Keyboard;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.testng.Assert;
 
 import com.aventstack.extentreports.ExtentTest;
@@ -647,10 +648,12 @@ public class CommonLibrary {
 		return dest;
 	}
 
-	public Map<String, String> rowData(int i, ExtentTest logger)
+	// public Map<String, String>
+
+	public org.json.JSONObject rowData(int i, ExtentTest logger)
 			throws Exception {
 		System.out.println("Waiting for Excel sheet to get latest data");
-		Thread.sleep(20000);
+		Thread.sleep(22000);
 		System.out.println("setting Row data");
 		String str = new String(
 				Files.readAllBytes(Paths.get(System.getProperty("user.dir")
@@ -708,9 +711,12 @@ public class CommonLibrary {
 							+ rowData[j]);
 				}
 			}
+			if (header.get(head.get(j)).equals("boolean")){
+				rowData[j] = rowData[j].toLowerCase();
+			}
 		}
-		//Map<String, String> fromExcel = null;
-		 org.json.JSONObject fromExcel = null;
+		// Map<String, String> fromExcel = null;
+		org.json.JSONObject fromExcel = null;
 		if (head.size() == rowData.length) {
 			fromExcel = HttpLibrary.mapHeaderWithRowData(head, rowData);
 		} else {
@@ -722,9 +728,12 @@ public class CommonLibrary {
 		return fromExcel;
 	}
 
-	public int getRecordId(Map<String, String> fromExcel) {
+	public int getRecordId(org.json.JSONObject fromExcel) throws JSONException {
 		try {
-			String s = fromExcel.get(".internalId").trim();
+			String s = ((String) fromExcel.get(".internalId")).trim();
+			if (s.equals("")) {
+				Assert.fail("No data found in internal id column");
+			}
 			s = remSpecialCharacters(s);
 			int i = Integer.parseInt(s);
 			return i;
@@ -734,9 +743,10 @@ public class CommonLibrary {
 	}
 
 	// Map<String, String>
-	public Map<String, String> getFromNs(String recType, int id)
-			throws IOException, ParseException {
-		Map<String, String> fromNS = null;
+	public org.json.JSONObject getFromNs(String recType, int id)
+			throws IOException, ParseException, JSONException,
+			InterruptedException {
+		org.json.JSONObject fromNS = new org.json.JSONObject();
 		StringBuilder rl = HttpLibrary.doGET(recType, id);
 
 		if (!rl.toString().equals("[]")) {
@@ -785,6 +795,11 @@ public class CommonLibrary {
 							value = remSpecialCharacters(JsonPath.read(
 									document, "$" + Query + ".name").toString());
 							res.add(j, value);
+						} else if (header.get(head.get(j)).equals("boolean")) {
+							value = remSpecialCharacters(JsonPath.read(
+									document, "$" + Query).toString());
+							value = value.toLowerCase();
+							res.add(j, value);
 						} else {
 							value = remSpecialCharacters(JsonPath.read(
 									document, "$" + Query).toString());
@@ -819,32 +834,16 @@ public class CommonLibrary {
 
 	}
 
-	public boolean compareData(Map<String, String> leftMap,
-			Map<String, String> rightMap, String s) {
+	public boolean compareData(org.json.JSONObject leftMap,
+			org.json.JSONObject rightMap, String s) throws JSONException {
 
 		if (leftMap == rightMap)
 			return true;
 		if (leftMap == null || rightMap == null
-				|| leftMap.size() != rightMap.size())
+				|| leftMap.length() != rightMap.length())
 			return false;
 		System.out.println("Comparing sheet data with NS data");
-		for (String key : leftMap.keySet()) {
-			if (!key.equals(s)) {
-				String value1 = leftMap.get(key);
-				String value2 = rightMap.get(key);
-				System.out.println(value1 + " = " + value2);
-				if (value1 == null && value2 == null)
-					continue;
-				else if (value1 == null || value2 == null)
-					return false;
-				if (!value1.equalsIgnoreCase(value2)) {
-					System.out.println(value1 + "is not equal to " + value2);
-					Assert.fail();
-					return false;
-				}
-
-			}
-		}
+		JSONAssert.assertEquals(leftMap, rightMap, false);
 
 		return true;
 	}

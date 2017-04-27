@@ -23,11 +23,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
+import com.cedarsoftware.util.io.JsonWriter;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 
@@ -126,7 +128,7 @@ public class HttpLibrary {
 	}
 
 	public static String addSheet() throws ClientProtocolException,
-			IOException, InterruptedException {
+			IOException, InterruptedException, JSONException {
 		Thread.sleep(2000);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		Configuration conf = Configuration.defaultConfiguration();
@@ -284,38 +286,50 @@ public class HttpLibrary {
 		}
 		CommonLibrary.setHeader(map);
 
-	}
-
-	public static void printCurrentDataValues(Map<String, String> map,
-			ExtentTest logger) {
-		String s = "";
-		System.out.println("Printing values");
-		for (Map.Entry<String, String> entry : map.entrySet()) {
-			s = s + entry.getKey() + " : " + entry.getValue() + ",";
+		//for (Map.Entry<String, String> entry : map.keySet()) {
+			for (@SuppressWarnings("rawtypes") Map.Entry entry : map.entrySet()) {
 			System.out.println(entry.getKey() + " : " + entry.getValue());
 		}
-		logger.log(Status.INFO, s);
+
+	}
+
+	public static void printCurrentDataValues(org.json.JSONObject map,
+			ExtentTest logger) throws IOException {
+		System.out.println("Printing values");
+		/*
+		 * for (Map.Entry<String, String> entry : map.keySet()) { s = s +
+		 * entry.getKey() + " : " + entry.getValue() + ",";
+		 * System.out.println(entry.getKey() + " : " + entry.getValue()); }
+		 */
+		/*
+		 * StringWriter out = new StringWriter(); map.writeJSONString(out);
+		 * String jsonText = out.toString(); System.out.print(jsonText);
+		 */
+		String jsonText = JsonWriter.formatJson(map.toString());
+		System.out.println(jsonText);
+		logger.log(Status.INFO, jsonText);
 	}
 
 	// public static Map<String, String>
 
-	public static JSONObject mapHeaderWithRowData(ArrayList<String> head,
-			String[] rowData) {
+	public static org.json.JSONObject mapHeaderWithRowData(
+			ArrayList<String> head, String[] rowData) throws JSONException, InterruptedException {
 		System.out.println("header =" + head.toString());
+		Thread.sleep(2000);
 		System.out.println("row data : " + Arrays.toString(rowData));
 		System.out.println(head.size() + " & " + rowData.length);
 		// mapping header and row values
-		Map<String, String> map = new LinkedHashMap<String, String>();
-		JSONObject obj = new JSONObject();
+		// Map<String, String> map = new LinkedHashMap<String, String>();
+		org.json.JSONObject obj = new org.json.JSONObject();
 
 		for (int i = 0; i < head.size(); i++) {
 
 			if (rowData[i] == null) {
 				obj.put(head.get(i), "");
-				map.put(head.get(i), "");
+				// map.put(head.get(i), "");
 			} else {
 				// System.out.println("row data: " + rowData[i]);
-				map.put(head.get(i), rowData[i]);
+				// map.put(head.get(i), rowData[i]);
 				obj.put(head.get(i), rowData[i]);
 			}
 		}

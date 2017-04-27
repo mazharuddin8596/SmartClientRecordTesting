@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
+import org.json.JSONException;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -170,9 +169,9 @@ public class RecordTestingForMultipleRecords {
 		logger.log(Status.INFO, notification);
 	}
 
-	public boolean getFromNsAndCompare(HashMap<String, String> fromExcel,
+	public boolean getFromNsAndCompare(org.json.JSONObject fromExcel,
 			String recordType, boolean success, ExtentTest logger)
-			throws IOException, ParseException {
+			throws IOException, ParseException, JSONException, InterruptedException {
 		ArrayList<String> head = CommonLibrary.templateHeader(CommonLibrary
 				.getHeader());
 
@@ -192,7 +191,7 @@ public class RecordTestingForMultipleRecords {
 
 		if (getId() != 0) {
 			logger.log(Status.PASS, "Getting data from NS");
-			Map<String, String> fromNS = lib.getFromNs(recordType, id);
+			org.json.JSONObject fromNS = lib.getFromNs(recordType, id);
 			System.out.println("\ndata from NS\n\n");
 			HttpLibrary.printCurrentDataValues(fromNS, logger);
 			if (!lib.compareData(fromExcel, fromNS, head.get(0))) {
@@ -208,7 +207,8 @@ public class RecordTestingForMultipleRecords {
 					"Failed because " + fromExcel.get(head.get(0)));
 			System.out.println("insertion failed \n Error message :"
 					+ fromExcel.get(head.get(0)));
-			//Assert.fail(fromExcel.get(head.get(0)));
+			String error = fromExcel.get(head.get(0)).toString();
+			 Assert.fail(error);
 			return false;
 		}
 	}
@@ -225,8 +225,7 @@ public class RecordTestingForMultipleRecords {
 		HttpLibrary.setFieldsFormat(fields);
 
 		for (int m = 1; m < values.size(); m++) {
-			HashMap<String, String> fromExcel = (HashMap<String, String>) lib
-					.rowData(m, logger);
+			org.json.JSONObject fromExcel = lib.rowData(m, logger);
 			getFromNsAndCompare(fromExcel, recordType, success, logger);
 		}
 
@@ -246,8 +245,7 @@ public class RecordTestingForMultipleRecords {
 		// loadTemplateAndPerformDataOperation((String) templateName, fields,
 		// substr, CommonLibrary.App.InsertAllRows, logger);
 		HttpLibrary.setFieldsFormat(fields);
-		HashMap<String, String> fromExcel = (HashMap<String, String>) lib
-				.rowData(0, logger);
+		org.json.JSONObject fromExcel = lib.rowData(0, logger);
 		getFromNsAndCompare(fromExcel, recordType, success, logger);
 		System.out.println("******************");
 	}
@@ -265,8 +263,7 @@ public class RecordTestingForMultipleRecords {
 		// fields,substr, CommonLibrary.App.RefreshSelectedRows, logger);
 		HttpLibrary.setFieldsFormat(fields);
 
-		HashMap<String, String> fromExcel = (HashMap<String, String>) lib
-				.rowData(0, logger);
+		org.json.JSONObject fromExcel = lib.rowData(0, logger);
 		getFromNsAndCompare(fromExcel, recordType, success, logger);
 		System.out.println("******************");
 	}
@@ -299,17 +296,25 @@ public class RecordTestingForMultipleRecords {
 		} else {
 			logger.log(Status.FAIL, "Record is not deleted");
 			Assert.fail("Record is not deleted :( ");
-			HashMap<String, String> fromExcel = (HashMap<String, String>) lib
-					.rowData(0, logger);
-			System.out.println(fromExcel.get(0));
+			
 		}
 
 	}
 
 	@AfterMethod
-	public void tearDown(ITestResult result) {
+	public void tearDown(ITestResult result) throws IOException {
 		if (result.getStatus() == ITestResult.FAILURE) {
 			logger.log(Status.FAIL, result.getName() + " function is fail");
+
+			String screenshot_path = CommonLibrary.capture(driver,
+					result.getName());
+			ExtentTest image = logger.addScreenCaptureFromPath(screenshot_path);
+			logger.log(Status.FAIL, "asdf" + image);
+			Files.write(
+					Paths.get(System.getProperty("user.dir")
+							+ "\\FailedPageSource\\" + result.getName()
+							+ ".txt"), driver.getPageSource().getBytes());
+
 		}
 
 		report.flush();

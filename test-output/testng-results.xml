@@ -1,45 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="1" total="1" passed="0">
+<testng-results skipped="1" failed="1" total="2" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="35" started-at="2017-04-25T06:32:17Z" finished-at="2017-04-25T06:32:17Z">
+  <suite name="example suite 1" duration-ms="116329" started-at="2017-04-27T00:27:13Z" finished-at="2017-04-27T00:29:09Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="35" started-at="2017-04-25T06:32:17Z" finished-at="2017-04-25T06:32:17Z">
-      <class name="WebDriverTest.RecordTestingForMultipleRecords">
-        <test-method status="FAIL" signature="InitialSetup()[pri:0, instance:null]" name="InitialSetup" is-config="true" duration-ms="0" started-at="2017-04-25T12:02:17Z" finished-at="2017-04-25T12:02:17Z">
-          <exception class="java.lang.NullPointerException">
-            <full-stacktrace>
-              <![CDATA[java.lang.NullPointerException
-	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:178)
-	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:138)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:277)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
-	at org.testng.TestNG.run(TestNG.java:1057)
-	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:115)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:207)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:178)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.NullPointerException -->
+    <test name="Test" duration-ms="116329" started-at="2017-04-27T00:27:13Z" finished-at="2017-04-27T00:29:09Z">
+      <class name="WebDriverTest.RecordTestingForSingleRecords">
+        <test-method status="PASS" signature="InitialSetup()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@5abca1e0]" name="InitialSetup" is-config="true" duration-ms="89601" started-at="2017-04-27T05:55:43Z" finished-at="2017-04-27T05:57:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- InitialSetup -->
-        <test-method status="FAIL" signature="insertOperation()[pri:0, instance:null]" name="insertOperation" duration-ms="11" started-at="2017-04-25T12:02:17Z" finished-at="2017-04-25T12:02:17Z">
-          <exception class="org.testng.TestNGException">
+        <test-method status="FAIL" signature="insertOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@5abca1e0]" name="insertOperation" duration-ms="115855" started-at="2017-04-27T05:57:13Z" finished-at="2017-04-27T05:59:09Z">
+          <exception class="java.lang.AssertionError">
             <message>
-              <![CDATA[
-Can't invoke public void WebDriverTest.RecordTestingForMultipleRecords.insertOperation() throws java.lang.Exception: either make it static or add a no-args constructor to your class]]>
+              <![CDATA[A contact record with this name already exists. Every contact record must have a unique name.]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.testng.TestNGException: 
-Can't invoke public void WebDriverTest.RecordTestingForMultipleRecords.insertOperation() throws java.lang.Exception: either make it static or add a no-args constructor to your class
-	at org.testng.internal.Utils.checkInstanceOrStatic(Utils.java:795)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:40)
+              <![CDATA[java.lang.AssertionError: A contact record with this name already exists. Every contact record must have a unique name.
+	at org.testng.Assert.fail(Assert.java:94)
+	at WebDriverTest.RecordTestingForSingleRecords.getFromNsAndCompare(RecordTestingForSingleRecords.java:197)
+	at WebDriverTest.RecordTestingForSingleRecords.insertOperation(RecordTestingForSingleRecords.java:213)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
 	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
 	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
 	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
@@ -61,41 +47,26 @@ Can't invoke public void WebDriverTest.RecordTestingForMultipleRecords.insertOpe
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:178)
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.testng.TestNGException -->
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- insertOperation -->
-        <test-method status="FAIL" signature="tearDown(org.testng.ITestResult)[pri:0, instance:null]" name="tearDown" is-config="true" duration-ms="0" started-at="2017-04-25T12:02:17Z" finished-at="2017-04-25T12:02:17Z">
-          <exception class="java.lang.NullPointerException">
-            <full-stacktrace>
-              <![CDATA[java.lang.NullPointerException
-	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:178)
-	at org.testng.internal.Invoker.invokeMethod(Invoker.java:786)
-	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
-	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
-	at org.testng.TestRunner.privateRun(TestRunner.java:767)
-	at org.testng.TestRunner.run(TestRunner.java:617)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
-	at org.testng.TestNG.run(TestNG.java:1057)
-	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:115)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:207)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:178)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.NullPointerException -->
+        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@5abca1e0]" name="tearDown" is-config="true" duration-ms="462" started-at="2017-04-27T05:59:09Z" finished-at="2017-04-27T05:59:09Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=insertOperation status=FAILURE method=RecordTestingForSingleRecords.insertOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@5abca1e0] output={null}]]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- WebDriverTest.RecordTestingForMultipleRecords -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+        <test-method status="SKIP" signature="deleteOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@5abca1e0]" name="deleteOperation" duration-ms="0" started-at="2017-04-27T05:59:09Z" depends-on-methods="WebDriverTest.RecordTestingForSingleRecords.insertOperation" finished-at="2017-04-27T05:59:09Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- deleteOperation -->
+      </class> <!-- WebDriverTest.RecordTestingForSingleRecords -->
+    </test> <!-- Test -->
+  </suite> <!-- example suite 1 -->
 </testng-results>

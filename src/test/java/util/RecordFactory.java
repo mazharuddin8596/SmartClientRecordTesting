@@ -50,10 +50,10 @@ public class RecordFactory {
 						JsonPath.read(document, "$.contactTemplate").toString(),
 						JsonPath.read(document, "$.contactInsert").toString(),
 						JsonPath.read(document, "$.contactUpdate").toString()},
-				{"customer", "Customer 17",
+				/*{"customer", "Customer 17",
 						JsonPath.read(document, "$.customerTemplate").toString(),
 						JsonPath.read(document, "$.customerInsert").toString(),
-						JsonPath.read(document, "$.customerUpdate").toString()}};
+						JsonPath.read(document, "$.customerUpdate").toString()}*/};
 		return dataArray;
 	}
 }

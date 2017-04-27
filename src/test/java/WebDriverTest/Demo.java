@@ -1,38 +1,48 @@
 package WebDriverTest;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import java.io.FileWriter;
-import java.io.IOException;
+import org.json.JSONException;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 public class Demo {
 
-    @SuppressWarnings("unchecked")
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JSONException {
 
-        JSONObject obj = new JSONObject();
-        obj.put("name", "mkyong.com");
-        obj.put("age", new Integer(100));
+		org.json.JSONObject obj = new org.json.JSONObject();
+		org.json.JSONObject obj1 = new org.json.JSONObject();
 
-        JSONArray list = new JSONArray();
-        list.add("msg 1 m");
-        list.add("msg 2 m ");
-        list.add("msg 3 m");
+		obj.put("name", "TRUE");
 
-        obj.put("messages", list);
+		obj.put("age", new Integer(100));
 
-        try (FileWriter file = new FileWriter("D:\\test.json")) {
+		org.json.JSONArray list = new org.json.JSONArray();
+		list.put("msg 1 m");
+		list.put("msg 2 m");
+		list.put("msg 3 m");
 
-            file.write(obj.toJSONString());
-            file.flush();
+		obj.put("messages", list);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		/*
+		 * try (FileWriter file = new FileWriter("D:\\test.json")) {
+		 * 
+		 * file.write(obj.toJSONString()); file.flush();
+		 * 
+		 * } catch (IOException e) { e.printStackTrace(); }
+		 */
 
-        System.out.print(obj);
+		obj1.put("name", "true");
+		obj1.put("age", new Integer(100));
 
-    }
+		org.json.JSONArray list1 = new org.json.JSONArray();
+		list1.put("msg 1 m");
+		list1.put("msg 2 m");
+		list1.put("msg 3 m");
+
+		obj1.put("messages", list1);
+		System.out.println(obj);
+		System.out.println(obj1);
+
+		JSONAssert.assertEquals(obj1, obj, true);
+
+	}
 
 }
