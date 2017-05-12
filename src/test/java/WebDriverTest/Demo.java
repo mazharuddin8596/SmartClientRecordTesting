@@ -1,48 +1,56 @@
 package WebDriverTest;
 
-import org.json.JSONException;
-import org.skyscreamer.jsonassert.JSONAssert;
+import java.io.FileReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+
+import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import util.HttpLibrary;
 
 public class Demo {
 
-	public static void main(String[] args) throws JSONException {
+    public static void main(String[] args) throws Exception {
+	JSONParser parser = new JSONParser();
+	Object obj = parser.parse(new FileReader("D:\\compare JSON.json"));
+	// JSONArray arr = (JSONArray) obj;
+	// org.json.JSONObject jsonObject = (org.json.JSONObject) obj;
+	// String jsonText = JsonWriter.formatJson(jsonObject.toString());
+	// System.out.println(jsonText);
 
-		org.json.JSONObject obj = new org.json.JSONObject();
-		org.json.JSONObject obj1 = new org.json.JSONObject();
+	String content = new String(Files.readAllBytes(Paths
+		.get("D:\\compare JSON.json")));
 
-		obj.put("name", "TRUE");
+	org.json.JSONObject jsonObject = new JSONObject(content);
 
-		obj.put("age", new Integer(100));
+	// parsing JSON Response
+	// Configuration conf = Configuration.defaultConfiguration();
 
-		org.json.JSONArray list = new org.json.JSONArray();
-		list.put("msg 1 m");
-		list.put("msg 2 m");
-		list.put("msg 3 m");
-
-		obj.put("messages", list);
-
-		/*
-		 * try (FileWriter file = new FileWriter("D:\\test.json")) {
-		 * 
-		 * file.write(obj.toJSONString()); file.flush();
-		 * 
-		 * } catch (IOException e) { e.printStackTrace(); }
-		 */
-
-		obj1.put("name", "true");
-		obj1.put("age", new Integer(100));
-
-		org.json.JSONArray list1 = new org.json.JSONArray();
-		list1.put("msg 1 m");
-		list1.put("msg 2 m");
-		list1.put("msg 3 m");
-
-		obj1.put("messages", list1);
-		System.out.println(obj);
-		System.out.println(obj1);
-
-		JSONAssert.assertEquals(obj1, obj, true);
-
+	// Object document = conf.jsonProvider().parse(jsonText.toString());
+	String fields = "Contact.NetSuite.1487671332805,.internalId,.firstName,.lastName,.subsidiary,.salutation,.company,.title,.mobilePhone,.officePhone,.phone,.email,.addressbookList.addressbook.addressbookAddress.addr1,.addressbookList.addressbook.addressbookAddress.addr2,.custentity_free_from_text,.custentity_pick_list,.addressbookList.addressbook.addressbookAddress.internalId,.addressbookList.addressbook.addressbookAddress.country";
+	// List<String> temp = (ArrayList<String>) ;
+	// ArrayList<Foo> list = new ArrayList<>(Arrays.asList(sos1.getValue());
+	ArrayList<String> head = new ArrayList<>(Arrays.asList(fields
+		.split("\\,")));
+	// System.out.println(head.toString());
+	HttpLibrary.setFieldsFormat(fields);
+	@SuppressWarnings("unchecked")
+	Iterator<String> keys = jsonObject.keys();
+	while (keys.hasNext()) {
+	    String key = keys.next();
+	    System.out.println(key);
 	}
 
+	/*
+	 * for (Iterator iterator = jsonObject.keySet().iterator(); iterator
+	 * .hasNext();) { String key = (String) iterator.next();
+	 * System.out.println(key); System.out.println(jsonObject.get(key)); //
+	 * Thread.sleep(23000); }
+	 */
+
+    }
 }

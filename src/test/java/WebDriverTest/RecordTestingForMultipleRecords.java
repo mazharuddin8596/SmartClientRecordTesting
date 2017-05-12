@@ -225,7 +225,7 @@ public class RecordTestingForMultipleRecords {
 		HttpLibrary.setFieldsFormat(fields);
 
 		for (int m = 1; m < values.size(); m++) {
-			org.json.JSONObject fromExcel = lib.rowData(m, logger);
+			org.json.JSONObject fromExcel = lib.getRowData(m, logger);
 			getFromNsAndCompare(fromExcel, recordType, success, logger);
 		}
 
@@ -245,7 +245,7 @@ public class RecordTestingForMultipleRecords {
 		// loadTemplateAndPerformDataOperation((String) templateName, fields,
 		// substr, CommonLibrary.App.InsertAllRows, logger);
 		HttpLibrary.setFieldsFormat(fields);
-		org.json.JSONObject fromExcel = lib.rowData(0, logger);
+		org.json.JSONObject fromExcel = lib.getRowData(0, logger);
 		getFromNsAndCompare(fromExcel, recordType, success, logger);
 		System.out.println("******************");
 	}
@@ -263,7 +263,7 @@ public class RecordTestingForMultipleRecords {
 		// fields,substr, CommonLibrary.App.RefreshSelectedRows, logger);
 		HttpLibrary.setFieldsFormat(fields);
 
-		org.json.JSONObject fromExcel = lib.rowData(0, logger);
+		org.json.JSONObject fromExcel = lib.getRowData(0, logger);
 		getFromNsAndCompare(fromExcel, recordType, success, logger);
 		System.out.println("******************");
 	}

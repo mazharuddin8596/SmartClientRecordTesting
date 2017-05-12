@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>0/1/1</td>
+<td>Tests passed/Failed/Skipped:</td><td>0/1/3</td>
 </tr><tr>
-<td>Started on:</td><td>Thu Apr 27 05:57:13 IST 2017</td>
+<td>Started on:</td><td>Thu May 11 14:49:12 IST 2017</td>
 </tr>
-<tr><td>Total time:</td><td>116 seconds (116329 ms)</td>
+<tr><td>Total time:</td><td>1462 seconds (1462627 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -76,14 +76,13 @@ function toggleAllBoxes() {
 </tr>
 <tr>
 <td title='WebDriverTest.RecordTestingForSingleRecords.insertOperation()'><b>insertOperation</b><br>Test class: WebDriverTest.RecordTestingForSingleRecords</td>
-<td><div><pre>java.lang.AssertionError: A contact record with this name already exists. Every contact record must have a unique name.
-	at WebDriverTest.RecordTestingForSingleRecords.getFromNsAndCompare(RecordTestingForSingleRecords.java:197)
-	at WebDriverTest.RecordTestingForSingleRecords.insertOperation(RecordTestingForSingleRecords.java:213)
-... Removed 25 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace566641954", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace566641954'><pre>java.lang.AssertionError: A contact record with this name already exists. Every contact record must have a unique name.
-	at org.testng.Assert.fail(Assert.java:94)
-	at WebDriverTest.RecordTestingForSingleRecords.getFromNsAndCompare(RecordTestingForSingleRecords.java:197)
-	at WebDriverTest.RecordTestingForSingleRecords.insertOperation(RecordTestingForSingleRecords.java:213)
+<td><div><pre>java.lang.ArrayIndexOutOfBoundsException: 1
+	at util.CommonLibrary.getRowsData(CommonLibrary.java:701)
+	at WebDriverTest.RecordTestingForSingleRecords.insertOperation(RecordTestingForSingleRecords.java:210)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace606826010", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace606826010'><pre>java.lang.ArrayIndexOutOfBoundsException: 1
+	at util.CommonLibrary.getRowsData(CommonLibrary.java:701)
+	at WebDriverTest.RecordTestingForSingleRecords.insertOperation(RecordTestingForSingleRecords.java:210)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -109,8 +108,8 @@ function toggleAllBoxes() {
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:207)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:178)
 </pre></div></td>
-<td>115</td>
-<td>WebDriverTest.RecordTestingForSingleRecords@5abca1e0</td></tr>
+<td>1461</td>
+<td>WebDriverTest.RecordTestingForSingleRecords@223191a6</td></tr>
 </table><p>
 <table width='100%' border='1' class='invocation-skipped'>
 <tr><td colspan='4' align='center'><b>SKIPPED TESTS</b></td></tr>
@@ -121,6 +120,16 @@ function toggleAllBoxes() {
 </tr>
 <tr>
 <td title='WebDriverTest.RecordTestingForSingleRecords.deleteOperation()'><b>deleteOperation</b><br>Test class: WebDriverTest.RecordTestingForSingleRecords</td>
+<td></td>
+<td>0</td>
+<td>null</td></tr>
+<tr>
+<td title='WebDriverTest.RecordTestingForSingleRecords.refreshOperation()'><b>refreshOperation</b><br>Test class: WebDriverTest.RecordTestingForSingleRecords</td>
+<td></td>
+<td>0</td>
+<td>null</td></tr>
+<tr>
+<td title='WebDriverTest.RecordTestingForSingleRecords.updateOperation()'><b>updateOperation</b><br>Test class: WebDriverTest.RecordTestingForSingleRecords</td>
 <td></td>
 <td>0</td>
 <td>null</td></tr>

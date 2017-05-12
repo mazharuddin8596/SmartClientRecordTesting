@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="1" failed="1" total="2" passed="0">
+<testng-results skipped="3" failed="1" total="4" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="example suite 1" duration-ms="116329" started-at="2017-04-27T00:27:13Z" finished-at="2017-04-27T00:29:09Z">
+  <suite name="example suite 1" duration-ms="1462627" started-at="2017-05-11T09:19:12Z" finished-at="2017-05-11T09:43:34Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="116329" started-at="2017-04-27T00:27:13Z" finished-at="2017-04-27T00:29:09Z">
+    <test name="Test" duration-ms="1462627" started-at="2017-05-11T09:19:12Z" finished-at="2017-05-11T09:43:34Z">
       <class name="WebDriverTest.RecordTestingForSingleRecords">
-        <test-method status="PASS" signature="InitialSetup()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@5abca1e0]" name="InitialSetup" is-config="true" duration-ms="89601" started-at="2017-04-27T05:55:43Z" finished-at="2017-04-27T05:57:13Z">
+        <test-method status="PASS" signature="InitialSetup()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@223191a6]" name="InitialSetup" is-config="true" duration-ms="100343" started-at="2017-05-11T14:47:31Z" finished-at="2017-05-11T14:49:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- InitialSetup -->
-        <test-method status="FAIL" signature="insertOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@5abca1e0]" name="insertOperation" duration-ms="115855" started-at="2017-04-27T05:57:13Z" finished-at="2017-04-27T05:59:09Z">
-          <exception class="java.lang.AssertionError">
+        <test-method status="FAIL" signature="insertOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@223191a6]" name="insertOperation" duration-ms="1461460" started-at="2017-05-11T14:49:12Z" finished-at="2017-05-11T15:13:33Z">
+          <exception class="java.lang.ArrayIndexOutOfBoundsException">
             <message>
-              <![CDATA[A contact record with this name already exists. Every contact record must have a unique name.]]>
+              <![CDATA[1]]>
             </message>
             <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: A contact record with this name already exists. Every contact record must have a unique name.
-	at org.testng.Assert.fail(Assert.java:94)
-	at WebDriverTest.RecordTestingForSingleRecords.getFromNsAndCompare(RecordTestingForSingleRecords.java:197)
-	at WebDriverTest.RecordTestingForSingleRecords.insertOperation(RecordTestingForSingleRecords.java:213)
+              <![CDATA[java.lang.ArrayIndexOutOfBoundsException: 1
+	at util.CommonLibrary.getRowsData(CommonLibrary.java:701)
+	at WebDriverTest.RecordTestingForSingleRecords.insertOperation(RecordTestingForSingleRecords.java:210)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -47,22 +46,30 @@
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:178)
 ]]>
             </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
+          </exception> <!-- java.lang.ArrayIndexOutOfBoundsException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- insertOperation -->
-        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@5abca1e0]" name="tearDown" is-config="true" duration-ms="462" started-at="2017-04-27T05:59:09Z" finished-at="2017-04-27T05:59:09Z">
+        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@223191a6]" name="tearDown" is-config="true" duration-ms="1141" started-at="2017-05-11T15:13:33Z" finished-at="2017-05-11T15:13:34Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=insertOperation status=FAILURE method=RecordTestingForSingleRecords.insertOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@5abca1e0] output={null}]]]>
+                <![CDATA[[TestResult name=insertOperation status=FAILURE method=RecordTestingForSingleRecords.insertOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@223191a6] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method status="SKIP" signature="deleteOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@5abca1e0]" name="deleteOperation" duration-ms="0" started-at="2017-04-27T05:59:09Z" depends-on-methods="WebDriverTest.RecordTestingForSingleRecords.insertOperation" finished-at="2017-04-27T05:59:09Z">
+        <test-method status="SKIP" signature="refreshOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@223191a6]" name="refreshOperation" duration-ms="0" started-at="2017-05-11T15:13:34Z" depends-on-methods="WebDriverTest.RecordTestingForSingleRecords.insertOperation" finished-at="2017-05-11T15:13:34Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- refreshOperation -->
+        <test-method status="SKIP" signature="updateOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@223191a6]" name="updateOperation" duration-ms="0" started-at="2017-05-11T15:13:34Z" depends-on-methods="WebDriverTest.RecordTestingForSingleRecords.insertOperation" finished-at="2017-05-11T15:13:34Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- updateOperation -->
+        <test-method status="SKIP" signature="deleteOperation()[pri:0, instance:WebDriverTest.RecordTestingForSingleRecords@223191a6]" name="deleteOperation" duration-ms="0" started-at="2017-05-11T15:13:34Z" depends-on-methods="WebDriverTest.RecordTestingForSingleRecords.insertOperation" finished-at="2017-05-11T15:13:34Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- deleteOperation -->

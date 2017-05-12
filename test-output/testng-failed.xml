@@ -8,6 +8,8 @@
           <include name="insertOperation"/>
           <include name="deleteOperation"/>
           <include name="InitialSetup"/>
+          <include name="updateOperation"/>
+          <include name="refreshOperation"/>
           <include name="tearDown"/>
         </methods>
       </class> <!-- WebDriverTest.RecordTestingForSingleRecords -->
