@@ -24,8 +24,11 @@ public class Demo {
 
 	String content = new String(Files.readAllBytes(Paths
 		.get("D:\\compare JSON.json")));
-
 	org.json.JSONObject jsonObject = new JSONObject(content);
+
+	String content1 = new String(Files.readAllBytes(Paths
+		.get("D:\\compare JSON.json")));
+	org.json.JSONObject jsonObject1 = new JSONObject(content1);
 
 	// parsing JSON Response
 	// Configuration conf = Configuration.defaultConfiguration();

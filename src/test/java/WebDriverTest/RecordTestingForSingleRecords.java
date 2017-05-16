@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 
 import org.json.JSONException;
@@ -18,6 +20,7 @@ import org.openqa.selenium.interactions.HasInputDevices;
 import org.openqa.selenium.interactions.Keyboard;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
@@ -47,6 +50,8 @@ public class RecordTestingForSingleRecords {
     private String templateFields = "";
     private String insertValues = "";
     private String updateValues = "";
+    Map<String, String> cleanRecordsCreated = new HashMap<String, String>();
+    ArrayList<String> recordsToVerify = new ArrayList<String>();
 
     public RecordTestingForSingleRecords(String recordType,
 	    String templateName, String templateFields, String insertValues,
@@ -97,6 +102,7 @@ public class RecordTestingForSingleRecords {
 	driver.findElement(By.cssSelector("div.actionbox a")).click();
 	Thread.sleep(1000);
 	driver.findElement(By.cssSelector("div[align='center'] a")).click();
+	Thread.sleep(500);
 	driver.findElement(By.cssSelector("input[placeholder='Username']"))
 		.sendKeys(data.getProperty("Emailid"));
 	driver.findElement(By.cssSelector("input[placeholder='Password']"))
@@ -123,10 +129,11 @@ public class RecordTestingForSingleRecords {
 	lib.switchIntoSheet();
 	Thread.sleep(2000);
 	lib.switchToApp();
-	Thread.sleep(700);
-	Files.write(Paths.get("D:/fileName.txt"), driver.getPageSource()
-		.getBytes());
-	Thread.sleep(2000);
+	/*
+	 * Files.write(Paths.get("D:/fileName.txt"), driver.getPageSource()
+	 * .getBytes());
+	 */
+	Thread.sleep(35000);
 	driver.findElement(By.cssSelector("a[title='Menu']")).click();
 	Thread.sleep(500);
 	driver.findElement(By.linkText("Templates")).click();
@@ -137,11 +144,11 @@ public class RecordTestingForSingleRecords {
 	lib.waitUntilLoadingEnds();
 	lib.switchIntoSheet();
 	Thread.sleep(1500);
-	logger.log(Status.INFO, templateFields);
+	logger.log(Status.INFO, "Template fields: \n " + templateFields);
 	System.out.println("Header: " + templateFields);
 	System.out.println("data: " + values);
 	Keyboard press = ((HasInputDevices) driver).getKeyboard();
-	logger.log(Status.INFO, values);
+	logger.log(Status.INFO, "Values " + values);
 	press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
 	Thread.sleep(200);
 	press.pressKey(Keys.LEFT);
@@ -157,7 +164,7 @@ public class RecordTestingForSingleRecords {
 	} catch (Exception e) {
 	    System.out.println("Modal window is not dislayed");
 	}
-	logger.log(Status.INFO, "Inserting Data into Template");
+	// logger.log(Status.INFO, "Inserting Data into Template");
 	lib.clickOn(clickOn);
 
 	String notification = lib.getNotification();
@@ -173,23 +180,24 @@ public class RecordTestingForSingleRecords {
 	org.json.JSONObject fromNS = null;
 	ArrayList<String> head = CommonLibrary.templateHeader(CommonLibrary
 		.getHeader());
-	HttpLibrary.printCurrentDataValues(fromExcel, logger);
+	HttpLibrary.printCurrentDataValues(fromExcel);
 	int arr[] = new int[recordsToVerify.size()];
 	for (int i = 0; i < recordsToVerify.size(); i++) {
-	    logger.log(Status.PASS, Integer.toString(id));
+	    logger.log(Status.INFO, Integer.toString(id));
 
-	    logger.log(Status.PASS, "Getting data from NS");
+	    // logger.log(Status.PASS, "Getting data from NS");
 	    String s = CommonLibrary.remSpecialCharacters(recordsToVerify
 		    .get(i).trim());
-	    int id = Integer.parseInt(s);
+	    id = Integer.parseInt(s);
 	    arr[i] = id;
 	}
-	fromNS = lib.getFromNs(recordType, arr);
+	fromNS = lib.getFromNs(recordType, arr, logger);
 	System.out.println("\ndata from NS\n\n");
-	HttpLibrary.printCurrentDataValues(fromNS, logger);
+	HttpLibrary.printCurrentDataValues(fromNS);
 
 	if (!lib.compareData(fromExcel, fromNS, logger)) {
 	    logger.log(Status.FAIL, "Opps Data Mismatch");
+	    Assert.fail("Data Mismatch");
 	    System.out.println("Data Mismatch");
 	    return false;
 	}
@@ -200,7 +208,7 @@ public class RecordTestingForSingleRecords {
 
     @Test(priority = 0)
     public void insertOperation() throws Exception {
-	System.out.println("******************");
+	System.out.println("****************** insert operation ************");
 	logger = report.createTest("Insert Operation : " + recordType);
 	String fields = templateFields;
 	String values = insertValues;
@@ -208,16 +216,16 @@ public class RecordTestingForSingleRecords {
 		values, CommonLibrary.App.InsertAllRows, logger);
 	HttpLibrary.setFieldsFormat(fields);
 	org.json.JSONObject fromExcel = lib.getRowsData(false, logger);
-	HttpLibrary.printCurrentDataValues(fromExcel, logger);
 	System.out.println("printing values from excel: \n ");
-	HttpLibrary.printCurrentDataValues(fromExcel, logger);
-	ArrayList<String> recordsToVerify = new ArrayList<String>();
+	HttpLibrary.printCurrentDataValues(fromExcel);
+	recordsToVerify = new ArrayList<String>();
 	@SuppressWarnings("unchecked")
 	Iterator<String> keys = fromExcel.keys();
 	while (keys.hasNext()) {
 	    String key = keys.next();
 	    // System.out.println(key);
 	    recordsToVerify.add(key);
+	    cleanRecordsCreated.put(key, recordType);
 	}
 	System.out.println(recordsToVerify);
 
@@ -232,7 +240,7 @@ public class RecordTestingForSingleRecords {
 
     @Test(priority = 1, dependsOnMethods = { "insertOperation" })
     public void updateOperation() throws Exception {
-	System.out.println("******************");
+	System.out.println("****************** update operation ************");
 	System.out.println("Update operation : " + templateName);
 	logger = report.createTest("Update Operation : " + recordType);
 	String fields = templateFields;
@@ -249,8 +257,8 @@ public class RecordTestingForSingleRecords {
 	Iterator<String> keys = fromExcel.keys();
 	while (keys.hasNext()) {
 	    String key = keys.next();
-	    // System.out.println(key);
 	    recordsToVerify.add(key);
+	    cleanRecordsCreated.put(key, recordType);
 	}
 	System.out.println(recordsToVerify);
 
@@ -264,7 +272,7 @@ public class RecordTestingForSingleRecords {
 
     @Test(priority = 2, dependsOnMethods = { "insertOperation" })
     public void refreshOperation() throws Exception {
-	System.out.println("******************");
+	System.out.println("****************** refresh operation ************");
 	System.out.println(templateName);
 	logger = report.createTest("Refresh Opearation : " + recordType);
 	String substr = "," + getId() + ",";
@@ -275,6 +283,7 @@ public class RecordTestingForSingleRecords {
 	HttpLibrary.setFieldsFormat(fields);
 
 	org.json.JSONObject fromExcel = lib.getRowsData(false, logger);
+
 	ArrayList<String> recordsToVerify = new ArrayList<String>();
 	@SuppressWarnings("unchecked")
 	Iterator<String> keys = fromExcel.keys();
@@ -282,8 +291,12 @@ public class RecordTestingForSingleRecords {
 	    String key = keys.next();
 	    // System.out.println(key);
 	    recordsToVerify.add(key);
+	    cleanRecordsCreated.put(key, recordType);
+	    System.out.println("Refresh Opearation");
+	    System.out.println("recordsToVerify : " + recordsToVerify);
+
 	}
-	System.out.println(recordsToVerify);
+	// System.out.println(recordsToVerify);
 
 	if (recordsToVerify.isEmpty()) {
 	    Assert.fail("unable to get internal id's from Excel sheet");
@@ -295,7 +308,7 @@ public class RecordTestingForSingleRecords {
 
     @Test(priority = 5, dependsOnMethods = { "insertOperation" })
     public void deleteOperation() throws Exception {
-	System.out.println("************");
+	System.out.println("****************** delete operation ************");
 	Thread.sleep(2000);
 	lib.switchIntoSheet();
 	logger = report.createTest("delete Opearation : " + recordType);
@@ -331,21 +344,40 @@ public class RecordTestingForSingleRecords {
 
     @AfterMethod
     public void tearDown(ITestResult result) throws IOException {
+
 	if (result.getStatus() == ITestResult.FAILURE) {
 	    logger.log(Status.FAIL, result.getName() + " function is fail");
-
+	    Keyboard press = ((HasInputDevices) driver).getKeyboard();
+	    press.pressKey(Keys.HOME);
 	    String screenshot_path = CommonLibrary.capture(driver,
 		    result.getName());
 	    ExtentTest image = logger.addScreenCaptureFromPath(screenshot_path);
-	    logger.log(Status.FAIL, "asdf" + image);
+	    // logger.log(Status.FAIL, image);
 	    Files.write(
 		    Paths.get(System.getProperty("user.dir")
 			    + "\\FailedPageSource\\" + result.getName()
 			    + ".txt"), driver.getPageSource().getBytes());
-
 	}
 
 	report.flush();
+    }
+
+    @AfterClass
+    public void oneTimeTearDown() throws IOException {
+	System.out.println("@AfterClass: class");
+	System.out.println("deleting records " + recordType + " : " + getId());
+
+	for (Map.Entry m : cleanRecordsCreated.entrySet()) {
+	    System.out.println(m.getKey() + " " + m.getValue());
+	    HttpLibrary.doDelete(recordType, getId());
+	}
+	HttpLibrary.doDelete(recordType, getId());
+	/*
+	 * StringBuilder rl = HttpLibrary.doGET(recordType, getId());
+	 * System.out.println(rl.toString()); if (rl.toString().equals("[]")) {
+	 * logger.log(Status.PASS, "Successfully Deleted record"); } else { }
+	 */
+
     }
 
 }

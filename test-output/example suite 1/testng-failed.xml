@@ -9,6 +9,7 @@
           <include name="deleteOperation"/>
           <include name="InitialSetup"/>
           <include name="updateOperation"/>
+          <include name="oneTimeTearDown"/>
           <include name="refreshOperation"/>
           <include name="tearDown"/>
         </methods>

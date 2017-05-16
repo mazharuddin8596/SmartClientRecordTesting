@@ -13,7 +13,7 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href='https://cdn.rawgit.com/anshooarora/extentreports-java/master/dist/css/extent.css' type='text/css' rel='stylesheet' />
 
-	<title>QA automation report</title>
+	<title>SC Record Testing report</title>
 	
 </head>
 	<body class='extent standard default hide-overflow '>
@@ -32,7 +32,7 @@
 		</ul>
 
 		<!-- report name -->
-		<span class='report-name'>Regression cycle</span>
+		<span class='report-name'>Record Testing</span>
 		
 		<!-- report headline -->
 		<span class='report-headline'></span>
@@ -40,7 +40,7 @@
 		<!-- nav-right -->
 		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
 			<a>
-				<span class='suite-start-time'>May 11, 2017 2:47:37 PM</span>
+				<span class='suite-start-time'>May 16, 2017 10:08:44 AM</span>
 			</a>
 			<a>
 				<span>v3.0.0</span>
@@ -143,7 +143,7 @@
 					<span><span class='strong'>0</span> step(s) passed</span>
 				</div>
 				<div class='block text-small'>
-					<span class='strong'>2</span> step(s) failed, <span class='strong'>5</span> others
+					<span class='strong'>1</span> step(s) failed, <span class='strong'>4</span> others
 				</div>
 			</div>
 		</div>
@@ -161,15 +161,15 @@
 				
 				<li class='test displayed active  fail' status='fail' bdd='false' test-id='1'>
 					<div class='test-heading'>
-						<span class='test-name'>Insert Operation : contact</span>
-						<span class='test-time'>May 11, 2017 2:49:12 PM</span>
+						<span class='test-name'>Insert Operation : customer</span>
+						<span class='test-time'>May 16, 2017 10:10:20 AM</span>
 						<span class='test-status right fail'>fail</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>May 11, 2017 2:49:12 PM</span>
-	<span class='label end-time'>May 11, 2017 3:13:34 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 24m 22s+241ms</span>
+	<span class='label start-time'>May 16, 2017 10:10:20 AM</span>
+	<span class='label end-time'>May 16, 2017 10:14:20 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 3m 59s+612ms</span>
 </div>
 	<div class='test-steps'>
 		<table class='bordered table-results'>
@@ -183,38 +183,29 @@
 			<tbody>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>2:49:31 PM</td>
-					<td class='step-details'>Loaded 'Add Contacts 17' template</td>
+					<td class='timestamp'>10:11:12 AM</td>
+					<td class='step-details'>Loaded 'Customer 17' template</td>
 				</tr>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>2:50:07 PM</td>
-					<td class='step-details'>Contact.NetSuite.1487671332805,.internalId,.firstName,.lastName,.subsidiary,.salutation,.company,.title,.mobilePhone,.officePhone,.phone,.email,.addressbookList.addressbook.addressbookAddress.addr1,.addressbookList.addressbook.addressbookAddress.addr2,.custentity_free_from_text,.custentity_pick_list,.addressbookList.addressbook.addressbookAddress.internalId,.addressbookList.addressbook.addressbookAddress.country</td>
+					<td class='timestamp'>10:11:34 AM</td>
+					<td class='step-details'>Template fields: 
+ Customer.NetSuite.1487671857840,.internalId,.companyName,.firstName,.lastName,.category,.isPerson,.parent,.url,.salesRep,.email,.phone,.custentity_free_from_text,.custentity_pick_list,.subsidiary</td>
 				</tr>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>2:50:07 PM</td>
-					<td class='step-details'>,,Jackson,James,Parent Company,mr.,1 Anonymous,title flow,958658965,6549876544,7894564655,jacksom.james@celigo.com,address one,address 2,testing fft,Organization Expense,,United States</td>
+					<td class='timestamp'>10:11:34 AM</td>
+					<td class='step-details'>Values ,,celigo,Mazhar,testing,Customer7,TRUE,,,,started@customer1.com,4564564564,text,Payroll Adjustments,Parent Company</td>
 				</tr>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>2:50:34 PM</td>
-					<td class='step-details'>Inserting Data into Template</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>2:51:40 PM</td>
+					<td class='timestamp'>10:12:31 AM</td>
 					<td class='step-details'>Operation success for 1 record(s)</td>
 				</tr>
 				<tr class='log' status='fail'>
 					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
-					<td class='timestamp'>3:13:33 PM</td>
+					<td class='timestamp'>10:14:19 AM</td>
 					<td class='step-details'>insertOperation function is fail</td>
-				</tr>
-				<tr class='log' status='fail'>
-					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
-					<td class='timestamp'>3:13:34 PM</td>
-					<td class='step-details'>asdfcom.aventstack.extentreports.ExtentTest@4dba773d</td>
 				</tr>
 			</tbody>
 		</table>
@@ -262,25 +253,25 @@
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Steps
-					<div class='panel-lead'>7</div>
+					<div class='panel-lead'>5</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Start
-					<div class='panel-lead'>May 11, 2017 2:47:37 PM</div>
+					<div class='panel-lead'>May 16, 2017 10:08:44 AM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 			 		End
-			 		<div class='panel-lead'>May 11, 2017 3:13:34 PM</div>
+			 		<div class='panel-lead'>May 16, 2017 10:14:20 AM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Time Taken
-					<div class='panel-lead'>1,557,196ms</div>
+					<div class='panel-lead'>336,457ms</div>
 				</div>
 			</div>
 			<div class='col s4'>
@@ -329,13 +320,13 @@
 				unknownParent: 0,
 				
 				passChild: 0,
-				failChild: 2,
+				failChild: 1,
 				fatalChild: 0,
 				errorChild: 0,
 				warningChild: 0,
 				skipChild: 0,
 				unknownChild: 0,
-				infoChild: 5,
+				infoChild: 4,
 				
 				passGrandChild: 0,
 				failGrandChild: 0,

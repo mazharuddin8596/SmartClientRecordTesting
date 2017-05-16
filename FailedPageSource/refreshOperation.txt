@@ -76,7 +76,7 @@
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAABJlBMVEXr6eb/2oD/wi7/xjr/0mP/ykf/tQD/vBj/3o7/uQ//vyL/twebhgD/4pzX1K3z8e349vK6tHCilCWbiQymn0jGworr6dXQza3HxcKkn1vWvV/5uRfk4dXZ1bD18+/52YebiAmyr5S9mhCzrWq5t6ufjRH54aLs0oS+qD751XqPhAybhwXsujG3sm+Zk0PTwG6Shg+PhhObhwOPgQL4zV2nlyrf27uLfgCPhRHu7OmLgAafkyiWkD3l49ibiAfTs0C+lgCniwD4sgDJxqOilzDWowWFfAH08uebig6qpFHBvH/aw26FfQTQzsvy8OyEfz20r3jAvaKbhgG9q0nc2LbZxXanoUu/u5WSggCtp1anpJKdmFz/zlX/1nGJiYmuq5Dx7+sAAADoPUZSAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfdBgUBGhh4aah5AAAAlklEQVQY02NgoBIIE8EUcwn1FkIXM1Tj5dDUQhPU502Mi7XXQxGz5uVIjGOJUUUW81HnYEyMi2HVcUOICQZzMMYmxrEyMylJwgUt5BljWRLjmJm4pI1hYp5SQLGYxDgmLnZOVxuooClIDKgXKMbN5ggV1ACLJcaBxNgcoiGCBiZwdWxOETBDrTyEFey0jYJ4eHjMGWgEAIpRFRCUt08qAAAAAElFTkSuQmCC);
 }
 </style>
-    <script src="scripts.yznaWPJ.js"></script><script type="text/javascript" crossorigin="anonymous" src="https://appsforoffice.microsoft.com/lib/1/hosted//ariatelemetry/aria-web-telemetry-2.8.0.min.js"></script><iframe style="display:none" src="https://telemetryservice.firstpartyapps.oaspapps.com/telemetryservice/telemetryproxy.html"></iframe>
+    <script src="scripts.yznaWPJ.js"></script><script type="text/javascript" crossorigin="anonymous" src="https://appsforoffice.microsoft.com/lib/1/hosted//ariatelemetry/aria-web-telemetry-2.8.0.min.js"></script>
 <style type="text/css" id="core-notify">.notifyjs-corner {
   position: fixed;
   margin: 5px;
@@ -119,7 +119,7 @@
   z-index: 2;
   width: 0;
   height: 0;
-}</style></head>
+}</style><iframe style="display:none" src="https://telemetryservice.firstpartyapps.oaspapps.com/telemetryservice/telemetryproxy.html"></iframe></head>
 <body ng-app="SmartClient" marginwidth="0" marginheight="0" class="ng-scope">
     <!-- uiView:  --><div ui-view="" class="ng-scope"><div class="body ng-scope" ng-controller="DataOperationsController as opCtrl" style="height: 397px;">
     <div class="leftMenu" ng-class="{move: opCtrl.isLeftPaneOpen}">
@@ -146,66 +146,30 @@
         <div class="headAction leftAction">
             <a class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Menu" href="" ng-click="opCtrl.toggleLeftPane()"></a>
         </div>
-        <h1 class="ng-binding">Customer 17</h1>
+        <h1 class="ng-binding">Add Contacts 17</h1>
         <div class="clear"></div>
     </div>
     <div class="maincontent" ng-class="{move: opCtrl.isLeftPaneOpen}">
         <div class="content">
             <div class="section">
                 <div class="templatelist"> </div>
-                <!-- uiView:  --><div ui-view="" class="ng-scope"><div ng-controller="PickListPanelController as panelCtrl" class="ng-scope">
-    <div class="viewPicklistValues">
-        <div class="dropdown">
-            <a id="drop1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="cursor:pointer" ng-click="panelCtrl.showFilteredItems()">
-                View Picklist Values<span class="caret"></span>
-            </a>
-            <div class="picklistInputBox">
-                <input type="text" placeholder="&lt;Type then tab or enter&gt;" ng-click="$event.stopPropagation()" ng-model="panelCtrl.appliedFilter" ng-keydown="panelCtrl.onKeyDown($event)" class="form-control ng-pristine ng-untouched ng-valid ng-empty" aria-invalid="false" />
-                <a href="" ng-click="panelCtrl.onKeyDown($event)" class="searchIcon"></a>
-                <a href="" ng-click="panelCtrl.showAllItems($event)" class="removeIcon"></a>
-                <div class="action-icons">
-                    <div class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="refresh-template" href="" ng-click="panelCtrl.refreshListItems()">Refresh</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-          <!--  <input type="text" placeholder="<Type then tab>" ng-click="$event.stopPropagation()" ng-model="panelCtrl.appliedFilter" ng-keydown="panelCtrl.onKeyDown($event)" class="form-control">-->
-            <!-- ngIf: panelCtrl.listItems.length > 0 -->
-
-            <!--<div aria-labelledby="drop1" class="dropdown-menu" style="text-align:center;border-bottom: 1px solid #C1C1C1;
-    padding-bottom: 15px;" ng-if="panelCtrl.listItems.length > 0 && panelCtrl.appliedFilter">
-                <p>Showing matches only for the active cell contents.</p>
-                <p ng-if="(panelCtrl.filterCallback)">
-                    <a ng-click="panelCtrl.showAllItems()" style="cursor:pointer">Load All Possible Values</a>
-                </p>
-            </div>-->
-
-            <!-- ngIf: (!panelCtrl.listItems || !panelCtrl.listItems.length) && panelCtrl.appliedFilter -->
-        </div>
-    </div>
-</div>
-
-</div>
+                <!-- uiView:  --><div ui-view="" class="ng-scope"><span style="display:none" class="ng-scope"></span></div>
                 <div class="mainMenu" ng-class="{move: opCtrl.isLeftPaneOpen}">
                     <div class="menuContent">
                         <ul>
                             <li class="downlaod"><a href="" data-hover="downloadMsg">Download</a> </li>
-                            <li class="upload active"><a href="" data-hover="updateMsg">Update</a> </li>
+                            <li class="upload"><a href="" data-hover="updateMsg">Update</a> </li>
                             <li class="delete"><a href="" data-hover="deleteMsg">Delete</a> </li>
-                            <li class="refresh"><a href="" data-hover="refreshMsg">Refresh</a> </li>
+                            <li class="refresh active"><a href="" data-hover="refreshMsg">Refresh</a> </li>
                             <!--<li class="add hoverBox"><a href="" data-hover="addrowsMsg">Add Rows</a></li>-->
                         </ul>
                     </div>
                 </div>
             </div>
-            <div crud-init="" class="msgContent scroll mCustomScrollbar _mCS_4 mCS_no_scrollbar" style="display: block; height: 331px;"><div id="mCSB_4" class="mCustomScrollBox mCS-dark-3 mCSB_vertical mCSB_inside" tabindex="0"><div id="mCSB_4_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
+            <div crud-init="" class="msgContent scroll mCustomScrollbar _mCS_12 mCS_no_scrollbar" style="display: block; height: 331px;"><div id="mCSB_12" class="mCustomScrollBox mCS-dark-3 mCSB_vertical mCSB_inside" tabindex="0"><div id="mCSB_12_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
                 <div class="msgBox downloadMsg" style="display: none;">
                     <div class="msgContentBox" style="height: 222px;">
-                        <div class="action-box" align="right" ng-show="!opCtrl.isSearchFilterExists" aria-hidden="false">
+                        <div class="action-box ng-hide" align="right" ng-show="!opCtrl.isSearchFilterExists" aria-hidden="true" style="">
                             <div class="checkbox not-allowed masterTooltip" original-title="No Filter">
                                 <label>
                                     <input type="checkbox" name="radio" />
@@ -214,24 +178,24 @@
                             </div>
                             <a class="edit-filter" href="" ng-click="opCtrl.showSearchPage()">Create Filter</a>
                         </div>
-                        <div class="action-box ng-hide" align="right" ng-show="opCtrl.isSearchFilterExists" aria-hidden="true">
+                        <div class="action-box" align="right" ng-show="opCtrl.isSearchFilterExists" aria-hidden="false" style="">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="radio" ng-model="opCtrl.downloadWithFilter" class="ng-pristine ng-untouched ng-valid ng-empty" aria-invalid="false" />
+                                    <input type="checkbox" name="radio" ng-model="opCtrl.downloadWithFilter" class="ng-pristine ng-untouched ng-valid ng-not-empty" aria-invalid="false" style="" />
                                     <span>Apply Filter</span>
                                 </label>
                             </div>
                             <a class="edit-filter" href="" ng-click="opCtrl.showSearchPage()">Edit Filter</a>
                         </div>
-                        <div ng-show="!opCtrl.isSearchFilterExists" aria-hidden="false" class="">
+                        <div ng-show="!opCtrl.isSearchFilterExists" aria-hidden="true" class="ng-hide" style="">
                             <p>Create Filter and check 'Apply Filter' to download results based on a set of criteria or leave it blank to download all results for the selected template.</p>
                             <br />
                             <br />
                             <p></p>
                         </div>
-                        <div ng-show="opCtrl.isSearchFilterExists" aria-hidden="true" class="ng-hide">
+                        <div ng-show="opCtrl.isSearchFilterExists" aria-hidden="false" class="" style="">
                             <p>
-                                Check 'Apply Filter' to download with criteria - <br /><br /><b><span style="font-style:italic;color:#34495e" class="ng-binding"></span></b><br /><br /> or leave it blank to
+                                Check 'Apply Filter' to download with criteria - <br /><br /><b><span style="font-style:italic;color:#34495e" class="ng-binding">"First Name is Jackson"</span></b><br /><br /> or leave it blank to
                                 download all results.
                             </p>
                             <br />
@@ -242,12 +206,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="msgBox updateMsg" style="">
+                <div class="msgBox updateMsg" style="display:none;">
                     <div class="msgContentBox" style="height: 222px;">
                         <div class="action-box" align="right">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="radio2" ng-model="opCtrl.isTableSeleted" class="ng-untouched ng-valid ng-not-empty ng-dirty ng-valid-parse" aria-invalid="false" style="" />
+                                    <input type="checkbox" name="radio2" ng-model="opCtrl.isTableSeleted" class="ng-pristine ng-untouched ng-valid ng-empty" aria-invalid="false" />
                                     <span>All Rows</span>
                                 </label>
                             </div>
@@ -269,7 +233,7 @@
                         <div class="action-box" align="right">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="radio2" ng-model="opCtrl.isTableSeleted" class="ng-pristine ng-untouched ng-valid ng-not-empty" aria-invalid="false" style="" />
+                                    <input type="checkbox" name="radio2" ng-model="opCtrl.isTableSeleted" class="ng-pristine ng-untouched ng-valid ng-empty" aria-invalid="false" />
                                     <span>All Rows</span>
                                 </label>
                             </div>
@@ -288,12 +252,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="msgBox refreshMsg" style="display:none;">
+                <div class="msgBox refreshMsg" style="">
                     <div class="msgContentBox" style="height: 222px;">
                         <div class="action-box" align="right">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="radio2" ng-model="opCtrl.isTableSeleted" class="ng-pristine ng-untouched ng-valid ng-not-empty" aria-invalid="false" style="" />
+                                    <input type="checkbox" name="radio2" ng-model="opCtrl.isTableSeleted" class="ng-pristine ng-untouched ng-valid ng-empty" aria-invalid="false" />
                                     <span>All Rows</span>
                                 </label>
                             </div>
@@ -312,7 +276,7 @@
                         </div>
                     </div>
                 </div>
-            </div><div id="mCSB_4_scrollbar_vertical" class="mCSB_scrollTools mCSB_4_scrollbar mCS-dark-3 mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_4_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; height: 0px; top: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>
+            </div><div id="mCSB_12_scrollbar_vertical" class="mCSB_scrollTools mCSB_12_scrollbar mCS-dark-3 mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_12_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; height: 0px; top: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>
         </div>
     </div>
     <!-- Modals -->
@@ -536,15 +500,15 @@
         })(jQuery);
     </script>
 
-    <div ng-controller="RootController as ctrl" class="modal fade loading-v1 ng-scope" id="loadingDiv" role="dialog" aria-hidden="true" style="z-index: 100003; display: none;"><div class="modal-backdrop fade"></div>
+    <div ng-controller="RootController as ctrl" class="modal fade loading-v1 ng-scope" id="loadingDiv" role="dialog" aria-hidden="true" style="z-index: 100003; display: none;"><div class="modal-backdrop fade in"></div><div class="modal-backdrop fade in"></div>
         <div class="vertical-alignment-helper">
             <div class="modal-dialog vertical-align-center" style="width:94%;">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="loading">
                             <div class="spinner"></div>
-                            <p class="mainText">Upserting...<br />1 records upserted so far</p>
-                            <p class="subText">Data reading is complete. Waiting for prefetch to end...</p>
+                            <p class="mainText">Refreshing...<br />1 records refreshed so far</p>
+                            <p class="subText">Writing 1 records to the worksheet...</p>
                             <div id="cancel-operation" style="display: block;">
                                 <a class="btn btn-cancel" ng-click="ctrl.cancel()">Cancel</a>
                             </div>

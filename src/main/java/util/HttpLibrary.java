@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import com.cedarsoftware.util.io.JsonWriter;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
@@ -65,11 +66,11 @@ public class HttpLibrary {
 	con.setRequestProperty("Authorization", Token);
 
 	int responseCode = con.getResponseCode();
-	System.out.println("response code" + responseCode);
-	System.out.println("error stream \n\n " + con.getErrorStream());
+	// System.out.println("response code" + responseCode);
+	// System.out.println("error stream \n\n " + con.getErrorStream());
 	con.getInputStream();
 
-	System.out.println("\nSending 'GET' request to URL : " + request);
+	// System.out.println("\nSending 'GET' request to URL : " + request);
 	// System.out.println("Response Code : " + responseCode);
 
 	BufferedReader in = new BufferedReader(new InputStreamReader(
@@ -267,25 +268,27 @@ public class HttpLibrary {
 	ArrayList<String> hformat = new ArrayList<String>();
 	String query = "";
 	for (int i = 0; i < head.length; i++) {
-	    // System.out.println(head[i]+" ");
+
 	    query = "$..[?(@.id==\"" + recType + head[i] + "\")].type";
 	    String value = JsonPath.read(document, query).toString();
 
 	    value = CommonLibrary.remSpecialCharacters(value);
-	    // System.out.println(value+" value");
+
 	    if (value.equals("")) {
 		query = "$..[?(@.id==\"" + head[i] + "\")].type";
 		value = JsonPath.read(document, query).toString();
 		value = CommonLibrary.remSpecialCharacters(value);
 	    }
+	    // System.out.println("Value : " + value);
 	    hformat.add(value);
 	}
-
+	System.out.println("setting header values");
 	HashMap<String, String> map = new LinkedHashMap<String, String>();
 	for (int i = 0; i < head.length; i++) {
 	    map.put(head[i], hformat.get(i));
 	}
 	CommonLibrary.setHeader(map);
+	System.out.println("done");
 
 	// for (Map.Entry<String, String> entry : map.keySet()) {
 	/*
@@ -295,28 +298,17 @@ public class HttpLibrary {
 
     }
 
-    public static void printCurrentDataValues(org.json.JSONObject map,
-	    ExtentTest logger) throws IOException {
+    public static void printCurrentDataValues(org.json.JSONObject map)
+	    throws IOException {
 	System.out.println("Printing values");
-	/*
-	 * for (Map.Entry<String, String> entry : map.keySet()) { s = s +
-	 * entry.getKey() + " : " + entry.getValue() + ",";
-	 * System.out.println(entry.getKey() + " : " + entry.getValue()); }
-	 */
-	/*
-	 * StringWriter out = new StringWriter(); map.writeJSONString(out);
-	 * String jsonText = out.toString(); System.out.print(jsonText);
-	 */
 	String jsonText = JsonWriter.formatJson(map.toString());
 	System.out.println(jsonText);
 	// logger.log(Status.INFO, jsonText);
     }
 
-    // public static Map<String, String>
-
     public static org.json.JSONObject mapHeaderWithExcelRowData(
-	    ArrayList<String> head, List<String> rowData) throws JSONException,
-	    InterruptedException {
+	    ArrayList<String> head, List<String> rowData, ExtentTest logger)
+	    throws JSONException, InterruptedException {
 	System.out.println("header =" + head.toString());
 	Thread.sleep(2000);
 	// System.out.println("row data : " + Arrays.toString(rowData));
@@ -335,17 +327,32 @@ public class HttpLibrary {
 		val = new org.json.JSONArray();
 	    }
 	    for (int i = 0; i < head.size(); i++) {
-		if (i == 0) {
-		    obj.put(head.get(i), "");
-		} else if (i == 1) {
-		    recordIds = rowDataValue[1];
-		} else {
-		    if (rowDataValue[i] == null) {
-			obj.put(head.get(i).replaceAll("\\s.", ""), "");
+		try {
+		    if (i == 0) {
+			obj.put(head.get(i), "");
+		    } else if (i == 1) {
+			recordIds = rowDataValue[1];
 		    } else {
-			obj.put(head.get(i).replaceAll("\\s.", ""),
-				rowDataValue[i]);
+			// System.out.println("rowdata " + rowDataValue[i]);
+			if (rowDataValue[i].isEmpty()) {
+			    System.out.println(rowDataValue[i] + " is empty");
+
+			}
+
+			if (rowDataValue[i] == null) {
+			    obj.put(head.get(i).replaceAll("\\s.", ""), "");
+			} else {
+			    obj.put(head.get(i).replaceAll("\\s.", ""),
+				    rowDataValue[i]);
+			}
+
 		    }
+		} catch (ArrayIndexOutOfBoundsException e) {
+		    System.out
+			    .println("array index out of bound exception few values might be missing");
+		    logger.log(Status.ERROR,
+			    " unable to fetch values for field " + head.get(i));
+		    obj.put(head.get(i).replaceAll("\\s.", ""), "");
 		}
 	    }
 
@@ -368,7 +375,7 @@ public class HttpLibrary {
 	String temp = JsonPath.read(data, "$..text[" + i + "]").toString();
 	temp = CommonLibrary.remSpecialCharacters(temp);
 	// String[] rowValues = temp.split("\\,");
-	System.out.println("temp value" + temp);
+	System.out.println("temp value : " + temp);
 	return temp;
     }
 

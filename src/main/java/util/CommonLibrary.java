@@ -667,7 +667,7 @@ public class CommonLibrary {
 	String rowData = null;
 	if (allRows) {
 	    for (int i = 0;; i++) {
-		System.out.println("*************");
+		// System.out.println("*************");
 		rowData = getRows(header, head, i);
 		if (rowData.equals("")) {
 		    System.out.println("found only this rows breaking loop"
@@ -678,9 +678,15 @@ public class CommonLibrary {
 			.println("Printing row before adding to list at index ["
 				+ i + "]\n" + rowData);
 		String[] values = rowData.split("\\,");
-		if (!values[1].equals("")) {
-		    rows.add(rowData);
-		} else {
+		try {
+		    if (!values[1].equals("")) {
+			rows.add(rowData);
+			// System.out.println("row " + i + " added");
+		    } else {
+			System.out.println("value in error column" + values[1]);
+			break;
+		    }
+		} catch (ArrayIndexOutOfBoundsException e) {
 		    break;
 		}
 	    }
@@ -688,38 +694,41 @@ public class CommonLibrary {
 	    String id = "";
 	    for (int i = 0;; i++) {
 		rowData = getRows(header, head, i);
-
 		String[] values = rowData.split("\\,");
-		if (!values[1].equals("")) {
-		    if (i == 0) {
-			System.out
-				.println("setting id value to check multiple line if present");
-			id = values[1];
-			System.out.println(id);
-			// rows.add(rowData);
-
+		try {
+		    if (!values[1].equals("")) {
+			if (i == 0) {
+			    System.out
+				    .println("setting id value to check multiple line if present");
+			    id = values[1];
+			    System.out.println(id);
+			    // rows.add(rowData);
+			}
+			if (values[1].equals(id)) {
+			    rows.add(rowData);
+			} else {
+			    System.out
+				    .println("breaking for loop as no more ids matched with same id");
+			    break;
+			}
 		    }
-		    if (values[1].equals(id)) {
-			rows.add(rowData);
-		    } else {
-			System.out
-				.println("breaking for loop as no more ids matched with same id");
-			break;
-		    }
+		} catch (java.lang.ArrayIndexOutOfBoundsException e) {
+		    // System.out.println(e);
+		    break;
 		}
 	    }
 	}
+
 	System.out.println("List :\n" + rows);
 	org.json.JSONObject fromExcel = null;
 	// if (head.size() == rowData.length()) {
 	// need to send multiple rows (record with multiple sublist)
 	// rows.add(rowData);
-	fromExcel = HttpLibrary.mapHeaderWithExcelRowData(head, rows);
+	fromExcel = HttpLibrary.mapHeaderWithExcelRowData(head, rows, logger);
 	// } else {
 	// Assert.fail("Header and rowdata length mismatch");
 	// }
-
-	HttpLibrary.printCurrentDataValues(fromExcel, logger);
+	HttpLibrary.printCurrentDataValues(fromExcel);
 
 	return fromExcel;
     }
@@ -727,11 +736,15 @@ public class CommonLibrary {
     private String getRows(HashMap<String, String> header,
 	    ArrayList<String> head, int row) throws Exception,
 	    InterruptedException {
+	Thread.sleep(3000);
 	String rowData = HttpLibrary.getRowAtIndex(row + 2);
+
 	for (int k = 0; k < 6; k++) {
-	    // Thread.sleep(3000);
+	    Thread.sleep(500);
 	    System.out.println("for loop k value " + k);
-	    if (!rowData.equals("")) {
+	    System.out.println(rowData);
+	    if (!rowData.matches("[,]+")) {
+		// check row data returns ,,,, or empty
 		String[] rowValues = rowData.split("\\,");
 		try {
 		    System.out.println(" Length " + head.size() + " : "
@@ -744,6 +757,7 @@ public class CommonLibrary {
 		    } else {
 			System.out.println(Arrays.toString(rowValues));
 			System.out.println("returning values");
+			// rowValues = rowData.split("\\,");
 			rowData = formatData(header, head, rowValues);
 			break;
 		    }
@@ -751,9 +765,11 @@ public class CommonLibrary {
 		    rowData = HttpLibrary.getRowAtIndex(row + 2);
 		}
 	    } else {
-		System.out.println("else part");
-		rowData = HttpLibrary.getRowAtIndex(row + 2);
+		if (k == 2) {
+		    break;
+		}
 	    }
+
 	}
 	return rowData;
 
@@ -817,17 +833,17 @@ public class CommonLibrary {
 	}
     }
 
-    public org.json.JSONObject getFromNs(String recType, int[] arr)
-	    throws IOException, ParseException, JSONException,
-	    InterruptedException {
+    public org.json.JSONObject getFromNs(String recType, int[] arr,
+	    ExtentTest logger) throws IOException, ParseException,
+	    JSONException, InterruptedException {
 	org.json.JSONObject fromNS = new org.json.JSONObject();
 	ArrayList<String> actualData = new ArrayList<String>();
 	ArrayList<String> head = templateHeader(CommonLibrary.getHeader());
+	int maxArray = 0;
 	for (int m = 0; m < arr.length; m++) {
 	    StringBuilder rl = HttpLibrary.doGET(recType, arr[m]);
-
 	    if (!rl.toString().equals("[]")) {
-		int maxArray = 0;
+
 		JSONArray nsData = new JSONArray(rl.toString());
 		org.json.JSONObject json = nsData.getJSONObject(0);
 		// System.out.println(json.toString());
@@ -844,8 +860,9 @@ public class CommonLibrary {
 		res.add(0, "");
 		// getting max length of sublist
 		for (int j = 1; j < head.size(); j++) {
+		    System.out.println(head.get(j).toString());
 		    String[] data = head.get(j).toString().split("\\.");
-
+		    System.out.println(Arrays.toString(data));
 		    if (data.length > 2) {
 			// $..addressbook.length()
 			// System.out.println("$.." + data[2] + ".length()");
@@ -859,7 +876,7 @@ public class CommonLibrary {
 		    }
 		}
 		// Print values from Ns JSON response
-		for (int i = 0; i < maxArray; i++) {
+		for (int i = 0; i <= maxArray; i++) {
 		    res = new ArrayList<String>();
 		    res.add(0, "");
 		    for (int j = 1; j < head.size(); j++) {
@@ -916,9 +933,9 @@ public class CommonLibrary {
 		    System.out.println("From NS: " + res);
 		    String[] values = new String[res.size()];
 
-		    System.out.println(res.size());
+		    // System.out.println(res.size());
 		    for (int j = 0; j < res.size(); j++) {
-			System.out.println(res.get(j));
+			// System.out.println(res.get(j));
 			if (res.get(j).equals("") || res.get(j) == null) {
 			    values[j] = "";
 			} else {
@@ -937,8 +954,9 @@ public class CommonLibrary {
 		}
 	    }
 	}
-	fromNS = HttpLibrary.mapHeaderWithExcelRowData(head, actualData);
-	HttpLibrary.printCurrentDataValues(fromNS, null);
+	fromNS = HttpLibrary
+		.mapHeaderWithExcelRowData(head, actualData, logger);
+	HttpLibrary.printCurrentDataValues(fromNS);
 
 	return fromNS;
 
@@ -955,9 +973,16 @@ public class CommonLibrary {
 		|| leftMap.length() != rightMap.length())
 	    return false;
 	System.out.println("Comparing sheet data with NS data");
+	try {
+	    JSONAssert.assertEquals(leftMap, rightMap, false);
+	} catch (java.lang.AssertionError e) {
+	    System.out.println("error: " + e + "\n");
+	    logger.log(Status.FAIL, e);
+	    Assert.fail("Error" + e);
+	}
 
-	JSONAssert.assertEquals(leftMap, rightMap, false);
-
+	System.out.println("comparision is successful");
+	logger.log(Status.PASS, "Sheet data and NS data Matached successfully");
 	return true;
     }
 
