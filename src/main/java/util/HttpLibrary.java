@@ -9,7 +9,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -321,8 +320,8 @@ public class HttpLibrary {
 
 	for (int j = 0; j < rowData.size(); j++) {
 	    String rowDataValue[] = rowData.get(j).split("\\,");
-	    System.out.println(Arrays.toString(rowDataValue)
-		    + "\n row data size" + rowData.size());
+	    // System.out.println(Arrays.toString(rowDataValue) +
+	    // "\n row data size" + rowData.size());
 	    if (!records.has(rowDataValue[1])) {
 		val = new org.json.JSONArray();
 	    }
@@ -335,7 +334,8 @@ public class HttpLibrary {
 		    } else {
 			// System.out.println("rowdata " + rowDataValue[i]);
 			if (rowDataValue[i].isEmpty()) {
-			    System.out.println(rowDataValue[i] + " is empty");
+			    // System.out.println(rowDataValue[i] +
+			    // " is empty");
 
 			}
 
@@ -372,6 +372,23 @@ public class HttpLibrary {
 		CommonLibrary.getAccessToken());
 	Object data = Configuration.defaultConfiguration().jsonProvider()
 		.parse(rows.toString());
+
+	String total_rows = CommonLibrary.remSpecialCharacters(JsonPath.read(
+		data, "$..addressLocal").toString());
+	System.out.println(total_rows);
+	// //////
+
+	total_rows = total_rows.substring(total_rows.indexOf(":") + 2);
+	if (total_rows.matches("[0-9]+")) {
+	    System.out.println(Integer.parseInt(total_rows));
+	    CommonLibrary.setTotalRows(Integer.parseInt(total_rows));
+	} else {
+	    System.out.println("inside else");
+	    total_rows = total_rows.substring(1);
+	    CommonLibrary.setTotalRows(Integer.parseInt(total_rows));
+	}
+
+	// /////
 	String temp = JsonPath.read(data, "$..text[" + i + "]").toString();
 	temp = CommonLibrary.remSpecialCharacters(temp);
 	// String[] rowValues = temp.split("\\,");

@@ -54,7 +54,27 @@ public class CommonLibrary {
     // public static ExtentReports report;
     public static AccessToken accessToken;
     public static String workbookId = "01JNEAOJ6ZBLZDDYTT2FBZN66OLHFVYJNU";
+    public static Map<String, Integer> errorRows = new HashMap<String, Integer>();
+
+    public Map<String, Integer> getErrorRows() {
+	return errorRows;
+    }
+
+    public void setErrorRows(Map<String, Integer> errorRows) {
+	CommonLibrary.errorRows = errorRows;
+    }
+
+    HashMap<Integer, String> hm = new HashMap<Integer, String>();
     public static String sheet;
+    public static int totalRows = 1;
+
+    public static int getTotalRows() {
+	return totalRows;
+    }
+
+    public static void setTotalRows(int totalRows) {
+	CommonLibrary.totalRows = totalRows;
+    }
 
     public static String getSheet() {
 	return sheet;
@@ -273,7 +293,7 @@ public class CommonLibrary {
     }
 
     public void handleMSDialogBox() {
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 4; i++) {
 	    try {
 		WebElement mainsheet;
 		driver.switchTo().defaultContent();
@@ -301,10 +321,11 @@ public class CommonLibrary {
 	Thread.sleep(1000);
 	// *[@id="m_excelWebRenderer_ewaCtl_msospAFrameContainer"]/div[4]
 	checkSheetReady();
-	for (int l = 0; l < 4; l++) {
-	    if (!driver.findElement(By.cssSelector("div.ewa-background-ready"))
+	for (int l = 0; l < 7; l++) {
+	    Thread.sleep(2000);
+	    if (driver.findElement(By.cssSelector("div.ewa-background-ready"))
 		    .isDisplayed()) {
-		Thread.sleep(2000);
+		break;
 	    }
 	}
 	try {
@@ -410,7 +431,7 @@ public class CommonLibrary {
     public String appendIdToUpdateTemplateValues(String idata, int id) {
 	int dot1 = idata.indexOf(",");
 	int dot2 = idata.indexOf(",", dot1 + 1);
-	System.out.println(dot1 + " : " + dot2);
+	// System.out.println(dot1 + " : " + dot2);
 	String substr = "," + id + ","
 		+ idata.substring(dot2 + 1, idata.length());
 	return substr;
@@ -459,6 +480,7 @@ public class CommonLibrary {
     }
 
     public void clickOn(App on) throws InterruptedException, IOException {
+
 	try {
 	    Thread.sleep(1500);
 	    List<WebElement> appMenu = driver.findElements(By
@@ -575,6 +597,8 @@ public class CommonLibrary {
 	    Files.write(Paths.get("D://error.txt"), driver.getPageSource()
 		    .getBytes());
 	    clickOn(on);
+	    // Assert.fail("Unable to click on Data Operation page");
+
 	}
 
     }
@@ -594,7 +618,7 @@ public class CommonLibrary {
 				.cssSelector("div.notifyjs-container span"));
 			System.out.println("trying to get notification again");
 		    }
-		    Thread.sleep(2000);
+		    Thread.sleep(1000);
 		    break;
 		}
 	    } catch (Exception e) {
@@ -602,7 +626,7 @@ public class CommonLibrary {
 		Thread.sleep(20);
 	    }
 
-	} while (Time < 50);
+	} while (Time < 20);
 
 	return notification;
     }
@@ -666,7 +690,7 @@ public class CommonLibrary {
 	List<String> rows = new ArrayList<String>();
 	String rowData = null;
 	if (allRows) {
-	    for (int i = 0;; i++) {
+	    for (int i = 0; i < CommonLibrary.getTotalRows(); i++) {
 		// System.out.println("*************");
 		rowData = getRows(header, head, i);
 		if (rowData.equals("")) {
@@ -682,9 +706,9 @@ public class CommonLibrary {
 		    if (!values[1].equals("")) {
 			rows.add(rowData);
 			// System.out.println("row " + i + " added");
-		    } else {
-			System.out.println("value in error column" + values[1]);
-			break;
+		    } else if (!values[0].equals("")) {
+
+			errorRows.put(rowData, i);
 		    }
 		} catch (ArrayIndexOutOfBoundsException e) {
 		    break;
@@ -696,8 +720,9 @@ public class CommonLibrary {
 		rowData = getRows(header, head, i);
 		String[] values = rowData.split("\\,");
 		try {
-		    if (!values[1].equals("")) {
-			if (i == 0) {
+		    // if (!values[1].equals("")) {
+		    if (values[0].equals("")) {
+			if (id.equals("")) {
 			    System.out
 				    .println("setting id value to check multiple line if present");
 			    id = values[1];
@@ -741,8 +766,8 @@ public class CommonLibrary {
 
 	for (int k = 0; k < 6; k++) {
 	    Thread.sleep(500);
-	    System.out.println("for loop k value " + k);
-	    System.out.println(rowData);
+	    // System.out.println("for loop k value " + k);
+	    // System.out.println(rowData);
 	    if (!rowData.matches("[,]+")) {
 		// check row data returns ,,,, or empty
 		String[] rowValues = rowData.split("\\,");
@@ -839,7 +864,7 @@ public class CommonLibrary {
 	org.json.JSONObject fromNS = new org.json.JSONObject();
 	ArrayList<String> actualData = new ArrayList<String>();
 	ArrayList<String> head = templateHeader(CommonLibrary.getHeader());
-	int maxArray = 0;
+	int maxArray = 1;
 	for (int m = 0; m < arr.length; m++) {
 	    StringBuilder rl = HttpLibrary.doGET(recType, arr[m]);
 	    if (!rl.toString().equals("[]")) {
@@ -860,9 +885,9 @@ public class CommonLibrary {
 		res.add(0, "");
 		// getting max length of sublist
 		for (int j = 1; j < head.size(); j++) {
-		    System.out.println(head.get(j).toString());
+		    // System.out.println(head.get(j).toString());
 		    String[] data = head.get(j).toString().split("\\.");
-		    System.out.println(Arrays.toString(data));
+		    // System.out.println(Arrays.toString(data));
 		    if (data.length > 2) {
 			// $..addressbook.length()
 			// System.out.println("$.." + data[2] + ".length()");
@@ -876,7 +901,7 @@ public class CommonLibrary {
 		    }
 		}
 		// Print values from Ns JSON response
-		for (int i = 0; i <= maxArray; i++) {
+		for (int i = 0; i < maxArray; i++) {
 		    res = new ArrayList<String>();
 		    res.add(0, "");
 		    for (int j = 1; j < head.size(); j++) {
@@ -950,7 +975,7 @@ public class CommonLibrary {
 		    actualData.add(Arrays.stream(values).collect(
 			    Collectors.joining(",")));
 
-		    System.out.println(Arrays.toString(values));
+		    // System.out.println(Arrays.toString(values));
 		}
 	    }
 	}
@@ -974,7 +999,7 @@ public class CommonLibrary {
 	    return false;
 	System.out.println("Comparing sheet data with NS data");
 	try {
-	    JSONAssert.assertEquals(leftMap, rightMap, false);
+	    JSONAssert.assertEquals(rightMap, leftMap, false);
 	} catch (java.lang.AssertionError e) {
 	    System.out.println("error: " + e + "\n");
 	    logger.log(Status.FAIL, e);

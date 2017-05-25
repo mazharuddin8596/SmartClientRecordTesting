@@ -188,6 +188,7 @@ public class RecordTestingForSingleRecords {
 	    // logger.log(Status.PASS, "Getting data from NS");
 	    String s = CommonLibrary.remSpecialCharacters(recordsToVerify
 		    .get(i).trim());
+
 	    id = Integer.parseInt(s);
 	    arr[i] = id;
 	}

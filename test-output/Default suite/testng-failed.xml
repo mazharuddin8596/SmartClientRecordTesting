@@ -3,12 +3,12 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="WebDriverTest.RecordTestingForSingleRecords">
+      <class name="WebDriverTest.RecordTestingForMultipleRecords">
         <methods>
+          <include name="updateOperation"/>
           <include name="insertOperation"/>
-          <include name="deleteOperation"/>
         </methods>
-      </class> <!-- WebDriverTest.RecordTestingForSingleRecords -->
+      </class> <!-- WebDriverTest.RecordTestingForMultipleRecords -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

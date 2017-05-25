@@ -3,17 +3,16 @@
 <suite name="Failed suite [example suite 1]">
   <test name="Test(failed)">
     <classes>
-      <class name="WebDriverTest.RecordTestingForSingleRecords">
+      <class name="WebDriverTest.RecordTestingForMultipleRecords">
         <methods>
-          <include name="insertOperation"/>
-          <include name="deleteOperation"/>
           <include name="InitialSetup"/>
-          <include name="updateOperation"/>
           <include name="oneTimeTearDown"/>
-          <include name="refreshOperation"/>
+          <include name="updateOperation"/>
+          <include name="before"/>
           <include name="tearDown"/>
+          <include name="insertOperation"/>
         </methods>
-      </class> <!-- WebDriverTest.RecordTestingForSingleRecords -->
+      </class> <!-- WebDriverTest.RecordTestingForMultipleRecords -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [example suite 1] -->

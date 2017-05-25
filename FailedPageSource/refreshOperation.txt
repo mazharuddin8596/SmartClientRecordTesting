@@ -500,7 +500,7 @@
         })(jQuery);
     </script>
 
-    <div ng-controller="RootController as ctrl" class="modal fade loading-v1 ng-scope" id="loadingDiv" role="dialog" aria-hidden="true" style="z-index: 100003; display: none;"><div class="modal-backdrop fade in"></div><div class="modal-backdrop fade in"></div>
+    <div ng-controller="RootController as ctrl" class="modal fade loading-v1 ng-scope" id="loadingDiv" role="dialog" aria-hidden="true" style="z-index: 100003; display: none;"><div class="modal-backdrop fade"></div>
         <div class="vertical-alignment-helper">
             <div class="modal-dialog vertical-align-center" style="width:94%;">
                 <div class="modal-content">

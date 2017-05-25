@@ -34,16 +34,21 @@ public class RecordFactory {
 		.parse(metaData.toString());
 
 	Object[][] dataArray = {
-	/*
-	 * { "contact", "Add Contacts 17", JsonPath.read(document,
-	 * "$.contactTemplate").toString(), JsonPath.read(document,
-	 * "$.contactInsert").toString(), JsonPath.read(document,
-	 * "$.contactUpdate").toString() },
-	 */
-	{ "customer", "Customer 17",
-		JsonPath.read(document, "$.customerTemplate").toString(),
-		JsonPath.read(document, "$.customerInsert").toString(),
-		JsonPath.read(document, "$.customerUpdate").toString() } };
+
+		{
+			"contact",
+			"Add Contacts 17",
+			JsonPath.read(document, "$.contactTemplate").toString(),
+			JsonPath.read(document, "$.contactInsert").toString(),
+			JsonPath.read(document, "$.contactUpdate").toString() },
+
+		{
+			"customer",
+			"Customer 17",
+			JsonPath.read(document, "$.customerTemplate")
+				.toString(),
+			JsonPath.read(document, "$.customerInsert").toString(),
+			JsonPath.read(document, "$.customerUpdate").toString() } };
 	return dataArray;
     }
 }

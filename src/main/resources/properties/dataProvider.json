@@ -8,9 +8,12 @@
 ",,Jackson1,James1,Parent Company,mr.,1 Anonymous,title flow,111111111,2222222222,7894564655,jacksom.james1@celigo.com,address one,address 2,testing fft,Organization Expense,,United States",
 ",,Jackson2,James2,Parent Company,mr.,1 Anonymous,title flow,222222222,3333333333,7894564655,jacksom.james2@celigo.com,address one,address 2,testing fft,Advances Paid,,Albania",
 ",,Jackson3,James3,Parent Company,mr.,1 Anonymous,title flow,333333333,4444444444,7894564655,jacksom.james3@celigo.com,address one,address 2,testing fft,Advances Paid,,Algeria"
-
 ],
-"contactUpdateMultipleValues" : "",
+"contactUpdateMultipleValues" : [
+",,Jackson1 update,James1 update,Parent Company,mr.,1 Anonymous,title update flow,555555555,000000222,777755555,jacksom.james1up@celigo.com,address one up,address 2 up,testing fft,Opportunities,,United States",
+",,Jackson2 update,James2 update,Parent Company,mr.,1 Anonymous,title flow update,999999999,555555555,666666666,jacksom.james2up@celigo.com,address one up,address 2 up,testing fft,Organization Expense,,Algeria",
+",,Jackson3 update,James3 update,Parent Company,mr.,1 Anonymous,update title flow,999999999,654666666,222222222,jacksom.james3@celigo.com,address one,address 2,testing fft,Opportunities,,Albania"
+],
 
 
 

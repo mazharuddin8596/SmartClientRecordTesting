@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,100,500,100italic,700,700italic,900italic,900,500italic,400italic" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400italic,700,300" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="assets/styles/main.xh1lHL8.css" />
+    <link rel="stylesheet" href="assets/styles/main.sE7K7LN.css" />
     <link href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
@@ -37,7 +37,7 @@
         <script src="../../Scripts/Office/MicrosoftAjax.js" type="text/javascript"></script>
         <script src="../../Scripts/Office/1/office.js" type="text/javascript"></script>
     -->
-    <script src="assets/scripts/vendor.xh1lHL8.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.11/jquery.mousewheel.min.js"></script><style type="text/css" id="notify-bootstrap">.notifyjs-bootstrap-base {
+    <script src="assets/scripts/vendor.sE7K7LN.js"></script><script type="text/javascript" crossorigin="anonymous" src="https://appsforoffice.microsoft.com/lib/1/hosted//ariatelemetry/aria-web-telemetry-2.8.0.min.js"></script><iframe style="display:none" src="https://telemetryservice.firstpartyapps.oaspapps.com/telemetryservice/telemetryproxy.html"></iframe><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.11/jquery.mousewheel.min.js"></script><style type="text/css" id="notify-bootstrap">.notifyjs-bootstrap-base {
   font-weight: bold;
   padding: 8px 15px 8px 14px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -76,7 +76,7 @@
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAABJlBMVEXr6eb/2oD/wi7/xjr/0mP/ykf/tQD/vBj/3o7/uQ//vyL/twebhgD/4pzX1K3z8e349vK6tHCilCWbiQymn0jGworr6dXQza3HxcKkn1vWvV/5uRfk4dXZ1bD18+/52YebiAmyr5S9mhCzrWq5t6ufjRH54aLs0oS+qD751XqPhAybhwXsujG3sm+Zk0PTwG6Shg+PhhObhwOPgQL4zV2nlyrf27uLfgCPhRHu7OmLgAafkyiWkD3l49ibiAfTs0C+lgCniwD4sgDJxqOilzDWowWFfAH08uebig6qpFHBvH/aw26FfQTQzsvy8OyEfz20r3jAvaKbhgG9q0nc2LbZxXanoUu/u5WSggCtp1anpJKdmFz/zlX/1nGJiYmuq5Dx7+sAAADoPUZSAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfdBgUBGhh4aah5AAAAlklEQVQY02NgoBIIE8EUcwn1FkIXM1Tj5dDUQhPU502Mi7XXQxGz5uVIjGOJUUUW81HnYEyMi2HVcUOICQZzMMYmxrEyMylJwgUt5BljWRLjmJm4pI1hYp5SQLGYxDgmLnZOVxuooClIDKgXKMbN5ggV1ACLJcaBxNgcoiGCBiZwdWxOETBDrTyEFey0jYJ4eHjMGWgEAIpRFRCUt08qAAAAAElFTkSuQmCC);
 }
 </style>
-    <script src="scripts.xh1lHL8.js"></script>
+    <script src="scripts.sE7K7LN.js"></script>
 <style type="text/css" id="core-notify">.notifyjs-corner {
   position: fixed;
   margin: 5px;
@@ -119,146 +119,225 @@
   z-index: 2;
   width: 0;
   height: 0;
-}</style><script type="text/javascript" crossorigin="anonymous" src="https://appsforoffice.microsoft.com/lib/1/hosted//ariatelemetry/aria-web-telemetry-2.8.0.min.js"></script><iframe style="display:none" src="https://telemetryservice.firstpartyapps.oaspapps.com/telemetryservice/telemetryproxy.html"></iframe></head>
-<body ng-app="SmartClient" marginwidth="0" marginheight="0" class="ng-scope modal-open">
-    <!-- uiView:  --><div ui-view="" class="ng-scope"><!--<div class="stepBody" ng-controller="NetsuiteLoginController as nsController">
-    <div class="body">
-        <div class="header">
-            <span class="logoText">
-                SmartClient<br />
-                <span> for NetSuite</span>
-            </span>
-        </div>
-        <div class="maincontent">
-            <div class="content"></div>
-            <div class="clear"></div>
-            <div class="section">
-                <div class="netsuite_login_box toptext form_box scroll" style="height:443px" scroll-bar-directive>
-                    <h3 class="title">Connect to NetSuite {{nsController.environment}} account</h3>
-                    <p align="center">
-                        Email:<input ng-disabled="nsController.isUpdate" type="text" class="input_box"
-                                     ng-class="{'input_disabled':nsController.isUpdate, 'not-allowed':nsController.isUpdate}"
-                                     ng-model="nsController.email">
-                    </p>
-                    <p align="center">
-                        Password:<input type="password" class="input_box"
-                                        ng-model="nsController.password">
-                    </p>
-                    <p align="center" style="margin-bottom:6px">
-                        Account:<input ng-disabled="nsController.isUpdate" type="text" class="input_box"
-                                       ng-class="{'input_disabled':nsController.isUpdate, 'not-allowed':nsController.isUpdate}"
-                                       ng-model="nsController.account">
-                    </p>
-                    <p align="center">
-                        <ui-select search-enabled="false" ng-show="nsController.enableAccountTypeSelection"
-                                   on-select="nsController.updateEnvironment($item)" ng-model="nsController.selectedEnv">
-                            <ui-select-match placeholder="Choose account type">
-                                <span ng-bind="nsController.selectedEnv.label"></span>
-                            </ui-select-match>
-                            <ui-select-choices repeat="account in nsController.accountTypes">
-                                <span ng-bind="account.label"></span>
-                            </ui-select-choices>
-                        </ui-select>
-                    </p>
-                    <div class="action-box" align="right">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="radio2" ng-model="nsController.isOWAccount">
-                                <span>This is a OneWorld account</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="alertAction">
-                        <button class="btn_box" type="button" ng-click="nsController.connect()">Done</button>
-                        <button class="btn_box" type="button" ng-show="nsController.showCancelButton" ng-click="nsController.cancelOperation()">Cancel</button>
-                    </div>
-                    <div>
-                        <p class="msg-box-white" ng-show="!nsController.showCancelButton">
-                            Note, this connection cannot be
-                            changed . If you plan to work with your
-                            Sanbox accounts, you can connect from
-                            account settings<br />
-                            <br />
-                        </p>
-                    </div>
-                </div>
-                <span class="copyright">&copy; Celigo, Inc.</span>
-            </div>
-        </div>
+}</style></head>
+<body ng-app="SmartClient" marginwidth="0" marginheight="0" class="ng-scope">
+    <!-- uiView:  --><div ui-view="" class="ng-scope"><div class="body ng-scope" ng-controller="DataOperationsController as opCtrl" style="height: 399px;">
+    <div class="leftMenu" ng-class="{move: opCtrl.isLeftPaneOpen}">
+        <ul>
+            <li class="logoTitle" ng-click="opCtrl.toggleLeftPane()" role="button" tabindex="0">SmartClient</li>
+
+            <li class="homeLink icon-link"><a href="#/templates" ui-sref="templates">Templates</a></li>
+            <!--<li class="dataLink icon-link"><a href="" ng-show="opCtrl.isOnBinding" ng-click="opCtrl.toggleLeftPane()">Data Operations</a></li>-->
+            <li class="reportsLink icon-link"><a href="" ng-controller="LeftMenuController as LMCtrl" ng-show="LMCtrl.hasTemplates" ng-click="LMCtrl.showSavedSearches()" class="ng-scope" aria-hidden="false">Saved Searches</a></li>
+            <li class="settingsLink icon-link"><a href="" ng-click="opCtrl.navigateToAccounts()">Account Settings</a></li>
+            <li class="recycleLink icon-link"><a ui-sref="templatestrash" href="#/templatestrash">Trash</a></li>
+            <li class="helpLink icon-link"><a href="http://support.celigo.com/hc/en-us/categories/115000825227" target="_blank">Help</a></li>
+            <li class="signoutLink icon-link"><a href="" ng-controller="LeftMenuController as LMCtrl" ng-click="LMCtrl.signout()" class="ng-scope">Sign out</a></li>
+            <li class="upgradeButton">
+                <a ui-sref="UpgradeToFullVersion" ng-show="showUpgradeButtonInLeftMenu" href="#/UpgradeToFullVersion" aria-hidden="true" class="ng-hide">
+                    Upgrade to paid version
+                </a>
+            </li>
+        </ul>
+        <a class="leftMenuClose" href="" ng-click="opCtrl.toggleLeftPane()"></a>
     </div>
 
-    <div class="modal fade " id="prodConnect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="header menuHeader" ng-class="{move: opCtrl.isLeftPaneOpen}">
+        <div class="headAction leftAction">
+            <a class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Menu" href="" ng-click="opCtrl.toggleLeftPane()"></a>
+        </div>
+        <h1 class="ng-binding">Add Contacts 17</h1>
+        <div class="clear"></div>
+    </div>
+    <div class="maincontent" ng-class="{move: opCtrl.isLeftPaneOpen}">
+        <div class="content">
+            <div class="section">
+                <div class="templatelist"> </div>
+                <!-- uiView:  --><div ui-view="" class="ng-scope"><span style="display:none" class="ng-scope"></span></div>
+                <div class="mainMenu" ng-class="{move: opCtrl.isLeftPaneOpen}">
+                    <div class="menuContent">
+                        <ul>
+                            <li class="downlaod"><a href="" data-hover="downloadMsg">Download</a> </li>
+                            <li class="upload active"><a href="" data-hover="updateMsg">Update</a> </li>
+                            <li class="delete"><a href="" data-hover="deleteMsg">Delete</a> </li>
+                            <li class="refresh"><a href="" data-hover="refreshMsg">Refresh</a> </li>
+                            <!--<li class="add hoverBox"><a href="" data-hover="addrowsMsg">Add Rows</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div crud-init="" class="msgContent scroll mCustomScrollbar _mCS_2 mCS_no_scrollbar" style="display: block; height: 333px;"><div id="mCSB_2" class="mCustomScrollBox mCS-dark-3 mCSB_vertical mCSB_inside" tabindex="0"><div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
+                <div class="msgBox downloadMsg" style="display: none;">
+                    <div class="msgContentBox" style="height: 224px;">
+                        <div class="action-box ng-hide" align="right" ng-show="!opCtrl.isSearchFilterExists" aria-hidden="true" style="">
+                            <div class="checkbox not-allowed masterTooltip" original-title="No Filter">
+                                <label>
+                                    <input type="checkbox" name="radio" />
+                                    <span>Apply Filter</span>
+                                </label>
+                            </div>
+                            <a class="edit-filter" href="" ng-click="opCtrl.showSearchPage()">Create Filter</a>
+                        </div>
+                        <div class="action-box" align="right" ng-show="opCtrl.isSearchFilterExists" aria-hidden="false" style="">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="radio" ng-model="opCtrl.downloadWithFilter" class="ng-pristine ng-untouched ng-valid ng-not-empty" aria-invalid="false" style="" />
+                                    <span>Apply Filter</span>
+                                </label>
+                            </div>
+                            <a class="edit-filter" href="" ng-click="opCtrl.showSearchPage()">Edit Filter</a>
+                        </div>
+                        <div ng-show="!opCtrl.isSearchFilterExists" aria-hidden="true" class="ng-hide" style="">
+                            <p>Create Filter and check 'Apply Filter' to download results based on a set of criteria or leave it blank to download all results for the selected template.</p>
+                            <br />
+                            <br />
+                            <p></p>
+                        </div>
+                        <div ng-show="opCtrl.isSearchFilterExists" aria-hidden="false" class="" style="">
+                            <p>
+                                Check 'Apply Filter' to download with criteria - <br /><br /><b><span style="font-style:italic;color:#34495e" class="ng-binding">"First Name is Jackson"</span></b><br /><br /> or leave it blank to
+                                download all results.
+                            </p>
+                            <br />
+                        </div>
+                        <div class="msgBottom">
+                            <div class="button-box"><a class="button outline" href="" ng-click="opCtrl.downloadResults()">Download</a></div>
+                            <div class="msg-box"> Using 'DOWNLOAD' multiple times will override the data in the existing template.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="msgBox updateMsg" style="">
+                    <div class="msgContentBox" style="height: 224px;">
+                        <div class="action-box" align="right">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="radio2" ng-model="opCtrl.isTableSeleted" class="ng-untouched ng-valid ng-not-empty ng-dirty ng-valid-parse" aria-invalid="false" style="" />
+                                    <span>All Rows</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Check ‘All Rows’ to perform the insert or update operation on all rows in the template or leave it blank to perform the operation on selected rows in the template.</p>
+                            <br />
+                            <br />
+                            <p></p>
+                        </div>
+                        <div class="msgBottom">
+                            <div class="button-box"><a class="button outline" href="" ng-click="opCtrl.upsertOrDeleteSelection(0)">Insert/Update</a></div>
+                            <div class="msg-box">Use 'INSERT/UPDATE' after you have entered/updated data in the template.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="msgBox deleteMsg" style="display:none;">
+                    <div class="msgContentBox" style="height: 224px;">
+                        <div class="action-box" align="right">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="radio2" ng-model="opCtrl.isTableSeleted" class="ng-pristine ng-untouched ng-valid ng-not-empty" aria-invalid="false" style="" />
+                                    <span>All Rows</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Check ‘All Rows’ to perform the delete operation on all rows in the template or leave it blank to perform the operation on selected row(s) in the template.</p>
+                            <br />
+                            <br />
+                            <p></p>
+                        </div>
+                        <div class="msgBottom">
+                            <div class="button-box"><a class="button outline" href="" ng-click="opCtrl.upsertOrDeleteSelection(1)">Delete</a></div>
+                            <div class="msg-box">
+                                You can only delete records that exist in NetSuite. All deleted rows are shown with strike-through text.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="msgBox refreshMsg" style="display:none;">
+                    <div class="msgContentBox" style="height: 224px;">
+                        <div class="action-box" align="right">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="radio2" ng-model="opCtrl.isTableSeleted" class="ng-pristine ng-untouched ng-valid ng-not-empty" aria-invalid="false" style="" />
+                                    <span>All Rows</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p></p>
+                            <p></p>
+                            <p>Check ‘All Rows’ to perform the refresh operation on all rows in the template or leave it blank to perform the operation on selected rows in the template.</p>
+                            <br />
+                            <br />
+                            <p></p>
+                        </div>
+                        <div class="msgBottom">
+                            <div class="button-box"><a class="button outline" href="" ng-click="opCtrl.refreshSelection()">Refresh</a></div>
+                            <div class="msg-box">'REFRESH' fetches the latest data from NetSuite. This will overwrite any changes you have made to data.</div>
+                        </div>
+                    </div>
+                </div>
+            </div><div id="mCSB_2_scrollbar_vertical" class="mCSB_scrollTools mCSB_2_scrollbar mCS-dark-3 mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_2_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; height: 0px; top: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>
+        </div>
+    </div>
+    <!-- Modals -->
+    <!--<div class="modal fade " id="deleteRowAlert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="vertical-alignment-helper">
             <div class="modal-dialog vertical-align-center" style="width:94%;">
                 <div class="modal-content">
                     <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                         <div class="alertContent">
-                            <p>Please connect your Production account to get started</p>
+                            <p>
+                                Are you sure you want to delete
+                                <br> the selected data from NetSuite?
+                            </p>
                             <div class="alertAction">
-                                <button type="button" class="btn bluebtn noBtn" data-dismiss="modal" aria-label="Close">Ok</button>
+                                <button type="button" class="btn bluebtn yesBtn" data-dismiss="modal" aria-label="Close" ng-click="opCtrl.delete()">Yes</button>
+                                <button type="button" class="btn bluebtn noBtn" data-dismiss="modal" aria-label="Close">No</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-</div>-->
-<div class="stepBody ng-scope" ng-controller="NetsuiteLoginController as nsController">
-    <div class="body" style="padding-bottom: 0px; height: 399px;">
-        <div class="maincontent">
-            <div class="content">
-                <!--Login Flows Start-->
-                <div class="ns-login" style="height: 378px;">
-                    <div class="header"> <span class="logo-text">SmartClient</span> <span class="logo-img"></span> </div>
-                    <div class="nsl-box">
-                        <div class="nslb-content">
-                            <div ng-show="nsController.isNewUser" aria-hidden="true" class="ng-hide">
-                                <h3>
-                                    <strong>Please login to your Netsuite Account to activate Trial !</strong><br />
-                                </h3>
-                                <br />
-                                <h4>
-                                    Now connect with your<br />
-                                    NetSuite Account
-                                </h4>
-                            </div>
-                            <div ng-show="!nsController.isNewUser" aria-hidden="false" class="">
-                                <h4>
-                                    Connect with your<br />
-                                    NetSuite Account
-                                </h4>
-                            </div>
-                            <div class="form">
-                                <div class="input-box">
-                                    <input type="text" placeholder="Username" ng-model="nsController.email" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" aria-invalid="false" />
-                                </div>
-                                <div class="input-box">
-                                    <input type="password" placeholder="Password" ng-model="nsController.password" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" aria-invalid="false" style="" />
-                                </div>
-                                <div ng-show="nsController.isNewUser" aria-hidden="true" class="ng-hide">
-                                    <div class="input-box"><a class="btn btn-primary" href="" ng-click="nsController.connect()">Connect</a></div>
-                                </div>
-                                <div ng-show="!nsController.isNewUser" aria-hidden="false" class="">
-                                    <div class="input-box"><a class="btn btn-primary" href="" ng-click="nsController.connect()">Login</a> </div>
-                                    <div class="input-box" align="center"><a ui-sref="TrialForm" href="#/trialForm">Sign up for a free 14 day trial</a></div>
+    </div>-->
+    <!-- <div class="modal fade " id="downloadAlert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="vertical-alignment-helper">
+             <div class="modal-dialog vertical-align-center" style="width:94%;">
+                 <div class="modal-content">
+                     <div class="modal-body">
+                         <div class="alertContent">
+                             <p> {{opCtrl.fetchedRecords}} of total {{opCtrl.totalRecords}} records downloaded. Do you want to download the next set of records? </p>
+                             <div class="alertAction">
+                                 <button type="button" class="btn bluebtn yesBtn" data-dismiss="modal" aria-label="Close" ng-click="opCtrl.downloadResults(2)">Yes</button>
+                                 <button type="button" class="btn bluebtn noBtn" data-dismiss="modal" aria-label="Close" ng-click="opCtrl.setActiveTable()">No</button>
+                                 <button type="button" class="btn bluebtn noBtn" data-dismiss="modal" aria-label="Close" ng-click="opCtrl.downloadResults(3)">Download All</button>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>-->
+    <!--<div class="modal fade in loading-v2" id="loadingDiv" role="dialog" aria-hidden="true">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center" style="width:94%;">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="loading">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="{{opCtrl.downloadStatus.progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{opCtrl.downloadStatus.progress}}%">
+                                    <span class="sr-only">{{opCtrl.downloadStatus.progress}}% Complete</span>
                                 </div>
                             </div>
+                            <p></p>
+                            <div><a href="" class="btn btn-primary cancel-download" ng-click="opCtrl.cancelDownload()">Cancel Download</a></div>
                         </div>
-                    </div>
-                    <div class="ns-footer">
-                        <span class="ns-copyright">© Celigo, Inc.</span>
-                        <div class="help-section" style="display:none;">
-                            <div class="help-section-box"><a class="close-help">×</a> <a class="iconBox chartIcon" href="#">Chat with us</a> <a class="iconBox searchIcon" href="#">Search our Help Center</a> </div>
-                        </div>
-                        <div class="help-link"><a href="http://support.celigo.com/hc/en-us/categories/115000825227" target="_blank">Help</a></div>
                     </div>
                 </div>
-                <!--Login Flows End-->
             </div>
         </div>
-    </div>
+    </div>-->
 </div>
 </div>
     <div style="visibility: hidden">
@@ -421,16 +500,16 @@
         })(jQuery);
     </script>
 
-    <div ng-controller="RootController as ctrl" class="modal fade loading-v1 ng-scope in" id="loadingDiv" role="dialog" aria-hidden="false" style="z-index: 100003; display: block;"><div class="modal-backdrop fade in"></div>
+    <div ng-controller="RootController as ctrl" class="modal fade loading-v1 ng-scope" id="loadingDiv" role="dialog" aria-hidden="true" style="z-index: 100003; display: none;">
         <div class="vertical-alignment-helper">
             <div class="modal-dialog vertical-align-center" style="width:94%;">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="loading">
                             <div class="spinner"></div>
-                            <p class="mainText">Connecting...</p>
-                            <p class="subText"></p>
-                            <div id="cancel-operation" style="display:none">
+                            <p class="mainText">Upserting...<br />3 records upserted so far</p>
+                            <p class="subText">Data reading is complete. Waiting for prefetch to end...</p>
+                            <div id="cancel-operation" style="display: block;">
                                 <a class="btn btn-cancel" ng-click="ctrl.cancel()">Cancel</a>
                             </div>
                         </div>
@@ -472,14 +551,15 @@
         </div>
     </div>
     <!-- Confirmation Popup-->
-    <div class="modal fade " id="confirmationPopup" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 100003">
+    <div class="modal fade" id="confirmationPopup" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 100003; display: none;">
         <div class="vertical-alignment-helper">
             <div class="modal-dialog vertical-align-center" style="width:94%;">
                 <div class="modal-content">
                     <div class="modal-body">
                         <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>-->
                         <div class="alertContent">
-                            <p></p>
+                            <p>This will clear all the content on the active worksheet.
+Are you sure that you want to continue?</p>
                             <div class="alertAction">
                                 <button type="button" id="accept" class="btn bluebtn yesBtn" data-dismiss="modal" aria-label="Close">Yes</button>
                                 <button type="button" id="decline" class="btn bluebtn noBtn" data-dismiss="modal" aria-label="Close">No</button>
@@ -492,4 +572,4 @@
     </div>
 
 
-</body></html>
+<div class="notifyjs-corner" style="top: 0px; right: 0px;"></div></body></html>

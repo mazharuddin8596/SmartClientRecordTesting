@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.json.JSONException;
@@ -18,7 +21,9 @@ import org.openqa.selenium.interactions.HasInputDevices;
 import org.openqa.selenium.interactions.Keyboard;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
@@ -46,13 +51,14 @@ public class RecordTestingForMultipleRecords {
     private String templateName = "";
     private String templateFields = "";
     private ArrayList<String> insertValues = new ArrayList<String>();
+    private ArrayList<String> updateValues = new ArrayList<String>();
+    Map<String, String> cleanRecordsCreated = new HashMap<String, String>();
     ArrayList<String> recordsToVerify = new ArrayList<String>();
-
-    private String updateValues = "";
+    ArrayList<String> recordsToUpdate = new ArrayList<String>();
 
     public RecordTestingForMultipleRecords(String recordType,
 	    String templateName, String templateFields,
-	    ArrayList<String> insertValues, String updateValues) {
+	    ArrayList<String> insertValues, ArrayList<String> updateValues) {
 	this.recordType = recordType;
 	this.templateName = templateName;
 	this.templateFields = templateFields;
@@ -117,14 +123,18 @@ public class RecordTestingForMultipleRecords {
 	Keyboard press = ((HasInputDevices) driver).getKeyboard();
 
 	lib.switchIntoSheet();
-	Thread.sleep(3500);
+	Thread.sleep(3000);
 	lib.switchToApp();
-	/*
-	 * Files.write(Paths.get("D:/fileName.html"), driver.getPageSource()
-	 * .getBytes());
-	 */
-	Thread.sleep(1000);
-	driver.findElement(By.cssSelector("a[title='Menu']")).click();
+	Thread.sleep(3500);
+	Files.write(Paths.get("D:/fileName.html"), driver.getPageSource()
+		.getBytes());
+	try {
+	    driver.findElement(By.cssSelector("a[title='Menu']")).click();
+	} catch (Exception e) {
+	    Thread.sleep(2000);
+	    System.out.println("menu issue");
+	    driver.findElement(By.cssSelector("a[title='Menu']")).click();
+	}
 	Thread.sleep(500);
 	driver.findElement(By.linkText("Templates")).click();
 	Thread.sleep(1000);
@@ -142,6 +152,7 @@ public class RecordTestingForMultipleRecords {
 	press.pressKey(Keys.LEFT);
 	press.pressKey(Keys.DOWN);
 	press.pressKey(Keys.DOWN);
+	logger.log(Status.INFO, "Inserting Data into Template");
 	for (String s : values)
 
 	{
@@ -155,9 +166,10 @@ public class RecordTestingForMultipleRecords {
 	press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
 	press.pressKey(Keys.chord(Keys.DOWN));
 	press.pressKey(Keys.chord(Keys.DOWN));
-	for (int m = 1; m < values.size(); m++) {
-	    press.pressKey(Keys.chord(Keys.SHIFT, Keys.DOWN));
-	}
+	/*
+	 * for (int m = 1; m < values.size(); m++) {
+	 * press.pressKey(Keys.chord(Keys.SHIFT, Keys.DOWN)); }
+	 */
 	lib.switchToApp();
 	try {
 	    WebElement modalWindow = driver.findElement(By
@@ -167,9 +179,9 @@ public class RecordTestingForMultipleRecords {
 	} catch (Exception e) {
 	    System.out.println("Modal window is not dislayed");
 	}
-	logger.log(Status.INFO, "Inserting Data into Template");
-	lib.clickOn(clickOn);
 
+	lib.clickOn(clickOn);
+	System.out.println("getting notification");
 	String notification = lib.getNotification();
 	System.out.println(notification);
 	logger.log(Status.INFO, notification);
@@ -183,7 +195,7 @@ public class RecordTestingForMultipleRecords {
 	org.json.JSONObject fromNS = null;
 	ArrayList<String> head = CommonLibrary.templateHeader(CommonLibrary
 		.getHeader());
-	HttpLibrary.printCurrentDataValues(fromExcel, logger);
+	HttpLibrary.printCurrentDataValues(fromExcel);
 	int arr[] = new int[recordsToVerify.size()];
 	for (int i = 0; i < recordsToVerify.size(); i++) {
 	    logger.log(Status.PASS, Integer.toString(id));
@@ -196,21 +208,27 @@ public class RecordTestingForMultipleRecords {
 	}
 	fromNS = lib.getFromNs(recordType, arr, logger);
 	System.out.println("\ndata from NS\n\n");
-	HttpLibrary.printCurrentDataValues(fromNS, logger);
+	HttpLibrary.printCurrentDataValues(fromNS);
+	System.out.println("Error rows" + lib.getErrorRows());
 
-	if (!lib.compareData(fromExcel, fromNS, logger)) {
-	    logger.log(Status.FAIL, "Opps Data Mismatch");
-	    System.out.println("Data Mismatch");
-	    return false;
+	if (lib.compareData(fromExcel, fromNS, logger)
+		&& lib.getErrorRows().isEmpty()) {
+	    logger.log(Status.PASS, "Cheers!! Opertion is successfull");
+	    return true;
 	}
-	logger.log(Status.PASS, "Cheers!! Opertion is successfull");
-	return true;
-
+	if (!lib.getErrorRows().isEmpty()) {
+	    Assert.fail("few records insertion/updation failed");
+	    logger.log(Status.ERROR,
+		    "few records got failed\n\n" + lib.getErrorRows());
+	}
+	logger.log(Status.FAIL, "Opps Data Mismatch");
+	System.out.println("Data Mismatch");
+	return false;
     }
 
     @Test(priority = 0)
     public void insertOperation() throws Exception {
-	System.out.println("******************");
+	System.out.println("********* insert operation *********");
 	logger = report.createTest("Insert Operation : " + recordType);
 	String fields = templateFields;
 	ArrayList<String> values = insertValues;
@@ -219,13 +237,15 @@ public class RecordTestingForMultipleRecords {
 	HttpLibrary.setFieldsFormat(fields);
 	org.json.JSONObject fromExcel = lib.getRowsData(true, logger);
 	System.out.println("printing values from excel: \n ");
-	HttpLibrary.printCurrentDataValues(fromExcel, logger);
+	HttpLibrary.printCurrentDataValues(fromExcel);
 	recordsToVerify = new ArrayList<String>();
 	@SuppressWarnings("unchecked")
 	Iterator<String> keys = fromExcel.keys();
 	while (keys.hasNext()) {
 	    String key = keys.next();
 	    recordsToVerify.add(key);
+	    recordsToUpdate.add(key);
+	    cleanRecordsCreated.put(key, recordType);
 	}
 	System.out.println(recordsToVerify);
 
@@ -239,23 +259,46 @@ public class RecordTestingForMultipleRecords {
 
     }
 
-    // @Test(priority = 1, dependsOnMethods = {"insertOperation"})
+    @Test(priority = 1, dependsOnMethods = { "insertOperation" })
     public void updateOperation() throws Exception {
-	System.out.println("******************");
-	System.out.println("Update operation : " + templateName);
+	System.out.println("********* update operation *********");
 	logger = report.createTest("Update Operation : " + recordType);
 	String fields = templateFields;
-	String substr = lib.appendIdToUpdateTemplateValues(updateValues,
-		getId());
-	System.out.println("[" + substr + "]");
-	boolean success = false;
-	// String fields = temp.getProperty("contactTemplate");
-	// loadTemplateAndPerformDataOperation((String) templateName, fields,
-	// substr, CommonLibrary.App.InsertAllRows, logger);
+	ArrayList<String> values = updateValues;
+	ArrayList<String> appendedValues = new ArrayList<String>();
+	System.out.println(recordsToUpdate);
+	for (int i = 0; i < recordsToUpdate.size(); i++) {
+	    appendedValues.add(
+		    i,
+		    lib.appendIdToUpdateTemplateValues(values.get(i),
+			    Integer.parseInt(recordsToUpdate.get(i))));
+	    System.out.println("Appending ids to update values\n "
+		    + appendedValues.get(i));
+	}
+	loadTemplateAndPerformDataOperation((String) templateName, fields,
+		appendedValues, CommonLibrary.App.InsertAllRows, logger);
 	HttpLibrary.setFieldsFormat(fields);
-	org.json.JSONObject fromExcel = lib.getRowData(0, logger);
-	getFromNsAndCompare(fromExcel, recordType, success, logger);
-	System.out.println("******************");
+	org.json.JSONObject fromExcel = lib.getRowsData(true, logger);
+	System.out.println("printing values from excel: \n ");
+	HttpLibrary.printCurrentDataValues(fromExcel);
+	recordsToVerify = new ArrayList<String>();
+	@SuppressWarnings("unchecked")
+	Iterator<String> keys = fromExcel.keys();
+	while (keys.hasNext()) {
+	    String key = keys.next();
+	    recordsToVerify.add(key);
+	    recordsToUpdate.add(key);
+	    cleanRecordsCreated.put(key, recordType);
+	}
+	System.out.println(recordsToVerify);
+
+	if (recordsToVerify.isEmpty()) {
+	    logger.log(Status.FAIL,
+		    "unable to get internal id's from Excel sheet");
+	    Assert.fail("unable to get internal id's from Excel sheet");
+	} else {
+	    getFromNsAndCompare(fromExcel, recordType, recordsToVerify, logger);
+	}
     }
 
     // @Test(priority = 2, dependsOnMethods = {"insertOperation"})
@@ -265,14 +308,14 @@ public class RecordTestingForMultipleRecords {
 	logger = report.createTest("Refresh Opearation : " + recordType);
 	String substr = "," + getId() + ",";
 	System.out.println("[" + substr + "]");
-	boolean success = false;
+	// boolean success = false;
 	String fields = templateFields;
 	// loadTemplateAndPerformDataOperation((String) templateName,
 	// fields,substr, CommonLibrary.App.RefreshSelectedRows, logger);
 	HttpLibrary.setFieldsFormat(fields);
 
-	org.json.JSONObject fromExcel = lib.getRowData(0, logger);
-	getFromNsAndCompare(fromExcel, recordType, success, logger);
+	// org.json.JSONObject fromExcel = lib.getRowData(0, logger);
+	// getFromNsAndCompare(fromExcel, recordType, success, logger);
 	System.out.println("******************");
     }
 
@@ -309,15 +352,27 @@ public class RecordTestingForMultipleRecords {
 
     }
 
+    @BeforeMethod
+    public void before() {
+	CommonLibrary.errorRows.clear();
+
+    }
+
     @AfterMethod
     public void tearDown(ITestResult result) throws IOException {
 	if (result.getStatus() == ITestResult.FAILURE) {
 	    logger.log(Status.FAIL, result.getName() + " function is fail");
+	    for (Entry<String, Integer> entry : CommonLibrary.errorRows
+		    .entrySet()) {
+		System.out.println(entry.getKey() + "/" + entry.getValue());
+		logger.log(Status.ERROR, "Failed row data : " + entry.getKey()
+			+ " at row index : " + entry.getValue());
+	    }
 
 	    String screenshot_path = CommonLibrary.capture(driver,
 		    result.getName());
 	    ExtentTest image = logger.addScreenCaptureFromPath(screenshot_path);
-	    logger.log(Status.FAIL, "asdf" + image);
+	    // logger.log(Status.FAIL, "asdf" + image);
 	    Files.write(
 		    Paths.get(System.getProperty("user.dir")
 			    + "\\FailedPageSource\\" + result.getName()
@@ -326,6 +381,26 @@ public class RecordTestingForMultipleRecords {
 	}
 
 	report.flush();
+    }
+
+    @SuppressWarnings("rawtypes")
+    @AfterClass
+    public void oneTimeTearDown() throws IOException {
+	System.out.println("@AfterClass: class");
+	System.out.println("deleting records " + recordType + " : " + getId());
+
+	for (Map.Entry m : cleanRecordsCreated.entrySet()) {
+	    System.out.println(m.getKey() + " " + m.getValue());
+	    HttpLibrary.doDelete(m.getValue().toString(),
+		    Long.parseLong(m.getKey().toString()));
+	}
+	// HttpLibrary.doDelete(recordType, getId());
+	/*
+	 * StringBuilder rl = HttpLibrary.doGET(recordType, getId());
+	 * System.out.println(rl.toString()); if (rl.toString().equals("[]")) {
+	 * logger.log(Status.PASS, "Successfully Deleted record"); } else { }
+	 */
+
     }
 
 }
