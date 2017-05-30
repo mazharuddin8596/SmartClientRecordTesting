@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -46,7 +47,7 @@ public class RecordTestingForMultipleRecords {
     static WebDriver driver;
     static ExtentReports report;
     static ExtentTest logger;
-    int id;
+    // int id;
     private String recordType = "";
     private String templateName = "";
     private String templateFields = "";
@@ -67,14 +68,12 @@ public class RecordTestingForMultipleRecords {
 
     }
 
-    public void setId(int id) {
-	this.id = id;
-    }
-
-    public int getId() {
-	return id;
-    }
-
+    /*
+     * public void setId(int id) { this.id = id; }
+     */
+    /*
+     * public int getId() { return id; }
+     */
     @BeforeSuite
     public void InitialSetup() throws Exception {
 	System.out.println("initial setup");
@@ -195,17 +194,16 @@ public class RecordTestingForMultipleRecords {
 	org.json.JSONObject fromNS = null;
 	ArrayList<String> head = CommonLibrary.templateHeader(CommonLibrary
 		.getHeader());
-	HttpLibrary.printCurrentDataValues(fromExcel);
+	// HttpLibrary.printCurrentDataValues(fromExcel);
 	int arr[] = new int[recordsToVerify.size()];
 	for (int i = 0; i < recordsToVerify.size(); i++) {
-	    logger.log(Status.PASS, Integer.toString(id));
 
-	    logger.log(Status.PASS, "Getting data from NS");
+	    logger.log(Status.INFO, "Getting data from NS");
 	    String s = CommonLibrary.remSpecialCharacters(recordsToVerify
 		    .get(i).trim());
-	    id = Integer.parseInt(s);
-	    arr[i] = id;
+	    arr[i] = Integer.parseInt(s);
 	}
+	logger.log(Status.INFO, Arrays.toString(arr));
 	fromNS = lib.getFromNs(recordType, arr, logger);
 	System.out.println("\ndata from NS\n\n");
 	HttpLibrary.printCurrentDataValues(fromNS);
@@ -266,18 +264,29 @@ public class RecordTestingForMultipleRecords {
 	String fields = templateFields;
 	ArrayList<String> values = updateValues;
 	ArrayList<String> appendedValues = new ArrayList<String>();
-	System.out.println(recordsToUpdate);
-	for (int i = 0; i < recordsToUpdate.size(); i++) {
-	    appendedValues.add(
-		    i,
-		    lib.appendIdToUpdateTemplateValues(values.get(i),
-			    Integer.parseInt(recordsToUpdate.get(i))));
-	    System.out.println("Appending ids to update values\n "
-		    + appendedValues.get(i));
+	System.out.println("Records to update: " + recordsToUpdate);
+	// System.out.println("**** \n" + values);
+	/*
+	 * for (int i = 0; i < recordsToUpdate.size(); i++) {
+	 * appendedValues.add( i,
+	 * lib.appendIdToUpdateTemplateValues(values.get(i),
+	 * Integer.parseInt(recordsToUpdate.get(i))));
+	 * System.out.println("Appending ids to update values\n " +
+	 * appendedValues.get(i)); }
+	 */
+
+	for (int i = 0; i < CommonLibrary.successfullRows.size(); i++) {
+	    appendedValues.add(i, lib.appendIdToUpdateTemplateValues(
+		    values.get(i),
+		    Integer.parseInt(CommonLibrary.successfullRows.get(i))));
 	}
+	System.out.println("Internal Id added to values : " + appendedValues);
+
 	loadTemplateAndPerformDataOperation((String) templateName, fields,
 		appendedValues, CommonLibrary.App.InsertAllRows, logger);
 	HttpLibrary.setFieldsFormat(fields);
+
+	CommonLibrary.successfullRows.clear();
 	org.json.JSONObject fromExcel = lib.getRowsData(true, logger);
 	System.out.println("printing values from excel: \n ");
 	HttpLibrary.printCurrentDataValues(fromExcel);
@@ -301,32 +310,56 @@ public class RecordTestingForMultipleRecords {
 	}
     }
 
-    // @Test(priority = 2, dependsOnMethods = {"insertOperation"})
+    @Test(priority = 2, dependsOnMethods = { "insertOperation" })
     public void refreshOperation() throws Exception {
-	System.out.println("******************");
+	System.out.println("********* Refresh Operation *********");
 	System.out.println(templateName);
 	logger = report.createTest("Refresh Opearation : " + recordType);
-	String substr = "," + getId() + ",";
-	System.out.println("[" + substr + "]");
+	/*
+	 * String substr = "," + getId() + ","; System.out.println("[" + substr
+	 * + "]");
+	 */
+	ArrayList<String> substr = new ArrayList<String>();
+	for (int i = 0; i < CommonLibrary.successfullRows.size(); i++) {
+	    substr.add("," + CommonLibrary.successfullRows.get(i) + ",");
+	}
 	// boolean success = false;
 	String fields = templateFields;
-	// loadTemplateAndPerformDataOperation((String) templateName,
-	// fields,substr, CommonLibrary.App.RefreshSelectedRows, logger);
+	loadTemplateAndPerformDataOperation((String) templateName, fields,
+		substr, CommonLibrary.App.RefreshAllRows, logger);
 	HttpLibrary.setFieldsFormat(fields);
 
-	// org.json.JSONObject fromExcel = lib.getRowData(0, logger);
-	// getFromNsAndCompare(fromExcel, recordType, success, logger);
-	System.out.println("******************");
+	CommonLibrary.successfullRows.clear();
+	org.json.JSONObject fromExcel = lib.getRowsData(true, logger);
+	System.out.println("printing values from excel: \n ");
+	HttpLibrary.printCurrentDataValues(fromExcel);
+	recordsToVerify = new ArrayList<String>();
+	@SuppressWarnings("unchecked")
+	Iterator<String> keys = fromExcel.keys();
+	while (keys.hasNext()) {
+	    String key = keys.next();
+	    recordsToVerify.add(key);
+	    recordsToUpdate.add(key);
+	    cleanRecordsCreated.put(key, recordType);
+	}
+	System.out.println(recordsToVerify);
+
+	if (recordsToVerify.isEmpty()) {
+	    logger.log(Status.FAIL,
+		    "unable to get internal id's from Excel sheet");
+	    Assert.fail("unable to get internal id's from Excel sheet");
+	} else {
+	    getFromNsAndCompare(fromExcel, recordType, recordsToVerify, logger);
+	}
     }
 
-    // @Test(priority = 5, dependsOnMethods = {"insertOperation"})
+    @Test(priority = 5, dependsOnMethods = { "insertOperation" })
+    @SuppressWarnings("null")
     public void deleteOperation() throws Exception {
 	System.out.println("************");
 	Thread.sleep(2000);
 	lib.switchIntoSheet();
 	logger = report.createTest("delete Opearation : " + recordType);
-	int id = getId();
-	logger.log(Status.INFO, "Deleting record " + id);
 	Keyboard press = ((HasInputDevices) driver).getKeyboard();
 	press.pressKey(Keys.chord(Keys.CONTROL, Keys.HOME));
 	press.pressKey(Keys.DOWN);
@@ -334,20 +367,31 @@ public class RecordTestingForMultipleRecords {
 	lib.switchToApp();
 	Thread.sleep(1000);
 	logger.log(Status.INFO, "Delete button pressed");
-	lib.clickOn(CommonLibrary.App.DeleteSelectedRows);
+	lib.clickOn(CommonLibrary.App.DeleteAllRows);
 	String notification = lib.getNotification();
 	System.out.println(notification);
 	logger.log(Status.INFO, notification);
 	lib.waitUntilLoadingEnds();
-	Thread.sleep(5000);
-	StringBuilder rl = HttpLibrary.doGET(recordType, getId());
-	System.out.println(rl.toString());
-	if (rl.toString().equals("[]")) {
-	    logger.log(Status.PASS, "Successfully Deleted record");
-	} else {
-	    logger.log(Status.FAIL, "Record is not deleted");
-	    Assert.fail("Record is not deleted :( ");
+	Thread.sleep(2000);
+	StringBuilder[] rl = null;
+	for (int i = 0; i < CommonLibrary.successfullRows.size(); i++) {
 
+	    System.out.println(Integer.parseInt(CommonLibrary.successfullRows
+		    .get(i)));
+	    rl[i] = HttpLibrary.doGET(recordType,
+		    Integer.parseInt(CommonLibrary.successfullRows.get(i)));
+	    System.out.println(rl[i].toString());
+	}
+	for (int i = 0; i < CommonLibrary.successfullRows.size(); i++) {
+	    if (rl[i].toString().equals("[]")) {
+		logger.log(Status.PASS, "Successfully Deleted record "
+			+ CommonLibrary.successfullRows.get(i));
+	    } else {
+		logger.log(Status.FAIL, "Failed to delete record "
+			+ CommonLibrary.successfullRows.get(i));
+		Assert.fail("Record is not deleted :( ");
+
+	    }
 	}
 
     }
@@ -387,13 +431,15 @@ public class RecordTestingForMultipleRecords {
     @AfterClass
     public void oneTimeTearDown() throws IOException {
 	System.out.println("@AfterClass: class");
-	System.out.println("deleting records " + recordType + " : " + getId());
+	// System.out.println("deleting records " + recordType + " : " +
+	// getId());
 
 	for (Map.Entry m : cleanRecordsCreated.entrySet()) {
 	    System.out.println(m.getKey() + " " + m.getValue());
 	    HttpLibrary.doDelete(m.getValue().toString(),
 		    Long.parseLong(m.getKey().toString()));
 	}
+	CommonLibrary.successfullRows.clear();
 	// HttpLibrary.doDelete(recordType, getId());
 	/*
 	 * StringBuilder rl = HttpLibrary.doGET(recordType, getId());

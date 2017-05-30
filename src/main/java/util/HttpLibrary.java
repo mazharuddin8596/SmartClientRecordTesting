@@ -178,7 +178,7 @@ public class HttpLibrary {
 	getRequest.addHeader("Content-Type", "application/json");
 	getRequest.addHeader("Authorization",
 		"Bearer " + accessToken.getAccesstoken());
-	// System.out.println(getRequest.toString());
+	System.out.println(getRequest.toString());
 	HttpResponse response = httpClient.execute(getRequest);
 	// System.out.println("get status line : " + response.getStatusLine());
 	// System.out.println("entity response" +
@@ -367,7 +367,7 @@ public class HttpLibrary {
 	String URLrows = "https://graph.microsoft.com/v1.0/me/drive/items/"
 		+ CommonLibrary.workbookId + "/workbook/worksheets/"
 		+ CommonLibrary.getSheet() + "/UsedRange";
-	System.out.println("inside get row at index method");
+	// System.out.println("inside get row at index method");
 	org.json.JSONObject rows = HttpLibrary.restGet(URLrows,
 		CommonLibrary.getAccessToken());
 	Object data = Configuration.defaultConfiguration().jsonProvider()
@@ -375,12 +375,11 @@ public class HttpLibrary {
 
 	String total_rows = CommonLibrary.remSpecialCharacters(JsonPath.read(
 		data, "$..addressLocal").toString());
-	System.out.println(total_rows);
-	// //////
+	// System.out.println(total_rows);
 
 	total_rows = total_rows.substring(total_rows.indexOf(":") + 2);
 	if (total_rows.matches("[0-9]+")) {
-	    System.out.println(Integer.parseInt(total_rows));
+	    // System.out.println(Integer.parseInt(total_rows));
 	    CommonLibrary.setTotalRows(Integer.parseInt(total_rows));
 	} else {
 	    System.out.println("inside else");
@@ -388,7 +387,6 @@ public class HttpLibrary {
 	    CommonLibrary.setTotalRows(Integer.parseInt(total_rows));
 	}
 
-	// /////
 	String temp = JsonPath.read(data, "$..text[" + i + "]").toString();
 	temp = CommonLibrary.remSpecialCharacters(temp);
 	// String[] rowValues = temp.split("\\,");

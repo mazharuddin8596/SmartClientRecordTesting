@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,100,500,100italic,700,700italic,900italic,900,500italic,400italic" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400italic,700,300" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="assets/styles/main.xh1lHL8.css" />
+    <link rel="stylesheet" href="assets/styles/main.lNPfFK6.css" />
     <link href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
@@ -37,7 +37,7 @@
         <script src="../../Scripts/Office/MicrosoftAjax.js" type="text/javascript"></script>
         <script src="../../Scripts/Office/1/office.js" type="text/javascript"></script>
     -->
-    <script src="assets/scripts/vendor.xh1lHL8.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.11/jquery.mousewheel.min.js"></script><style type="text/css" id="notify-bootstrap">.notifyjs-bootstrap-base {
+    <script src="assets/scripts/vendor.lNPfFK6.js"></script><script type="text/javascript" crossorigin="anonymous" src="https://appsforoffice.microsoft.com/lib/1/hosted//ariatelemetry/aria-web-telemetry-2.8.0.min.js"></script><iframe style="display:none" src="https://telemetryservice.firstpartyapps.oaspapps.com/telemetryservice/telemetryproxy.html"></iframe><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.11/jquery.mousewheel.min.js"></script><style type="text/css" id="notify-bootstrap">.notifyjs-bootstrap-base {
   font-weight: bold;
   padding: 8px 15px 8px 14px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -76,7 +76,7 @@
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAABJlBMVEXr6eb/2oD/wi7/xjr/0mP/ykf/tQD/vBj/3o7/uQ//vyL/twebhgD/4pzX1K3z8e349vK6tHCilCWbiQymn0jGworr6dXQza3HxcKkn1vWvV/5uRfk4dXZ1bD18+/52YebiAmyr5S9mhCzrWq5t6ufjRH54aLs0oS+qD751XqPhAybhwXsujG3sm+Zk0PTwG6Shg+PhhObhwOPgQL4zV2nlyrf27uLfgCPhRHu7OmLgAafkyiWkD3l49ibiAfTs0C+lgCniwD4sgDJxqOilzDWowWFfAH08uebig6qpFHBvH/aw26FfQTQzsvy8OyEfz20r3jAvaKbhgG9q0nc2LbZxXanoUu/u5WSggCtp1anpJKdmFz/zlX/1nGJiYmuq5Dx7+sAAADoPUZSAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfdBgUBGhh4aah5AAAAlklEQVQY02NgoBIIE8EUcwn1FkIXM1Tj5dDUQhPU502Mi7XXQxGz5uVIjGOJUUUW81HnYEyMi2HVcUOICQZzMMYmxrEyMylJwgUt5BljWRLjmJm4pI1hYp5SQLGYxDgmLnZOVxuooClIDKgXKMbN5ggV1ACLJcaBxNgcoiGCBiZwdWxOETBDrTyEFey0jYJ4eHjMGWgEAIpRFRCUt08qAAAAAElFTkSuQmCC);
 }
 </style>
-    <script src="scripts.xh1lHL8.js"></script>
+    <script src="scripts.lNPfFK6.js"></script>
 <style type="text/css" id="core-notify">.notifyjs-corner {
   position: fixed;
   margin: 5px;
@@ -119,83 +119,633 @@
   z-index: 2;
   width: 0;
   height: 0;
-}</style><script type="text/javascript" crossorigin="anonymous" src="https://appsforoffice.microsoft.com/lib/1/hosted//ariatelemetry/aria-web-telemetry-2.8.0.min.js"></script><iframe style="display:none" src="https://telemetryservice.firstpartyapps.oaspapps.com/telemetryservice/telemetryproxy.html"></iframe></head>
-<body ng-app="SmartClient" marginwidth="0" marginheight="0" class="ng-scope modal-open">
-    <!-- uiView:  --><div ui-view="" class="ng-scope"><!--<div class="stepBody" ng-controller="NetsuiteLoginController as nsController">
-    <div class="body">
-        <div class="header">
-            <span class="logoText">
-                SmartClient<br />
-                <span> for NetSuite</span>
-            </span>
+}</style></head>
+<body ng-app="SmartClient" marginwidth="0" marginheight="0" class="ng-scope">
+    <!-- uiView:  --><div ui-view="" class="ng-scope"><div class="body ng-scope" ng-controller="TemplatesController as TmpCtrl" style="height: 360px;">
+
+    <div class="leftMenu" ng-class="{move: TmpCtrl.isLeftPaneOpen}">
+        <ul>
+            <li class="logoTitle" ng-click="TmpCtrl.toggleLeftPane()" role="button" tabindex="0">SmartClient</li>
+
+            <li class="homeLink icon-link"><a href="" ng-click="TmpCtrl.toggleLeftPane()">Templates</a></li>
+            <!--<li class="dataLink icon-link"><a href="" ng-show="TmpCtrl.isOnBinding" ng-click="TmpCtrl.dataOperations()">Data Operations</a></li>-->
+            <li class="reportsLink icon-link"><a href="" ng-controller="LeftMenuController as LMCtrl" ng-show="LMCtrl.hasTemplates" ng-click="LMCtrl.showSavedSearches()" class="ng-scope" aria-hidden="false">Saved Searches</a></li> <!--TODO : Show only if system is NS-->
+            <li class="settingsLink icon-link"><a href="" ng-click="TmpCtrl.navigateToAccounts()">Account Settings</a></li>
+            <li class="recycleLink icon-link"><a ui-sref="templatestrash" href="#/templatestrash">Trash</a></li>
+            <li class="helpLink icon-link"><a href="http://support.celigo.com/hc/en-us/categories/115000825227" target="_blank">Help</a></li>
+            <li class="signoutLink icon-link"><a href="" ng-controller="LeftMenuController as LMCtrl" ng-click="LMCtrl.signout()" class="ng-scope">Sign out</a></li>
+            <li class="upgradeButton">
+                <a ui-sref="UpgradeToFullVersion" ng-show="showUpgradeButtonInLeftMenu" href="#/UpgradeToFullVersion" aria-hidden="true" class="ng-hide">
+                    Upgrade to paid version
+                </a>
+            </li>
+        </ul>
+        <a class="leftMenuClose" href="" ng-click="TmpCtrl.toggleLeftPane()"></a>
+    </div>
+
+    <div class="header menuHeader" ng-class="{move: TmpCtrl.isLeftPaneOpen}">
+        <div class="headAction leftAction">
+            <a class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Menu" href="" ng-click="TmpCtrl.toggleLeftPane()"></a>
         </div>
-        <div class="maincontent">
-            <div class="content"></div>
-            <div class="clear"></div>
-            <div class="section">
-                <div class="netsuite_login_box toptext form_box scroll" style="height:443px" scroll-bar-directive>
-                    <h3 class="title">Connect to NetSuite {{nsController.environment}} account</h3>
-                    <p align="center">
-                        Email:<input ng-disabled="nsController.isUpdate" type="text" class="input_box"
-                                     ng-class="{'input_disabled':nsController.isUpdate, 'not-allowed':nsController.isUpdate}"
-                                     ng-model="nsController.email">
-                    </p>
-                    <p align="center">
-                        Password:<input type="password" class="input_box"
-                                        ng-model="nsController.password">
-                    </p>
-                    <p align="center" style="margin-bottom:6px">
-                        Account:<input ng-disabled="nsController.isUpdate" type="text" class="input_box"
-                                       ng-class="{'input_disabled':nsController.isUpdate, 'not-allowed':nsController.isUpdate}"
-                                       ng-model="nsController.account">
-                    </p>
-                    <p align="center">
-                        <ui-select search-enabled="false" ng-show="nsController.enableAccountTypeSelection"
-                                   on-select="nsController.updateEnvironment($item)" ng-model="nsController.selectedEnv">
-                            <ui-select-match placeholder="Choose account type">
-                                <span ng-bind="nsController.selectedEnv.label"></span>
-                            </ui-select-match>
-                            <ui-select-choices repeat="account in nsController.accountTypes">
-                                <span ng-bind="account.label"></span>
-                            </ui-select-choices>
-                        </ui-select>
-                    </p>
-                    <div class="action-box" align="right">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="radio2" ng-model="nsController.isOWAccount">
-                                <span>This is a OneWorld account</span>
-                            </label>
-                        </div>
+        <h1><span class="ng-binding">SmartClient for NetSuite</span></h1>
+        <div class="clear"></div>
+    </div>
+    <div class="maincontent" ng-class="{move: TmpCtrl.isLeftPaneOpen}">
+        <div class="content">
+            <div class="action  t-left select-template-action" align="left">
+                <span>Select a Template</span>
+                <div class="action-icons">
+
+                    <div class="box search_box">
+                        <input name="" ng-class="{search : searchString}" type="text" ng-model="searchString" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Search by template or record..." aria-invalid="false" />
+                        <a class="search-template" href=""></a>
                     </div>
-                    <div class="alertAction">
-                        <button class="btn_box" type="button" ng-click="nsController.connect()">Done</button>
-                        <button class="btn_box" type="button" ng-show="nsController.showCancelButton" ng-click="nsController.cancelOperation()">Cancel</button>
+                    <div class="box">
+                        <a tool-tip="" class="add-template masterTooltip" title="Add a template" href="" ng-click="TmpCtrl.showSelectType()"></a>
                     </div>
-                    <div>
-                        <p class="msg-box-white" ng-show="!nsController.showCancelButton">
-                            Note, this connection cannot be
-                            changed . If you plan to work with your
-                            Sanbox accounts, you can connect from
-                            account settings<br />
-                            <br />
-                        </p>
+                    <div class="box"><a class="import-template" ui-sref="selectrecord" title="Import Template" href="#/import/select-record"></a></div>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false"> </a>
+                        <ul class="dropdown-menu">
+                            <!--<li><a class="import-template" href="add-or-import-template.php">Import Template</a></li>-->
+                            <li><a class="delete-template" href="" ng-click="TmpCtrl.showTemplateDelete()">Delete Template(s)</a></li>
+                        </ul>
                     </div>
                 </div>
-                <span class="copyright">&copy; Celigo, Inc.</span>
             </div>
+        </div>
+        <div class="clear"></div>
+        <div class="section">
+            <ul class="list checkList selectList scroll editremove homeBox mCustomScrollbar _mCS_1" style="height: 190px;"><div id="mCSB_1" class="mCustomScrollBox mCS-dark-3 mCSB_vertical mCSB_inside" tabindex="0"><div id="mCSB_1_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
+                <!-- ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Celigo Mobile share<span class="templateCaption ng-binding">Contact</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Journal Entries check<span class="templateCaption ng-binding">JournalEntry</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Customer Payment check<span class="templateCaption ng-binding">CustomerPayment</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">asdf<span class="templateCaption ng-binding">customrecord879</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Vendor Bills check<span class="templateCaption ng-binding">VendorBill</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Sales Order 17<span class="templateCaption ng-binding">SalesOrder</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">vinay dwivedi<span class="templateCaption ng-binding">Contact</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Mazhar Share kiya<span class="templateCaption ng-binding">Contact</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Add Contacts 17<span class="templateCaption ng-binding">Contact</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Contact Role 17<span class="templateCaption ng-binding">ContactRole</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Project Tasks 17<span class="templateCaption ng-binding">ProjectTask</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Item Fulfilment 17<span class="templateCaption ng-binding">ItemFulfillment</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Non inventory sale 17<span class="templateCaption ng-binding">NonInventorySaleItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Issue 17<span class="templateCaption ng-binding">Issue</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Invoice 17<span class="templateCaption ng-binding">Invoice</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Billing schedule 17<span class="templateCaption ng-binding">BillingSchedule</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Inventory Transfer 17<span class="templateCaption ng-binding">InventoryTransfer</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Item group 17<span class="templateCaption ng-binding">ItemGroup</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Jobs 17<span class="templateCaption ng-binding">Job</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Term 17<span class="templateCaption ng-binding">Term</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Inventory Adjustment 17<span class="templateCaption ng-binding">InventoryAdjustment</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Work Order 17<span class="templateCaption ng-binding">WorkOrder</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Vendor Bills 17<span class="templateCaption ng-binding">VendorBill</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Vendor 17<span class="templateCaption ng-binding">Vendor</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Units type 17<span class="templateCaption ng-binding">UnitsType</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Topic 17<span class="templateCaption ng-binding">Topic</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Task 17<span class="templateCaption ng-binding">Task</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Support cases 17<span class="templateCaption ng-binding">SupportCase</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Subtotal Item 17<span class="templateCaption ng-binding">SubtotalItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">subsidiary 17<span class="templateCaption ng-binding">Subsidiary</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Folder 17<span class="templateCaption ng-binding">Folder</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Expense Report 17<span class="templateCaption ng-binding">ExpenseReport</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Solution 17<span class="templateCaption ng-binding">Solution</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Expense Catogory 17<span class="templateCaption ng-binding">ExpenseCategory</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Estimate 17<span class="templateCaption ng-binding">Estimate</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Download Item 17<span class="templateCaption ng-binding">DownloadItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">service itenm sale 17<span class="templateCaption ng-binding">ServiceSaleItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Discount Item 17<span class="templateCaption ng-binding">DiscountItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Service resale 17<span class="templateCaption ng-binding">ServiceResaleItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Description Item  17<span class="templateCaption ng-binding">DescriptionItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Department 17<span class="templateCaption ng-binding">Department</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Service Purchase Item 17<span class="templateCaption ng-binding">ServicePurchaseItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Customer Status 17<span class="templateCaption ng-binding">CustomerStatus</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Serialized Inventory 17<span class="templateCaption ng-binding">SerializedInventoryItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Customer Payment 17<span class="templateCaption ng-binding">CustomerPayment</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Customer Message 17<span class="templateCaption ng-binding">CustomerMessage</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Serialized Assembly 17<span class="templateCaption ng-binding">SerializedAssemblyItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Sales Role 17<span class="templateCaption ng-binding">SalesRole</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Customer Discount 17<span class="templateCaption ng-binding">CustomerDeposit</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Customer Category 17<span class="templateCaption ng-binding">CustomerCategory</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Credit Memo 17<span class="templateCaption ng-binding">CreditMemo</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Coupon Code 17<span class="templateCaption ng-binding">CouponCode</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Contact Category 17<span class="templateCaption ng-binding">ContactCategory</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Rev rec Template 17<span class="templateCaption ng-binding">RevRecTemplate</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Assembly Item 17<span class="templateCaption ng-binding">AssemblyItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Return Authorizations 17<span class="templateCaption ng-binding">ReturnAuthorization</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Assembly Build 17<span class="templateCaption ng-binding">AssemblyBuild</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Purchase orders 17<span class="templateCaption ng-binding">PurchaseOrder</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Promotions 17<span class="templateCaption ng-binding">PromotionCode</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Classification 17<span class="templateCaption ng-binding">Classification</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">price level 17<span class="templateCaption ng-binding">PriceLevel</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Phone Calls 17<span class="templateCaption ng-binding">PhoneCall</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Payment method 17<span class="templateCaption ng-binding">PaymentMethod</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Payment Items 17<span class="templateCaption ng-binding">PaymentItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Partners 17<span class="templateCaption ng-binding">Partner</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Other name category 17<span class="templateCaption ng-binding">OtherNameCategory</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Other charge sale 17<span class="templateCaption ng-binding">OtherChargeSaleItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Cash Sale 17<span class="templateCaption ng-binding">CashSale</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Other Charge Resale 17<span class="templateCaption ng-binding">OtherChargeResaleItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">OtherCharge Purchase 17<span class="templateCaption ng-binding">OtherChargePurchaseItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Cash Refund 17<span class="templateCaption ng-binding">CashRefund</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Opportunities 17<span class="templateCaption ng-binding">Opportunity</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Campaign 17<span class="templateCaption ng-binding">Campaign</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Note 17<span class="templateCaption ng-binding">Note</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Calender Event 17<span class="templateCaption ng-binding">CalendarEvent</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Bin 17<span class="templateCaption ng-binding">Bin</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Non Inventory Resale 17<span class="templateCaption ng-binding">NonInventoryResaleItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">NonInventoryPurchase 17<span class="templateCaption ng-binding">NonInventoryPurchaseItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Nexus 17<span class="templateCaption ng-binding">Nexus</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Markup Items 17<span class="templateCaption ng-binding">MarkupItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Lot numbered inventory 17<span class="templateCaption ng-binding">LotNumberedInventoryItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Lot numbered assembly 17<span class="templateCaption ng-binding">LotNumberedAssemblyItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Location 17<span class="templateCaption ng-binding">Location</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Kit Items 17<span class="templateCaption ng-binding">KitItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Item receipt 17<span class="templateCaption ng-binding">ItemReceipt</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Message 17<span class="templateCaption ng-binding">Message</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Employees 17<span class="templateCaption ng-binding">Employee</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Customer 17<span class="templateCaption ng-binding">Customer</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Transfer Orders 17<span class="templateCaption ng-binding">TransferOrder</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Accounts 17<span class="templateCaption ng-binding">Account</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Inventory Items 17<span class="templateCaption ng-binding">InventoryItem</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} --><li ng-repeat="template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString}" class="ng-scope">
+                    <a href="" class="name ng-binding" ng-click="TmpCtrl.executeTemplate(template.name)">Journal Entries 17<span class="templateCaption ng-binding">JournalEntry</span></a>
+                    <a class="icon"></a>
+                    <a tool-tip="" class="icon play-icon masterTooltip" title="Load template" href="" ng-click="TmpCtrl.executeTemplate(template.name)"></a>
+                    <a tool-tip="" class="icon edit-icon masterTooltip" title="Edit template" href="" ng-click="TmpCtrl.showTemplateEditor(template.name)"></a>
+                    <!--a tool-tip class="icon export-icon masterTooltip" original-title="Export template" href=""></a-->
+                </li><!-- end ngRepeat: template in TmpCtrl.templates| orderBy:'-lastEdited' | filter: {name : searchString} -->
+            </div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-dark-3 mCSB_scrollTools_vertical" style="display: block;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; top: 0px; display: block; height: 7px; max-height: 160px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></ul>
         </div>
     </div>
 
-    <div class="modal fade " id="prodConnect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="footer">© <a class="celigo-logo" href="http://celigo.com" target="_blank">Celigo,</a> Inc.</div>
+    <!-- Modal -->
+    <div class="modal fade " id="cellPromptAlert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="vertical-alignment-helper">
             <div class="modal-dialog vertical-align-center" style="width:94%;">
                 <div class="modal-content">
                     <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="TmpCtrl.closeModal()"></button>
                         <div class="alertContent">
-                            <p>Please connect your Production account to get started</p>
+                            <p>Select a cell to position the template and click 'CONFIRM'.</p>
                             <div class="alertAction">
-                                <button type="button" class="btn bluebtn noBtn" data-dismiss="modal" aria-label="Close">Ok</button>
+                                <button type="button" class="btn bluebtn yesBtn" data-dismiss="modal" aria-label="Close" ng-click="TmpCtrl.executeConfirmation()">Confirm</button>
                             </div>
                         </div>
                     </div>
@@ -204,61 +754,6 @@
         </div>
     </div>
 
-</div>-->
-<div class="stepBody ng-scope" ng-controller="NetsuiteLoginController as nsController">
-    <div class="body" style="padding-bottom: 0px; height: 399px;">
-        <div class="maincontent">
-            <div class="content">
-                <!--Login Flows Start-->
-                <div class="ns-login" style="height: 378px;">
-                    <div class="header"> <span class="logo-text">SmartClient</span> <span class="logo-img"></span> </div>
-                    <div class="nsl-box">
-                        <div class="nslb-content">
-                            <div ng-show="nsController.isNewUser" aria-hidden="true" class="ng-hide">
-                                <h3>
-                                    <strong>Please login to your Netsuite Account to activate Trial !</strong><br />
-                                </h3>
-                                <br />
-                                <h4>
-                                    Now connect with your<br />
-                                    NetSuite Account
-                                </h4>
-                            </div>
-                            <div ng-show="!nsController.isNewUser" aria-hidden="false" class="">
-                                <h4>
-                                    Connect with your<br />
-                                    NetSuite Account
-                                </h4>
-                            </div>
-                            <div class="form">
-                                <div class="input-box">
-                                    <input type="text" placeholder="Username" ng-model="nsController.email" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" aria-invalid="false" />
-                                </div>
-                                <div class="input-box">
-                                    <input type="password" placeholder="Password" ng-model="nsController.password" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" aria-invalid="false" style="" />
-                                </div>
-                                <div ng-show="nsController.isNewUser" aria-hidden="true" class="ng-hide">
-                                    <div class="input-box"><a class="btn btn-primary" href="" ng-click="nsController.connect()">Connect</a></div>
-                                </div>
-                                <div ng-show="!nsController.isNewUser" aria-hidden="false" class="">
-                                    <div class="input-box"><a class="btn btn-primary" href="" ng-click="nsController.connect()">Login</a> </div>
-                                    <div class="input-box" align="center"><a ui-sref="TrialForm" href="#/trialForm">Sign up for a free 14 day trial</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ns-footer">
-                        <span class="ns-copyright">© Celigo, Inc.</span>
-                        <div class="help-section" style="display:none;">
-                            <div class="help-section-box"><a class="close-help">×</a> <a class="iconBox chartIcon" href="#">Chat with us</a> <a class="iconBox searchIcon" href="#">Search our Help Center</a> </div>
-                        </div>
-                        <div class="help-link"><a href="http://support.celigo.com/hc/en-us/categories/115000825227" target="_blank">Help</a></div>
-                    </div>
-                </div>
-                <!--Login Flows End-->
-            </div>
-        </div>
-    </div>
 </div>
 </div>
     <div style="visibility: hidden">
@@ -421,14 +916,14 @@
         })(jQuery);
     </script>
 
-    <div ng-controller="RootController as ctrl" class="modal fade loading-v1 ng-scope in" id="loadingDiv" role="dialog" aria-hidden="false" style="z-index: 100003; display: block;"><div class="modal-backdrop fade in"></div>
+    <div ng-controller="RootController as ctrl" class="modal fade loading-v1 ng-scope" id="loadingDiv" role="dialog" aria-hidden="true" style="z-index: 100003; display: none;">
         <div class="vertical-alignment-helper">
             <div class="modal-dialog vertical-align-center" style="width:94%;">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="loading">
                             <div class="spinner"></div>
-                            <p class="mainText">Connecting...</p>
+                            <p class="mainText">Loading your templates...</p>
                             <p class="subText"></p>
                             <div id="cancel-operation" style="display:none">
                                 <a class="btn btn-cancel" ng-click="ctrl.cancel()">Cancel</a>

@@ -30,6 +30,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.HasInputDevices;
 import org.openqa.selenium.interactions.Keyboard;
@@ -55,6 +56,7 @@ public class CommonLibrary {
     public static AccessToken accessToken;
     public static String workbookId = "01JNEAOJ6ZBLZDDYTT2FBZN66OLHFVYJNU";
     public static Map<String, Integer> errorRows = new HashMap<String, Integer>();
+    public static List<String> successfullRows = new ArrayList<String>();
 
     public Map<String, Integer> getErrorRows() {
 	return errorRows;
@@ -112,12 +114,14 @@ public class CommonLibrary {
     }
 
     public void beforeTest() {
-
+	ChromeOptions chromeOptions = new ChromeOptions();
+	chromeOptions
+		.setBinary("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe");
 	System.setProperty(
 		"webdriver.chrome.driver",
 		System.getProperty("user.dir")
 			+ "//src//main//resources//webdrivers//chromedriver.exe");
-	driver = new ChromeDriver();
+	driver = new ChromeDriver(chromeOptions);
 
 	/*
 	 * System.setProperty("webdriver.gecko.driver",
@@ -417,6 +421,7 @@ public class CommonLibrary {
 	Thread.sleep(1000);
     }
 
+    // replace [ , ] , " , " characters in string
     public static String remSpecialCharacters(String temp) {
 	try {
 	    temp = temp.replace("[", "");
@@ -705,6 +710,8 @@ public class CommonLibrary {
 		try {
 		    if (!values[1].equals("")) {
 			rows.add(rowData);
+			successfullRows.add(remSpecialCharacters(values[1])
+				.trim());
 			// System.out.println("row " + i + " added");
 		    } else if (!values[0].equals("")) {
 
@@ -753,7 +760,7 @@ public class CommonLibrary {
 	// } else {
 	// Assert.fail("Header and rowdata length mismatch");
 	// }
-	HttpLibrary.printCurrentDataValues(fromExcel);
+	// HttpLibrary.printCurrentDataValues(fromExcel);
 
 	return fromExcel;
     }
@@ -981,7 +988,7 @@ public class CommonLibrary {
 	}
 	fromNS = HttpLibrary
 		.mapHeaderWithExcelRowData(head, actualData, logger);
-	HttpLibrary.printCurrentDataValues(fromNS);
+	// HttpLibrary.printCurrentDataValues(fromNS);
 
 	return fromNS;
 

@@ -6,10 +6,11 @@
       <class name="WebDriverTest.RecordTestingForMultipleRecords">
         <methods>
           <include name="InitialSetup"/>
-          <include name="oneTimeTearDown"/>
           <include name="updateOperation"/>
           <include name="before"/>
+          <include name="refreshOperation"/>
           <include name="tearDown"/>
+          <include name="deleteOperation"/>
           <include name="insertOperation"/>
         </methods>
       </class> <!-- WebDriverTest.RecordTestingForMultipleRecords -->
